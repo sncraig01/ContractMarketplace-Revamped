@@ -10,6 +10,9 @@ import Authentication from "./Authentication.js"
 import StudentSignup from "./StudentSignup.js"
 import CompanySignup from "./CompanySignup.js"
 import Company_Marketplace from "./Company/Company_Marketplace"
+import Admin_Home from "./Admin/Admin_Home"
+import Admin_Manage from "./Admin/Admin_Manage"
+import Admin_Profile from "./Admin/Admin_Profile"
 
 let mountNode = document.getElementById("root");
 
@@ -32,14 +35,20 @@ class Routes extends React.Component {
         <Route path="/signupstudent" component={StudentSignup} />
         <Route path="/signupcompany" component={CompanySignup} />
 
-        <Route path="/studenthome" component={Student_Home} />
+        {/* Admin Routes */}
+        <Route path="/adminhome" component={Admin_Home} />
+        <Route path="/adminmanage" component={Admin_Manage} />
+        <Route path="/adminprofile" component={Admin_Profile} />
+
+        {/* Company Routes */}
         <Route path="/companyhome" component={Company_Home} />
-
         <Route path="/companymarketplace" component={Company_Marketplace} />
-
         <Route path="/newcontract" component={New_Contract} />
-
         <Route path="/companyprofile" component={Company_Profile} />
+
+        {/* Student Routes */}
+        <Route path="/studenthome" component={Student_Home} />
+
       </Router>
     );
   }
