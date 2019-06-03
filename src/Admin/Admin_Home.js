@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import './Admin_Home.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class Admin_Home extends React.Component 
+{
+   
+    render()
+    {
+        return (
+            <div className= 'Admin-whole'>
+                <div className = 'Admin-Cards'>
+                    <Card className='Admin-header'> 
+                        <div>
+                            <b>
+                                Profile: 
+                            </b>
+                        </div>
+                        <CardContent className="Admin-Content">
+                            Welcome Admin:
+                        <div>
+                        
+                        </div>
+                        </CardContent>
+                    </Card>   
+                </div>
+        
+            </div>
+          );
+    }
 }
 
-export default App;
+export default Admin_Home;
+
