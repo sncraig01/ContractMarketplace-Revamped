@@ -7,14 +7,12 @@ import "./App.css";
 import Routes from "./Routes";
 import Company_Home from "./Company/Company_Home";
 import Authentication from "./Authentication.js";
+import Landing from "./Landing.js"
 
 function App() {
   return (
     <div className="App">
-      {/* <StudentSignup /> */}
-      {/* <CompanySignup /> */}
-      {/* <Routes /> */}
-      {/* <Authentication /> */}
+      <Routes/>
     </div>
   );
 }
