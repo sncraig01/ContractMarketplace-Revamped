@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import './Admin_Home.css';
+import Admin_NavBar from './Admin_NavBar';
 
 
 class Admin_Home extends React.Component 
@@ -15,6 +16,7 @@ class Admin_Home extends React.Component
     {
         return (
             <div className= 'Admin-whole'>
+                <Admin_NavBar/>
                 <div className = 'Admin-Cards'>
                     <Card className='Admin-header'> 
                         <div>
@@ -30,7 +32,6 @@ class Admin_Home extends React.Component
                         </CardContent>
                     </Card>   
                 </div>
-        
             </div>
           );
     }
