@@ -37,6 +37,7 @@ class Routes extends React.Component {
         <Route path="/newcontract" component={New_Contract} />
 
         <Route path="/companyprofile" component={Company_Profile} />
+
       </Router>
     );
   }
@@ -44,3 +45,6 @@ class Routes extends React.Component {
 
 ReactDOM.render(<Routes />, mountNode);
 export default Routes;
+
+
+
