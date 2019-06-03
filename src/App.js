@@ -1,12 +1,14 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Register from "./Register.js";
+import StudentSignup from "./StudentSignup.js";
+import CompanySignup from "./CompanySignup.js";
 
 function App() {
   return (
     <div className="App">
-      <Register />
+      <StudentSignup />
+      {/* <CompanySignup /> */}
     </div>
   );
 }

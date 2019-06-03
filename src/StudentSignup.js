@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class Register extends React.Component {
+class StudentSignup extends React.Component {
   constructor(props) {
     super(props);
 
@@ -80,7 +80,7 @@ class Register extends React.Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign up as a student
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
@@ -161,4 +161,4 @@ class Register extends React.Component {
     );
   }
 }
-export default Register;
+export default StudentSignup;
