@@ -45,6 +45,7 @@ class Authentication extends React.Component {
     email: "",
     password: "",
   }
+
    //change state as user inputs something
    changeEmail = text => {
     this.setState({ email: text });

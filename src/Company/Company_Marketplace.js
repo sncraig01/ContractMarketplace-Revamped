@@ -1,12 +1,12 @@
 import React from "react";
 import Company_NavBar from "./Company_NavBar";
 
-function New_Contract() {
+function Company_Marketplace() {
   return (
     <div className="App">
-      <Company_NavBar title={"Create New Contract"}/>
+      <Company_NavBar title={"Contract Marketplace"}/>
     </div>
   );
 }
 
-export default New_Contract;
+export default Company_Marketplace;

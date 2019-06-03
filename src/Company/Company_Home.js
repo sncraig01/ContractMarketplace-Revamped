@@ -1,10 +1,10 @@
 import React from "react";
 import Company_NavBar from "./Company_NavBar";
 
-function Company_Home() {
+function Company_Home(props) {
   return (
     <div className="App">
-      <Company_NavBar />
+      <Company_NavBar title={"Home"} />
     </div>
   );
 }
