@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
+    "@material-ui/core": "^4.0.1",
+    "@material-ui/icons": "^4.0.1",
+=======
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.0.1",
     "material-ui-icons": "^1.0.0-beta.36",
+>>>>>>> 27fe691ce59eb79e94f1c23e2b234087878c8130
     "firebase": "^6.1.0",
     "firebase-admin": "^8.0.0",
     "react": "^16.8.6",
