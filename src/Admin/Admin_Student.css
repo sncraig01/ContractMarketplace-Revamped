@@ -2,26 +2,51 @@
 
 .Admin-whole {
 background-color:#58A7EC; 
+  align-items: center;
+
 }
 
 .Admin-Cards {
-  border: right;
-  padding-bottom: 15px;
-  padding-left: 15px; 
-  padding-top: 15px;
-}
-.Admin-Padding{
-  padding-bottom: 10px,
-}
-.Admin-header {
-  background-color: #282c34;
-  min-height: 25vh;
-  width: 50vh;
   display: flex;
-  flex-direction: column;
-  align-items: left;
+  position: relative;
+  padding-right: 40px;
+  align-items: center;
+}
+
+.Admin-Searchbarholder
+{
   font-size: calc(5px + 2vmin);
   color: white;
+  flex-direction: row;
+  padding-left: 20px;
+  color: white; 
+}
+
+.Admin-studentholder {
+  display: flex;
+  background-color: #282c34;
+  min-height: 80vh;
+  min-width: 40vh;
+  font-size: calc(5px + 2vmin);
+  color: white;
+}
+
+.Admin-contactholder {
+  display: flex;
+  background-color: #282c34;
+  min-height: 80vh;
+  min-width: 40vh;
+  font-size: calc(5px + 2vmin);
+  color: white;
+}
+
+.Admin-Card-Holder{
+  background-color:#58A7EC;
+  display: flex;
+}
+
+.Admin-Padding{
+  padding-bottom: 0;
 }
 
 .App-link {
