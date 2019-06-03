@@ -163,7 +163,18 @@ class StudentSignup extends React.Component {
               </Grid>
             </Grid>
           </form>
-          <Button
+
+
+            <Grid container justify="flex-end">
+              <Grid item>
+                {/* Make this redirect to Authentication.js */}
+                <Link href="/signin" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+              <Button
               type="submit"
               fullWidth
               variant="contained"
@@ -173,6 +184,7 @@ class StudentSignup extends React.Component {
             >
               Sign Up
             </Button>
+
         </div>
       </Container>
     );
