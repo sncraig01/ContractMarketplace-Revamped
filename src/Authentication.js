@@ -57,19 +57,6 @@ class Authentication extends React.Component {
     password: "",
   }
 
-  // for material UI credit
-  MadeWithLove = () => {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Built with love by the '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Material-UI
-        </Link>
-        {' team.'}
-      </Typography>
-    );
-  }
-
    //change state as user inputs something
    changeEmail = text => {
     this.setState({ email: text });
@@ -156,9 +143,6 @@ class Authentication extends React.Component {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        {this.MadeWithLove()}
-      </Box>
     </Container>
 
        </div>
