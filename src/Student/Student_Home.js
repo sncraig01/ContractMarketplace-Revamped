@@ -12,6 +12,19 @@ import InputBase from "@material-ui/core/InputBase";
 import "./Student_Home.css";
 
 class Student_Home extends React.Component {
+
+  goToMarketplace = () => {
+    // from stackoverflow: this.props.router.push
+    this.props.history.push({
+      pathname: "/marketplace",
+      state: {
+        id: 7,
+        color: "green"
+      }
+    });
+  };
+
+  
   render() {
     return (
       <div className="Student-whole">
@@ -51,6 +64,10 @@ class Student_Home extends React.Component {
             </Card>
           </div>
         </div>
+        <button onClick={() => this.goToMarketplace()}>
+          Go To Marketplace
+        </button>
+
       </div>
     );
   }

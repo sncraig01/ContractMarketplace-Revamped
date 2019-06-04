@@ -8,11 +8,12 @@ import Landing from "./Landing.js";
 import Authentication from "./Authentication.js";
 import StudentSignup from "./StudentSignup.js";
 import CompanySignup from "./CompanySignup.js";
+import Marketplace from "./Student/Marketplace";
+import Submit_Bid from "./Student/Submit_Bid";
 import Company_SearchStudents from "./Company/Company_SearchStudents";
 import Admin_Home from "./Admin/Admin_Home";
 import Admin_ManageContracts from "./Admin/Admin_ManageContracts";
 import Admin_ManageUsers from "./Admin/Admin_ManageUsers";
-import Student_Marketplace from "./Student/Student_Marketplace";
 import Student_Profile from "./Student/Student_Profile";
 
 let mountNode = document.getElementById("root");
@@ -21,8 +22,7 @@ class Routes extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
@@ -45,8 +45,10 @@ class Routes extends React.Component {
         <Route path="/newcontract" component={New_Contract} />
 
         {/* Student Routes */}
+        <Route path="/studenthome" component={Student_Home} />
+        <Route path="/marketplace" component={Marketplace} />
+        <Route path="/submitbid" component={Submit_Bid} />
         <Route path="/studentdashboard" component={Student_Home} />
-        <Route path="/marketplace" component={Student_Marketplace} />
         <Route path="/studentprofile" component={Student_Profile} />
       </Router>
     );
