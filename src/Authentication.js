@@ -12,19 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Landing from "./Landing.js"
-import firebase from "./firebase.js"
-
-/*
-var admin = require("firebase-admin");
-var serviceAccountKey = process.env.REACT_APP_SERVICE_ACCOUNT_KEY;
-var serviceAccount = require(serviceAccountKey);
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://contractmarket-aa272.firebaseio.com"
-});
-*/
+import firebase from "./firebase.js";
+require('firebase/auth')
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -68,15 +57,34 @@ class Authentication extends React.Component {
 
 
   onSignIn=()=>{
+    console.log( "here")
+    
+///// MAKE IT SO IT FINDS THE TYPE AND ROUTES TO THAT HOME PAGE!!!
 
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword( this.state.email, this.state.password)
+    .then(() => {
+      // sign in successful
+      console.log( "SIGN IN SUCCESS")
+      //find what kind of account it is
+      const usersRef = firebase.database().ref( "users"); //reference to the database "users" key
+      usersRef.on("value", (snapshot) => {
+        //console.log( snapshot.val() )
+
+        snapshot.forEach(function(childSnapshot) {
+            var item = childSnapshot.val();
+            console.log( item )
+        })
+      });
+       
+      this.props.history.push("/studenthome")
+      
+    }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
       console.log( "there was an error")
     });
-    console.log( this.state.email + " & " + this.state.password)
-
+    
   }
 
 
@@ -119,16 +127,6 @@ class Authentication extends React.Component {
             autoComplete="current-password"
             onChange={e => this.changePassword(e.target.value)}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={()=>this.onSignIn()}
-          >
-            Sign In
-          </Button>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -142,6 +140,16 @@ class Authentication extends React.Component {
             </Grid>
           </Grid>
         </form>
+        <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={()=>this.onSignIn()}
+          >
+            Sign In
+          </Button>
       </div>
     </Container>
 
