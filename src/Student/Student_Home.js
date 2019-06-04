@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -11,7 +12,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import firebase from '../firebase.js'
 import './Student_Home.css';
-
 
 class Student_Home extends React.Component 
 {
@@ -70,7 +70,7 @@ class Student_Home extends React.Component
     {
         return (
           <div className= 'Student-whole'>
-          <Admin_NavBar/>
+                  <Student_NavBar title={"Dashboard"} />
 
            <div className = 'Student-Profile'>
        
@@ -142,7 +142,7 @@ class Student_Home extends React.Component
    </div>
           );
     }
+
 }
 
 export default Student_Home;
-

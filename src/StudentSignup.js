@@ -60,14 +60,13 @@ class StudentSignup extends React.Component {
 
 
   doRegister = () => {
-    console.log( this.state.email )
+
     console.log( this.state.password )
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
-
-      // creation successful
+     // creation successful
       console.log( "SUCCESS")
-      
-      const usersRef = firebase.database().ref( "users"); //reference to the database "users" key
+
+      const usersRef = firebase.database().ref( "users" ); //reference to the database "users" key
       const user = { //create thing to be pushed
         email: this.state.email,
         name: this.state.firstName + " " + this.state.lastName,
@@ -75,7 +74,6 @@ class StudentSignup extends React.Component {
       }
       usersRef.push(user); //push the data to the database
       
-
       this.props.history.push("/studenthome");
 
     }).catch(function(error) {
@@ -84,6 +82,7 @@ class StudentSignup extends React.Component {
         var errorMessage = error.message;
         console.log( errorCode )
       });
+
   };
 
   render() {
