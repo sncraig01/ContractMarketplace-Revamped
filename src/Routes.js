@@ -45,7 +45,6 @@ class Routes extends React.Component {
         <Route path="/newcontract" component={New_Contract} />
 
         {/* Student Routes */}
-        <Route path="/studenthome" component={Student_Home} />
         <Route path="/marketplace" component={Marketplace} />
         <Route path="/submitbid" component={Submit_Bid} />
         <Route path="/studentdashboard" component={Student_Home} />
