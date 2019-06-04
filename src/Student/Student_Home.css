@@ -1,38 +1,49 @@
 
 
-.Student-whole {
+.Student-whole { 
+  min-height: 100vh;
   background-color:rgb(255, 255, 255); 
   }
   
-  .Student-Cards {
+
+  .Student-Profile {
+    display: flexbox;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    min-height: 40%;
+  }
+
+  .Student-ContractBids {
     display: flex;
-    padding-right: 40px;
-    align-items: center;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto; 
+    justify-content: center;
+  }
+ 
+  .Student-contractholder {
+    background-color: #282c34;
+    min-height: 70vh;
+    font-size: calc(5px + 2vmin);
+    padding-left: 5px;
+  }
+
+  .Student-bidholder {
+    background-color: #282c34;
+    min-height: 70vh;
+    font-size: calc(5px + 2vmin);
+    padding-left: 5px;
   }
   
+
   .Student-Searchbarholder
   {
     font-size: calc(5px + 2vmin);
     padding-left: 20px;
   }
   
-  .Student-studentholder {
-    position: relative;
-    color: #282c34;
-    background-color: #282c34;
-    min-height: 20vh;
-    min-width: 40vh;
-    font-size: calc(5px + 2vmin);
-  }
-  
-  .Student-contactholder {
-    position: relative;
-    background-color: #282c34;
-    min-height: 80vh;
-    min-width: 10vh;
-    font-size: calc(5px + 2vmin);
-    color:#282c34
-  }
+ 
   
   .Student-Card-Holder{
     background-color:rgb(255, 255, 255);
