@@ -10,8 +10,9 @@ import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
 // import Dashboard from "@material-ui/icons/Dashboard";
-import AddCircle from "@material-ui/icons/AddCircle";
-import SearchIcon from "@material-ui/icons/Search";
+import Store from "@material-ui/icons/Store";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+// import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
@@ -85,7 +86,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Company_NavBar(props) {
+function Student_NavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -120,22 +121,19 @@ function Company_NavBar(props) {
     />
   );
 
-  const companyDashboardClicked = e => {
-    // Redirects to marketplace page
-    // props.history.push("/marketplace");
-    return (window.location = "/companydashboard");
+  const studentDashboardClicked = e => {
+    // Redirects to admin home page
+    return (window.location = "/studentdashboard");
   };
 
-  const searchStudentsClicked = e => {
+  const marketplaceClicked = e => {
     // Redirects to marketplace page
-    // props.history.push("/marketplace");
-    return (window.location = "/searchstudents");
+    return (window.location = "/marketplace");
   };
 
-  const newContractClicked = e => {
+  const studentProfileClicked = e => {
     // Redirects to marketplace page
-    // props.history.push("/marketplace");
-    return (window.location = "/newcontract");
+    return (window.location = "/studentprofile");
   };
 
   const logoutClicked = e => {
@@ -152,18 +150,18 @@ function Company_NavBar(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton color="inherit" onClick={() => companyDashboardClicked()}>
+        <IconButton color="inherit" onClick={() => studentDashboardClicked()}>
           <Home />
         </IconButton>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton color="inherit" onClick={() => newContractClicked()}>
-          <AddCircle />
+      <MenuItem>
+        <IconButton color="inherit" onClick={() => marketplaceClicked()}>
+          <Store />
         </IconButton>
       </MenuItem>
-      <MenuItem>
-        <IconButton color="inherit" onClick={() => searchStudentsClicked()}>
-          <SearchIcon />
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton color="inherit" onClick={() => studentProfileClicked()}>
+          <AccountCircle />
         </IconButton>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -201,22 +199,22 @@ function Company_NavBar(props) {
             <Tooltip title="Dashboard">
               <IconButton
                 color="inherit"
-                onClick={() => companyDashboardClicked()}
+                onClick={() => studentDashboardClicked()}
               >
                 <Home />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Post New Contract">
-              <IconButton color="inherit" onClick={() => newContractClicked()}>
-                <AddCircle />
+            <Tooltip title="Contract Marketplace">
+              <IconButton color="inherit" onClick={() => marketplaceClicked()}>
+                <Store />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Search Students">
+            <Tooltip title="My Profile">
               <IconButton
                 color="inherit"
-                onClick={() => searchStudentsClicked()}
+                onClick={() => studentProfileClicked()}
               >
-                <SearchIcon />
+                <AccountCircle />
               </IconButton>
             </Tooltip>
             <Tooltip title="Logout">
@@ -242,4 +240,4 @@ function Company_NavBar(props) {
   );
 }
 
-export default Company_NavBar;
+export default Student_NavBar;
