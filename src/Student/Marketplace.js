@@ -17,16 +17,58 @@ class Marketplace extends React.Component {
   // Each contract needs a "Submit Bid" button, which will take user to new page where they can enter
   //    bid details for that specific contract
 
-  retrieveAllContracts = () => {
-    const contractsRef = firebase.database().ref("contracts");
-    contractsRef.on("value", snapshot => {
-      //console.log( snapshot.val() )
+  constructor(props) {
+    super(props);
 
-      snapshot.forEach(function(childSnapshot) {
-        var individualContract = childSnapshot.val();
-        console.log(individualContract);
+    this.state = {
+      companyName: "",
+      contractName: ""
+    };
+  }
+
+  componentDidMount = () => {
+    this.retrieveAllContracts();
+  };
+
+  retrieveAllContracts = async () => {
+    let tempContractNames = [];
+    let tempContractDetails = [];
+    let tempCompanyNames = [];
+    const contractsRef = firebase.database().ref("contracts");
+    await contractsRef.on("value", snapshot => {
+      // loop through all companies
+      snapshot.forEach(function(companies) {
+        // loop through each contract
+        companies.forEach(function(contracts) {
+          // loop through each indiv contract?
+          contracts.forEach(function(individualContract) {
+            console.log(
+              "Contract Name = " + individualContract.val().contractName
+            );
+            console.log(
+              "Contract Details = " + individualContract.val().contractDetails
+            );
+            console.log("Company = " + individualContract.val().name);
+
+            if (individualContract.val().available) {
+              tempContractNames.push(individualContract.val().contractName);
+              tempContractDetails.push(
+                individualContract.val().contractDetails
+              );
+              tempCompanyNames.push(individualContract.val().name);
+            }
+          });
+        });
       });
     });
+
+    this.setState(
+      {
+        contractNames: tempContractNames,
+        contractDetails: tempContractDetails
+      },
+      () => console.log("names: " + this.state.contractNames)
+    );
   };
 
   submitBidOnContract = contractKey => {
@@ -48,6 +90,18 @@ class Marketplace extends React.Component {
       <div>
         <p>Welcome to Marketplace</p>
         <button onClick={() => this.goToSubmitBid()}>Go to submit bid</button>
+
+        <button onClick={() => this.retrieveAllContracts()}>
+          Show contracts
+        </button>
+
+        {this.state.contractNames ? (
+          this.state.contractNames.map(name => {
+            return <p>{name}</p>;
+          })
+        ) : (
+          <p />
+        )}
       </div>
     );
   }
