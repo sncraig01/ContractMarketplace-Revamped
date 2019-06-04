@@ -1,8 +1,8 @@
 
 
-.Student-whole {
-  background-color:#58A7EC; 
+.Student-whole { 
   min-height: 100vh;
+  background-color:rgb(255, 255, 255); 
   }
   
 
@@ -46,7 +46,7 @@
  
   
   .Student-Card-Holder{
-    background-color:#58A7EC;
+    background-color:rgb(255, 255, 255);
     display: flex;
   }
   
