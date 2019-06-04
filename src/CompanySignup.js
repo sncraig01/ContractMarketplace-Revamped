@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "./firebase.js";
+require("firebase/auth");
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -61,6 +62,17 @@ class CompanySignup extends React.Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => {
+        const usersRef = firebase.database().ref("users");
+        const user = {
+          email: this.state.email,
+          type: "company",
+          name: this.state.companyName
+        };
+        usersRef.push(user);
+
+        this.props.history.push("/companyhome");
+      })
       .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -128,16 +140,7 @@ class CompanySignup extends React.Component {
 
                 <Grid />
               </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={() => this.doRegister()}
-              >
-                Sign Up
-              </Button>
+
               <Grid container justify="flex-end">
                 <Grid item>
                   {/* Make this redirect to Authentication.js */}
@@ -147,6 +150,16 @@ class CompanySignup extends React.Component {
                 </Grid>
               </Grid>
             </form>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={() => this.doRegister()}
+            >
+              Sign Up
+            </Button>
           </div>
         </Container>
       </div>
