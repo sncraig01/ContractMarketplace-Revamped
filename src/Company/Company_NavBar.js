@@ -114,22 +114,7 @@ function Company_NavBar(props) {
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-    >
-      {/* <MenuItem
-        onClick={handleMenuClose}
-        containerElement={<Link to="/companyprofile" />}
-        linkButton={true}
-      >
-        Profile
-      </MenuItem>
-      <MenuItem
-        onClick={handleMenuClose}
-        containerElement={<Link to="/" />}
-        linkButton={true}
-      >
-        Logout
-      </MenuItem> */}
-    </Menu>
+    />
   );
 
   const companyHomeClicked = e => {
