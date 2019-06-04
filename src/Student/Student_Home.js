@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Admin_NavBar from "../Admin/Admin_NavBar";
+import Student_NavBar from "./Student_NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
@@ -12,6 +12,7 @@ import InputBase from "@material-ui/core/InputBase";
 import "./Student_Home.css";
 
 class Student_Home extends React.Component {
+
   goToMarketplace = () => {
     // from stackoverflow: this.props.router.push
     this.props.history.push({
@@ -23,10 +24,11 @@ class Student_Home extends React.Component {
     });
   };
 
+  
   render() {
     return (
       <div className="Student-whole">
-        <Admin_NavBar />
+        <Student_NavBar title={"Dashboard"} />
         <div className="Student-Card-Holder">
           <div className="State-Cards">
             <List>
@@ -44,7 +46,6 @@ class Student_Home extends React.Component {
               </Card>
             </List>
           </div>
-
           <div className="Student-Cards">
             {/** Implemented a scrollbar */}
             <Card
@@ -63,10 +64,10 @@ class Student_Home extends React.Component {
             </Card>
           </div>
         </div>
-
         <button onClick={() => this.goToMarketplace()}>
           Go To Marketplace
         </button>
+
       </div>
     );
   }
