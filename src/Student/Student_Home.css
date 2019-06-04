@@ -1,0 +1,52 @@
+
+
+.Student-whole {
+  background-color:#58A7EC; 
+  }
+  
+  .Student-Cards {
+    display: flex;
+    padding-right: 40px;
+    align-items: center;
+  }
+  
+  .Student-Searchbarholder
+  {
+    font-size: calc(5px + 2vmin);
+    padding-left: 20px;
+  }
+  
+  .Student-studentholder {
+    position: relative;
+    color: #282c34;
+    background-color: #282c34;
+    min-height: 20vh;
+    min-width: 40vh;
+    font-size: calc(5px + 2vmin);
+  }
+  
+  .Student-contactholder {
+    position: relative;
+    background-color: #282c34;
+    min-height: 80vh;
+    min-width: 10vh;
+    font-size: calc(5px + 2vmin);
+    color:#282c34
+  }
+  
+  .Student-Card-Holder{
+    background-color:#58A7EC;
+    display: flex;
+  }
+  
+  .Student-Padding{
+    padding-bottom: 0;
+  }
+  
+  .Student-link {
+    color: #61dafb;
+  }
+  
+  
+  
+  
