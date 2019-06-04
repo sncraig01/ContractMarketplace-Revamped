@@ -72,10 +72,10 @@ class Authentication extends React.Component {
             var item = childSnapshot.val();
             if( item.email === curEmail ){
               if( item.type === "student" ){
-                route.push("/studenthome")
+                route.push("/studentdashboard")
               }
               else if ( item.type === "company" ){
-                route.push("/companyhome")
+                route.push("/companydashboard")
               }
             }
         })
