@@ -1,7 +1,7 @@
 
 
 .Student-whole {
-  background-color:#58A7EC; 
+  background-color:rgb(255, 255, 255); 
   }
   
   .Student-Cards {
@@ -35,7 +35,7 @@
   }
   
   .Student-Card-Holder{
-    background-color:#58A7EC;
+    background-color:rgb(255, 255, 255);
     display: flex;
   }
   
