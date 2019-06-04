@@ -4,12 +4,13 @@ import List from "@material-ui/core/List";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Admin_NavBar from "../Admin/Admin_NavBar";
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import firebase from "../firebase.js";
+import Button from "@material-ui/core/Button";
 
 class Marketplace extends React.Component {
   // In marketplace, want to show all contracts with status of available
@@ -146,25 +147,49 @@ class Marketplace extends React.Component {
                 <br />
                 {this.state.contractDetails[index]}
                 <br />
-                {
-                  <button
-                    onClick={() =>
-                      this.submitBidOnContract(
-                        this.state.contractKeys[index],
-                        this.state.companyNames[index],
-                        this.state.contractNames[index],
-                        this.state.contractDetails[index]
-                      )
-                    }
-                  >
-                    Submit bid
-                  </button>
-                }
-
-                <br />
-                <br />
-                <br />
+                <button
+                  onClick={() =>
+                    this.submitBidOnContract(
+                      this.state.contractKeys[index],
+                      this.state.companyNames[index],
+                      this.state.contractNames[index],
+                      this.state.contractDetails[index]
+                    )
+                  }
+                >
+                  Submit bid
+                </button>
               </li>
+              // <Card>
+              //   <Card.CardActionArea>
+              //     <Card.CardContent>
+              //       <Card.Typography color="textSecondary" gutterBottom>
+              //         {this.state.companyNames[index]}
+              //         <br />
+              //         {this.state.contractNames[index]}
+              //         <br />
+              //         {this.state.contractDetails[index]}
+              //         <br />
+              //       </Card.Typography>
+              //     </Card.CardContent>
+              //   </Card.CardActionArea>
+              //   <Card.CardActions>
+              //     <Button
+              //       size="small"
+              //       color="primary"
+              //       onClick={() =>
+              //         this.submitBidOnContract(
+              //           this.state.contractKeys[index],
+              //           this.state.companyNames[index],
+              //           this.state.contractNames[index],
+              //           this.state.contractDetails[index]
+              //         )
+              //       }
+              //     >
+              //       Submit Bid
+              //     </Button>
+              //   </Card.CardActions>
+              // </Card>
             );
           })
         ) : (
