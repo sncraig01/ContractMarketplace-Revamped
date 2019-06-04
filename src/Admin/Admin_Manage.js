@@ -13,14 +13,14 @@ import Admin_NavBar from './Admin_NavBar';
 
 
 
-class Admin_Student extends React.Component 
+class Admin_Manage extends React.Component 
 {
    
     render()
     {
         return (
             <div className= 'Admin-whole'>
-                   <Admin_NavBar/>
+                   <Admin_NavBar title={"Manage"} />
                <div className="Admin-Card-Holder">
                     <div className = 'Admin-Cards'>
                 
@@ -75,4 +75,4 @@ class Admin_Student extends React.Component
     }
 }
 
-export default Admin_Student;
+export default Admin_Manage;
