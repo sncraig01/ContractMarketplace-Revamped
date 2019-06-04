@@ -22,7 +22,12 @@ class Marketplace extends React.Component {
 
     this.state = {
       companyName: "",
-      contractName: ""
+      contractName: "",
+      contractNames: [],
+      contractDetails: [],
+      companyNames: [],
+      contractKeys: [],
+      indices: []
     };
   }
 
@@ -31,9 +36,12 @@ class Marketplace extends React.Component {
   };
 
   retrieveAllContracts = async () => {
+    let counter = 0;
     let tempContractNames = [];
     let tempContractDetails = [];
     let tempCompanyNames = [];
+    let tempIndices = [];
+    let tempKeys = [];
     const contractsRef = firebase.database().ref("contracts");
     await contractsRef.on("value", snapshot => {
       // loop through all companies
@@ -42,6 +50,7 @@ class Marketplace extends React.Component {
         companies.forEach(function(contracts) {
           // loop through each indiv contract?
           contracts.forEach(function(individualContract) {
+            console.log("KEY? = " + individualContract.key);
             console.log(
               "Contract Name = " + individualContract.val().contractName
             );
@@ -51,11 +60,14 @@ class Marketplace extends React.Component {
             console.log("Company = " + individualContract.val().name);
 
             if (individualContract.val().available) {
+              tempIndices.push(counter);
+              counter++;
               tempContractNames.push(individualContract.val().contractName);
               tempContractDetails.push(
                 individualContract.val().contractDetails
               );
               tempCompanyNames.push(individualContract.val().name);
+              tempKeys.push(individualContract.key);
             }
           });
         });
@@ -65,18 +77,29 @@ class Marketplace extends React.Component {
     this.setState(
       {
         contractNames: tempContractNames,
-        contractDetails: tempContractDetails
+        contractDetails: tempContractDetails,
+        companyNames: tempCompanyNames,
+        contractKeys: tempKeys,
+        indices: tempIndices
       },
       () => console.log("names: " + this.state.contractNames)
     );
   };
 
-  submitBidOnContract = contractKey => {
+  submitBidOnContract = (
+    contractKey,
+    specificCompany,
+    specificContract,
+    specificDetails
+  ) => {
     // from stackoverflow: this.props.router.push
     this.props.history.push({
       pathname: "/submitbid",
       state: {
-        key: contractKey
+        key: contractKey,
+        company: specificCompany,
+        contract: specificContract,
+        details: specificDetails
       }
     });
   };
@@ -85,23 +108,68 @@ class Marketplace extends React.Component {
     this.props.history.push("/submitbid");
   };
 
+  displayContracts = () => {
+    this.retrieveAllContracts();
+    let allContracts = [];
+
+    for (let i = 0; i < this.state.companyNames; i++) {
+      allContracts.push(
+        <li>
+          {this.state.companyNames[i]}
+          <br />
+          {this.state.contractNames[i]}
+          <br />
+          {this.state.contractDetails[i]}
+          <br />
+        </li>
+      );
+    }
+
+    return allContracts;
+  };
+
   render() {
     return (
       <div>
         <p>Welcome to Marketplace</p>
         <button onClick={() => this.goToSubmitBid()}>Go to submit bid</button>
-
-        <button onClick={() => this.retrieveAllContracts()}>
+        <button onClick={() => this.displayContracts()}>
           Show contracts
-        </button>
+        </button>{" "}
+        {this.state.indices.length > 0 ? (
+          this.state.indices.map(index => {
+            return (
+              <li>
+                {this.state.companyNames[index]}
+                <br />
+                {this.state.contractNames[index]}
+                <br />
+                {this.state.contractDetails[index]}
+                <br />
+                {
+                  <button
+                    onClick={() =>
+                      this.submitBidOnContract(
+                        this.state.contractKeys[index],
+                        this.state.companyNames[index],
+                        this.state.contractNames[index],
+                        this.state.contractDetails[index]
+                      )
+                    }
+                  >
+                    Submit bid
+                  </button>
+                }
 
-        {this.state.contractNames ? (
-          this.state.contractNames.map(name => {
-            return <p>{name}</p>;
+                <br />
+                <br />
+                <br />
+              </li>
+            );
           })
         ) : (
           <p />
-        )}
+        )}{" "}
       </div>
     );
   }

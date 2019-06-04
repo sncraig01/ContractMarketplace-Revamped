@@ -49,6 +49,8 @@ class Submit_Bid extends React.Component {
     //   let data = snapshot.val();
     //   console.log("data = " + data);
     // });
+
+    console.log("SUBMITBIDKEY = " + this.props.location.state.key);
   };
 
   updateField(field, newValue) {
@@ -84,7 +86,13 @@ class Submit_Bid extends React.Component {
       <div>
         <p>Welcome to Submit Bid Page</p>
 
-        <p>contract details go up here</p>
+        <p>Contract Details:</p>
+        {this.props.location.state.company}
+        <br />
+        {this.props.location.state.contract}
+        <br />
+        {this.props.location.state.details}
+        <br />
 
         <div>
           <Container component="main" maxWidth="xs">
