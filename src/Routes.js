@@ -5,14 +5,16 @@ import Company_Home from "./Company/Company_Home";
 import New_Contract from "./Company/New_Contract";
 import Company_Profile from "./Company/Company_Profile.js";
 import Student_Home from "./Student/Student_Home";
-import Landing from "./Landing.js"
-import Authentication from "./Authentication.js"
-import StudentSignup from "./StudentSignup.js"
-import CompanySignup from "./CompanySignup.js"
-import Company_Marketplace from "./Company/Company_Marketplace"
-import Admin_Home from "./Admin/Admin_Home"
-import Admin_Manage from "./Admin/Admin_Manage"
-import Admin_Profile from "./Admin/Admin_Profile"
+import Landing from "./Landing.js";
+import Authentication from "./Authentication.js";
+import StudentSignup from "./StudentSignup.js";
+import CompanySignup from "./CompanySignup.js";
+import Company_Marketplace from "./Company/Company_Marketplace";
+import Admin_Home from "./Admin/Admin_Home";
+import Admin_Manage from "./Admin/Admin_Manage";
+import Admin_Profile from "./Admin/Admin_Profile";
+import Marketplace from "./Student/Marketplace";
+import Submit_Bid from "./Student/Submit_Bid";
 
 let mountNode = document.getElementById("root");
 
@@ -45,9 +47,11 @@ class Routes extends React.Component {
         <Route path="/companymarketplace" component={Company_Marketplace} />
         <Route path="/newcontract" component={New_Contract} />
         <Route path="/companyprofile" component={Company_Profile} />
-      
+
         {/* Student Routes */}
         <Route path="/studenthome" component={Student_Home} />
+        <Route path="/marketplace" component={Marketplace} />
+        <Route path="/submitbid" component={Submit_Bid} />
       </Router>
     );
   }
@@ -55,6 +59,3 @@ class Routes extends React.Component {
 
 ReactDOM.render(<Routes />, mountNode);
 export default Routes;
-
-
-
