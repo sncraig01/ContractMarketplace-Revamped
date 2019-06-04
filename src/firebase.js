@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import * as firebase from "firebase";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const AUTH_DOMAIN = process.env.REACT_APP_AUTH_DOMAIN;
