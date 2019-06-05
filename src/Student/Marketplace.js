@@ -4,13 +4,35 @@ import List from "@material-ui/core/List";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Admin_NavBar from "../Admin/Admin_NavBar";
-import makeStyles from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+
 import Divider from "@material-ui/core/Divider";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import firebase from "../firebase.js";
 import Button from "@material-ui/core/Button";
+import "./Marketplace.css";
+import Student_NavBar from "./Student_NavBar";
+
+const useStyles = makeStyles({
+  card: {
+    minWidth: 275
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  },
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 12
+  }
+});
 
 class Marketplace extends React.Component {
   // In marketplace, want to show all contracts with status of available
@@ -105,10 +127,6 @@ class Marketplace extends React.Component {
     });
   };
 
-  goToSubmitBid = () => {
-    this.props.history.push("/submitbid");
-  };
-
   displayContracts = () => {
     this.retrieveAllContracts();
     let allContracts = [];
@@ -130,117 +148,70 @@ class Marketplace extends React.Component {
   };
 
   render() {
+    const classes = useStyles;
+
     return (
-      <div>
-        <p>Welcome to Marketplace</p>
-        <button onClick={() => this.goToSubmitBid()}>Go to submit bid</button>
-        <button onClick={() => this.displayContracts()}>
-          Show contracts
-        </button>{" "}
-        {this.state.indices.length > 0 ? (
-          this.state.indices.map(index => {
-            return (
-              <li>
-                {this.state.companyNames[index]}
-                <br />
-                {this.state.contractNames[index]}
-                <br />
-                {this.state.contractDetails[index]}
-                <br />
-                <button
-                  onClick={() =>
-                    this.submitBidOnContract(
-                      this.state.contractKeys[index],
-                      this.state.companyNames[index],
-                      this.state.contractNames[index],
-                      this.state.contractDetails[index]
-                    )
-                  }
-                >
-                  Submit bid
-                </button>
-              </li>
-              // <Card>
-              //   <Card.CardActionArea>
-              //     <Card.CardContent>
-              //       <Card.Typography color="textSecondary" gutterBottom>
-              //         {this.state.companyNames[index]}
-              //         <br />
-              //         {this.state.contractNames[index]}
-              //         <br />
-              //         {this.state.contractDetails[index]}
-              //         <br />
-              //       </Card.Typography>
-              //     </Card.CardContent>
-              //   </Card.CardActionArea>
-              //   <Card.CardActions>
-              //     <Button
-              //       size="small"
-              //       color="primary"
-              //       onClick={() =>
-              //         this.submitBidOnContract(
-              //           this.state.contractKeys[index],
-              //           this.state.companyNames[index],
-              //           this.state.contractNames[index],
-              //           this.state.contractDetails[index]
-              //         )
-              //       }
-              //     >
-              //       Submit Bid
-              //     </Button>
-              //   </Card.CardActions>
-              // </Card>
-            );
-          })
-        ) : (
-          <p />
-        )}{" "}
+      <div className="Student-whole">
+        <Student_NavBar title={"Marketplace"} />
+        <div>
+          <button onClick={() => this.displayContracts()}>
+            Show contracts
+          </button>
+          <h3>Available Contracts</h3>
+          <div className="allBidCards">
+            {this.state.indices.length > 0 ? (
+              this.state.indices.map(index => {
+                return (
+                  <div className="bidCard">
+                    <Card raised className={classes.card}>
+                      <CardActionArea>
+                        <CardContent>
+                          <Typography
+                            className={classes.title}
+                            color="textSecondary"
+                            gutterBottom
+                          >
+                            {this.state.companyNames[index]}
+                          </Typography>
+                          <Typography variant="h5" component="h2">
+                            {this.state.contractNames[index]}
+                          </Typography>
+                          <Typography variant="body2" component="p">
+                            {this.state.contractDetails[index]}
+                          </Typography>
+                        </CardContent>
+                      </CardActionArea>
+                      <CardActions>
+                        <div className="submitButton">
+                          <Button
+                            size="small"
+                            color="primary"
+                            onClick={() =>
+                              this.submitBidOnContract(
+                                this.state.contractKeys[index],
+                                this.state.companyNames[index],
+                                this.state.contractNames[index],
+                                this.state.contractDetails[index]
+                              )
+                            }
+                          >
+                            Submit Bid
+                          </Button>
+                        </div>
+                      </CardActions>
+                    </Card>
+                    <br />
+                  </div>
+                );
+              })
+            ) : (
+              <p />
+            )}
+          </div>
+        </div>
       </div>
     );
   }
-
-  //   render() {
-  //     return (
-  //       <div className="Student-whole">
-  //         <Admin_NavBar />
-  //         <div className="Student-Card-Holder">
-  //           <div className="State-Cards">
-  //             <List>
-  //               {/** Implemented a scrollbar */}
-  //               <Card
-  //                 className="Student-studentholder"
-  //                 style={{ maxHeight: 40, overflow: "auto" }}
-  //               >
-  //                 <div>
-  //                   <b>Profile:</b>
-  //                   <Divider />
-  //                 </div>
-  //                 <div className="Student-Searchbarholder" />
-  //                 <CardContent />
-  //               </Card>
-  //             </List>
-  //           </div>
-  //           <div className="Student-Cards">
-  //             {/** Implemented a scrollbar */}
-  //             <Card
-  //               className="Student-contactholder"
-  //               style={{ maxHeight: 200, overflow: "auto" }}
-  //             >
-  //               <div>
-  //                 <b>Current Bids:</b>
-  //                 <Divider />
-  //               </div>
-  //               <div className="Student-Searchbarholder">
-  //                 <SearchIcon />
-  //                 <InputBase placeholder="Search Bids" />
-  //               </div>
-  //               <CardContent />
-  //             </Card>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  //   }
 }
 
 export default Marketplace;
