@@ -1,5 +1,6 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import List from '@material-ui/core/List';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase.js'
 import './Student_Home.css';
 
@@ -20,7 +22,8 @@ class Student_EditProfile extends React.Component
     student_email: "",
     student_name: "",
     skill: "", 
-    skill_arr: []
+    skill_arr: [],
+    bio: ""
 }
 
     componentDidMount=()=>{
@@ -52,30 +55,76 @@ class Student_EditProfile extends React.Component
               }
             }
             })
+            
+            this.getSkills();
+            this.getBio();
     }
 
     //Gets Skills from firebase
     getSkills()
-    {
-
+    {   
+          //Finds the matching Name and Listed skills from Firebase
+          this.state.skill_arr = []; 
+          const userRef = firebase.database().ref("users"); // access all users
+          userRef.on('value', (snapshot) => {
+          let users = snapshot.val();
+          for(let itr in users){
+              if(this.state.student_email == users[itr].email) // check for a user with a matching email
+              {   
+                  if(users[itr].skills != undefined)
+                  {
+                    for(let itr2 in users[itr].skills)
+                    {
+                        this.state.skill_arr.push(users[itr].skills[itr2]);
+                    }
+                  }
+                break;
+              }
+            }
+            })
+            
     }
+
+     //Gets bio from firebase
+     getBio()
+     {   
+           //Finds the matching Name and Listed skills from Firebase
+
+           const userObj = firebase.database().ref("users"); // access all users
+           userObj.on('value', (snapshot) => {
+           let users_snap = snapshot.val();
+           for(let itr in users_snap){
+               if(this.state.student_email == users_snap[itr].email) // check for a user with a matching email
+               {   
+                   if(users_snap[itr].bio != undefined)
+                   {
+                     for(let itr2 in users_snap[itr].bio)
+                     {
+                         this.setState({bio : users_snap[itr].bio[itr2]});
+                     }
+                   }
+                 break;
+               }
+             }
+             })
+             
+     }
 
     //Adds skill to the users profile in firebase
     addSkill()
     {
         console.log("adding skill")
         this.state.skill_arr.push(this.state.skill);
-
-
-
+        this.updateFirebase(); 
+        this.getSkills();
     }
 
-
+    //Adds a new skill to firebase
     updateFirebase = () => {
         let currentUser = firebase.auth().currentUser;
         console.log(currentUser)
-        console.log(currentUser.uid);
-        const authUid = currentUser.uid;
+        console.log(currentUser.email);
+        const email_id = currentUser.email;
         console.log(this.state.activity);
     
         var usersRef = firebase.database().ref("/users" );
@@ -86,26 +135,42 @@ class Student_EditProfile extends React.Component
             let users = snapshot.val();
             console.log(users);
             for (let user in users) {
-                if( authUid == users[user].uid){
+                if( email_id == users[user].email){
                     console.log(user);
                     userID=user;
-                    log=users[user].log;
+                    log=users[user].skills;
                 }
             }
         })
-
-        let newItem={
-                    skill: this.state.skill    
-            }
         var logRef = firebase.database().ref(`/users/${userID}/skills/`);
         console.log(logRef);
-        logRef.push(newItem);
+        logRef.push(this.state.skill);
     }
 
     //Removes Skill from firebase and the list
-    removeSkill()
+    removeSkill(delete_skill)
     {
-
+        const userRef = firebase.database().ref("users"); // access all users
+        userRef.on('value', (snapshot) => {
+        let users = snapshot.val();
+       // let keys = snapshot.key(); 
+        for(let itr in users){
+            if(this.state.student_email == users[itr].email) // check for a user with a matching email
+            {   
+                for(let itr2 in users[itr].skills)
+                {
+                   if(users[itr].skills[itr2] === delete_skill)
+                   {
+                       console.log("The key for " + delete_skill)
+                       console.log(itr2);
+                       firebase.database().ref('users').child(itr).child('skills').child(itr2).remove();
+                   }
+                }
+                this.getSkills();
+              break;
+            }
+          }
+          })
     }
 
     //Updates the state of skill everytime the add skill input box changes
@@ -114,6 +179,42 @@ class Student_EditProfile extends React.Component
         this.setState({skill})
     }
 
+    saveBio()
+    {
+        console.log("adding bio")
+        let currentUser = firebase.auth().currentUser;
+        console.log(currentUser)
+        console.log(currentUser.email);
+        const email_id = currentUser.email;
+        console.log(this.state.activity);
+    
+        var usersRef = firebase.database().ref("/users" );
+        console.log(usersRef)
+        let userID="";
+        let log=[];
+        usersRef.on('value', (snapshot) => {
+            let users = snapshot.val();
+            console.log(users);
+            for (let user in users) {
+                if( email_id == users[user].email){
+                    console.log(user);
+                    userID=user;
+                    log=users[user].bio;
+                }
+            }
+        })
+        var logRef = firebase.database().ref(`/users/${userID}/bio/`);
+        console.log(logRef);
+        logRef.push(this.state.bio);
+
+    }
+
+ 
+
+    handleChange(event)
+    {
+        this.setState({bio : event.target.value});
+    }
 
 
     render()
@@ -149,9 +250,9 @@ class Student_EditProfile extends React.Component
                {/** Implemented a scrollbar */}
                <Card className='Student-contractholder' style={{maxHeight: 200, overflow: 'auto'}}> 
                    <div>
-                   <b>
-                      Add/Remove Skills
-                   </b>
+                    <b>
+                        Add/Remove Skills
+                    </b>
                    <Divider/>
                    </div>
                    <div className = "Student-Searchbarholder">
@@ -164,23 +265,34 @@ class Student_EditProfile extends React.Component
                    </div>
                    <CardContent> 
                    
-                       {this.state.skill_arr.map((itr) =><li>{itr}</li>)}
+                       {this.state.skill_arr.map((itr) =><div>{itr}<Button onClick={()=>this.removeSkill(itr)}>Delete</Button></div>)}
                    
                    </CardContent>
                
                </Card>   
                <Card className='Student-bidholder' style={{maxHeight: 200, overflow: 'auto'}}> 
                    <div>
-                   <b>
-                       Bio:
-                   </b>
+                    <b>
+                        Bio:
+                    </b>
                    <Divider/>
                    </div>
                    <div className = "Student-Searchbarholder">
-                       <SearchIcon />
-                       <InputBase 
-                       placeholder="Edit Bio"
-                       />
+                   <TextField
+                        id="outlined-multiline-flexible"
+                        label="Current Bio"
+                        multiline
+                        rows="24"
+                        value={this.state.bio}
+                        onChange={(e)=>this.handleChange(e)}
+                        //className={classes.textField}
+                        margin="normal"
+                        helperText="Edit your bio here!"
+                        variant="outlined"
+                    />
+                    <div>
+                    <Button onClick={()=>this.saveBio()}>Save</Button>
+                    </div>
                    </div>
                    <CardContent>
                    
