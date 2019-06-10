@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
-import Switch from "@material-ui/core/Switch";
+// import Switch from "@material-ui/core/Switch";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
@@ -25,10 +25,12 @@ import firebase from "../firebase.js";
 function Admin_ManageContracts() {
   // declare state variables
   const [initialized, setInitialized] = useState(false);
-  const [companyName, setCompanyName] = useState("");
-  const [contractTitle, setContractTitle] = useState("");
-  const [contractDetails, setContractDetails] = useState("");
-  const [isAvailable, setIsAvailable] = useState(true);
+  // const [companyName, setCompanyName] = useState("");
+  // const [contractTitle, setContractTitle] = useState("");
+  // const [contractDetails, setContractDetails] = useState("");
+  // const [isAvailable, setIsAvailable] = useState(true);
+
+  const contracts = [];
 
   useEffect(() => {
     if (!initialized) {
@@ -41,19 +43,24 @@ function Admin_ManageContracts() {
       const contractsRef = firebase.database().ref("contracts"); //reference to the database "contracts" key
 
       contractsRef.on("value", snapshot => {
-        //console.log( snapshot.val() )
-
-        let info = [];
-        snapshot.forEach(function(companySnapshot) {
-          companySnapshot.forEach(function(contractSnapshot) {
-            contractSnapshot.forEach(function(detailsSnapshot) {
-              var item = detailsSnapshot.val();
-              setCompanyName(item.name);
-              setContractTitle(item.contractName);
-              setContractDetails(item.contractDetails);
-              setIsAvailable(item.available);
-
-              console.log({companyName});
+        // console.log("snapshot", snapshot.val());
+        snapshot.forEach(function(contractsSnapshot) {
+          // console.log("contractsSnapshot", contractsSnapshot.val());
+          contractsSnapshot.forEach(function(detailsSnapshot) {
+            // console.log("detailsSnapshot", detailsSnapshot.val());
+            detailsSnapshot.forEach(async function(contractFieldsSnapshot) {
+              // console.log(
+              //   "contractFieldsSnapshot",
+              //   contractFieldsSnapshot.val()
+              // );
+              var contractField = contractFieldsSnapshot.val();
+              if (!(contractField == "bids")) {
+                contracts.push(contractField);
+                // await setCompanyName(contractField.name);
+                // await setContractTitle(contractField.contractName);
+                // await setContractDetails(contractField.contractDetails);
+                // await setIsAvailable(contractField.available);
+              }
             });
           });
         });
@@ -68,25 +75,20 @@ function Admin_ManageContracts() {
 
   const rows = [
     // for each loop through each contract of each company
-    // createData(
-    //   { companyName },
-    //   { contractTitle },
-    //   { contractDetails },
-    //   { isAvailable }
-    // )
-    // createData("Cupcake", 305, 3.7, 67, 4.3),
-    // createData("Donut", 452, 25.0, 51, 4.9),
-    // createData("Eclair", 262, 16.0, 24, 6.0),
-    // createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    // createData("Gingerbread", 356, 16.0, 49, 3.9),
-    // createData("Honeycomb", 408, 3.2, 87, 6.5),
-    // createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    // createData("Jelly Bean", 375, 0.0, 94, 0.0),
-    // createData("KitKat", 518, 26.0, 65, 7.0),
-    // createData("Lollipop", 392, 0.2, 98, 0.0),
-    // createData("Marshmallow", 318, 0, 81, 2.0),
-    // createData("Nougat", 360, 19.0, 9, 37.0),
-    // createData("Oreo", 437, 18.0, 63, 4.0)
+    // contracts.forEach(function(contract) {
+    //   let companyName = contract.name;
+    //   console.log(companyName);
+    //   let contractTitle = contract.contractName;
+    //   let contractDetails = contract.contractDetails;
+    //   let contractAvailable = contract.available;
+    //   createData(companyName, contractTitle, contractDetails, contractAvailable);
+    // })
+
+    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+    createData("Gingerbread", 356, 16.0, 49, 3.9)
   ];
 
   function desc(a, b, orderBy) {
@@ -420,6 +422,7 @@ function Admin_ManageContracts() {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
+      {/* <strong>{companyName}</strong> */}
     </div>
   );
 }
