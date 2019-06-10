@@ -122,7 +122,7 @@ function Company_NavBar(props) {
 
   const companyDashboardClicked = e => {
     // Redirects to marketplace page
-    // props.history.push("/marketplace");
+    //props.history.push("/marketplace");
     return (window.location = "/companydashboard");
   };
 
@@ -133,9 +133,9 @@ function Company_NavBar(props) {
   };
 
   const newContractClicked = e => {
-    // Redirects to marketplace page
-    // props.history.push("/marketplace");
-    return (window.location = "/newcontract");
+    // Redirects to new contract page
+    //props.history.push("/newcontract");
+    //return (window.location = "/newcontract");
   };
 
   const logoutClicked = e => {

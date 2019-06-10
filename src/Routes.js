@@ -15,6 +15,7 @@ import Admin_Home from "./Admin/Admin_Home";
 import Admin_ManageContracts from "./Admin/Admin_ManageContracts";
 import Admin_ManageUsers from "./Admin/Admin_ManageUsers";
 import Student_Profile from "./Student/Student_Profile";
+import Company_ViewBids from "./Company/Company_ViewBids.js"
 
 let mountNode = document.getElementById("root");
 
@@ -43,6 +44,7 @@ class Routes extends React.Component {
         <Route path="/companydashboard" component={Company_Home} />
         <Route path="/searchstudents" component={Company_SearchStudents} />
         <Route path="/newcontract" component={New_Contract} />
+        <Route path="/viewbids" component={Company_ViewBids} />
 
         {/* Student Routes */}
         <Route path="/marketplace" component={Marketplace} />

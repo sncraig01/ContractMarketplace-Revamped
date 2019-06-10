@@ -1,0 +1,15 @@
+div[type="dashinfo"]{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto; 
+    justify-content: center;
+}
+
+.individual{
+    display: flex;
+    min-height: 70vh;
+    width: 500px;
+    font-size: calc(5px + 2vmin);
+
+}
