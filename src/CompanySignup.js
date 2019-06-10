@@ -71,7 +71,7 @@ class CompanySignup extends React.Component {
         };
         usersRef.push(user);
 
-        this.props.history.push("/companyhome");
+        this.props.history.push("/companydashboard");
       })
       .catch(function(error) {
         // Handle Errors here.

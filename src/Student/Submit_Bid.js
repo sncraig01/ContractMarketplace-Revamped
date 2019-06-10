@@ -41,14 +41,10 @@ class Submit_Bid extends React.Component {
   }
 
   componentDidMount = () => {
-    // retrieve contract details
-    // const usersRef = firebase
-    //   .database()
-    //   .ref("contracts/" + this.props.location.state.key);
-    // usersRef.on("value", snapshot => {
-    //   let data = snapshot.val();
-    //   console.log("data = " + data);
-    // });
+    console.log("SUBMITBIDKEY = " + this.props.location.state.key);
+    console.log("Company " + this.props.location.state.company);
+    console.log("Contract " + this.props.location.state.contract);
+    console.log("Details " + this.props.location.state.details);
   };
 
   updateField(field, newValue) {
@@ -59,24 +55,72 @@ class Submit_Bid extends React.Component {
     console.log(newValue);
   }
 
-  submitBid = () => {
-    let user = firebase.auth().getCurrentUser();
-    if (user != null) {
-      // student is signed in, do stuff
-      let newBid = {
-        Student: user,
-        Rate: this.state.bidRate,
-        Hours: this.state.bidHours,
-        Cost: this.state.bidTotalCost,
-        Info: this.state.otherInfo
-      };
+  submitBid = async () => {
+    let costOfBid = this.state.bidRate * this.state.bidHours;
+    let matchingKey = "";
+    let newBid = [];
 
-      const contractRef = firebase
-        .database()
-        .ref("contracts/" + this.props.location.state.key + "/bids");
+    await firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("user ====" + user.email);
+        console.log("userkey === " + user.key);
+        // student is signed in, do stuff
+        newBid = {
+          Student: user.email,
+          Company: this.props.location.state.company,
+          Contract: this.props.location.state.contract,
+          Details: this.props.location.state.details,
+          Rate: this.state.bidRate,
+          Hours: this.state.bidHours,
+          Cost: costOfBid,
+          Info: this.state.otherInfo,
+          Accepted: false
+        };
 
-      contractRef.push(newBid);
-    }
+        // Add bid under the appropriate contact in firebase
+        const contractRef = firebase
+          .database()
+          .ref(
+            "contracts/" +
+              this.props.location.state.company +
+              "/" +
+              this.props.location.state.contract +
+              "/bids"
+          );
+        contractRef.push(newBid);
+
+        // Add bid under the appropriate user in firebase
+        const usersRef = firebase.database().ref("users");
+        usersRef.on("value", snapshot => {
+          // loop through all users
+          snapshot.forEach(function(tempUser) {
+            // loop through each contract
+            console.log("loop user email = " + tempUser.val().email);
+            console.log("loop user key = " + tempUser.key);
+
+            if (tempUser.val().email == user.email) {
+              console.log("MATCH! Email" + tempUser.val().email);
+              console.log("MATCH! Key" + tempUser.key);
+              matchingKey = tempUser.key;
+            }
+          });
+        });
+
+        if (matchingKey.length > 0) {
+          console.log("MATCHINGKEY = " + matchingKey);
+
+          const matchingUserRef = firebase
+            .database()
+            .ref("users/" + matchingKey + "/bids");
+          matchingUserRef.push(newBid);
+        } else {
+          console.log("MATCHINGKEY = " + matchingKey);
+        }
+      } else {
+        // No user is signed in.
+        console.log("Invalid Username or Password");
+      }
+    });
   };
 
   render() {
@@ -84,7 +128,13 @@ class Submit_Bid extends React.Component {
       <div>
         <p>Welcome to Submit Bid Page</p>
 
-        <p>contract details go up here</p>
+        <p>Contract Details:</p>
+        {this.props.location.state.company}
+        <br />
+        {this.props.location.state.contract}
+        <br />
+        {this.props.location.state.details}
+        <br />
 
         <div>
           <Container component="main" maxWidth="xs">
