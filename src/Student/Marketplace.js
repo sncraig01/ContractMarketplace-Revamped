@@ -15,6 +15,9 @@ import firebase from "../firebase.js";
 import Button from "@material-ui/core/Button";
 import "./Marketplace.css";
 import Student_NavBar from "./Student_NavBar";
+import TextField from "@material-ui/core/TextField";
+import Search from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles({
   card: {
@@ -49,7 +52,8 @@ class Marketplace extends React.Component {
       contractDetails: [],
       companyNames: [],
       contractKeys: [],
-      indices: []
+      indices: [],
+      searchText: ""
     };
   }
 
@@ -146,21 +150,58 @@ class Marketplace extends React.Component {
     return allContracts;
   };
 
+  updateField(field, newValue) {
+    this.setState({
+      ...this.state,
+      [field]: newValue
+    });
+    console.log(newValue);
+  }
+
   render() {
     const classes = useStyles;
 
     return (
       <div className="Student-whole">
         <Student_NavBar title={"Marketplace"} />
-        <div>
+        <div className="topstuff">
           <button onClick={() => this.displayContracts()}>
             Show contracts
           </button>
           <h3>Available Contracts</h3>
+
+          <div className="searchbar">
+            <TextField
+              variant="outlined"
+              id="searchbar"
+              name="Search for Contracts"
+              label="Search for Contracts"
+              onChange={e => this.updateField("searchText", e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                )
+              }}
+            />
+          </div>
+
+          <p>{this.state.searchText}</p>
+
           <div className="allBidCards">
             {this.state.indices.length > 0 ? (
               this.state.indices.map(index => {
-                return (
+                return this.state.searchText == "" ||
+                  this.state.companyNames[index].includes(
+                    this.state.searchText
+                  ) ||
+                  this.state.contractNames[index].includes(
+                    this.state.searchText
+                  ) ||
+                  this.state.contractDetails[index].includes(
+                    this.state.searchText
+                  ) ? (
                   <div className="bidCard">
                     <Card raised className={classes.card}>
                       <CardActionArea>
@@ -201,6 +242,8 @@ class Marketplace extends React.Component {
                     </Card>
                     <br />
                   </div>
+                ) : (
+                  <div />
                 );
               })
             ) : (
