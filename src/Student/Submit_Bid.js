@@ -41,27 +41,10 @@ class Submit_Bid extends React.Component {
   }
 
   componentDidMount = () => {
-    // retrieve contract details
-    // const usersRef = firebase
-    //   .database()
-    //   .ref("contracts/" + this.props.location.state.key);
-    // usersRef.on("value", snapshot => {
-    //   let data = snapshot.val();
-    //   console.log("data = " + data);
-    // });
-
     console.log("SUBMITBIDKEY = " + this.props.location.state.key);
     console.log("Company " + this.props.location.state.company);
     console.log("Contract " + this.props.location.state.contract);
     console.log("Details " + this.props.location.state.details);
-
-    // if (firebase.auth().currentUser) {
-    //   let user = firebase
-    //     .auth()
-    //     .currentUser.getIdToken(true)
-    //     .then(console.log("UID = " + user.uid))
-    //     .catch(console.log("no user"));
-    // }
   };
 
   updateField(field, newValue) {
