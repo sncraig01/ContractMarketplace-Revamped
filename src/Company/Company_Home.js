@@ -9,6 +9,17 @@ import Divider from '@material-ui/core/Divider';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import "./Company.css"
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles(theme => ({ //for material UI button
+  button: {
+    margin: theme.spacing(1),
+  },
+  input: {
+    display: 'none',
+  },
+}));
 
 class Company_Home extends React.Component {
   state = {
@@ -80,9 +91,7 @@ componentDidMount(){ //find the user and save the information
          
        })
        //this.setState( { allContracts: contractArr });
-       this.setState( {availableContracts: available, assignedContracts: assigned });
-       console.log( "set the state")
-       
+       this.setState( {availableContracts: available, assignedContracts: assigned });       
      });  
   }
   else{
@@ -90,18 +99,28 @@ componentDidMount(){ //find the user and save the information
   }
 }
 
-routeNewContract = () => {
-  this.props.history.push("/newcontract");
+viewBidsClicked = ( contract_name ) => { 
+  console.log( "about to route to bids for: " + contract_name )
+  this.props.history.push({
+    pathname: "/viewbids",
+    state: {
+      contract_name: contract_name,
+      company_name: this.state.companyName
+    }
+  });
 }
 
 
+
   render () {
+
+    const classes = useStyles;
+
     return (
       <div className="App">
         <Company_NavBar_New history={this.props.history} title={"Home"} />
         <h1> {this.state.companyName} </h1>
         <div> {this.state.email} </div>
-        <button onClick={ ()=>this.routeNewContract() }> add new contract </button>
         <div type="dashinfo">
         <List className="individual">
           <Card style={{maxHeight: 800, overflow: 'auto'}}> 
@@ -132,7 +151,14 @@ routeNewContract = () => {
                 </div>
                   <CardContent>
                     {this.state.availableContracts.map((con) => 
-                       <div> <b> {con.contract_name} </b> {con.contract_details} </div>)}
+                        <div> 
+                          <b> {con.contract_name} </b> 
+                          <div> {con.contract_details}  </div>
+                          <Button color="primary" 
+                            className={classes.button} 
+                            onClick={ ()=> this.viewBidsClicked( con.contract_name ) }> 
+                            SEE BIDS </Button> 
+                          </div>)}
                   </CardContent>
               
               </Card>   
