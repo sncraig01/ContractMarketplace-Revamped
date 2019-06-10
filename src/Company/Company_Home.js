@@ -32,8 +32,6 @@ class Company_Home extends React.Component {
 
   }
 
-
-
 componentDidMount(){ //find the user and save the information
   let curEmail = "";
   var user = firebase.auth().currentUser;
@@ -110,8 +108,6 @@ viewBidsClicked = ( contract_name ) => {
   });
 }
 
-
-
   render () {
 
     const classes = useStyles;
@@ -164,8 +160,6 @@ viewBidsClicked = ( contract_name ) => {
               </Card>   
           </List>
           </div>
-          
-
       </div>
     );
   }

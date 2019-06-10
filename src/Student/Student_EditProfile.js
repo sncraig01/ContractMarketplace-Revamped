@@ -15,7 +15,6 @@ import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase.js'
 import './Student_Home.css';
 
-
 class Student_EditProfile extends React.Component 
 {
     state = {
@@ -26,9 +25,7 @@ class Student_EditProfile extends React.Component
     bio: ""
 }
 
-
 async componentDidMount(){
-
         //Finds the users email through Firebase authentication
        const temp3 = await firebase.auth().onAuthStateChanged(user => {
             if (user) {
@@ -212,13 +209,10 @@ async componentDidMount(){
 
     }
 
- 
-
     handleChange(event)
     {
         this.setState({bio : event.target.value});
     }
-
 
     render()
     {

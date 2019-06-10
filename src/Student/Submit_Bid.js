@@ -127,7 +127,6 @@ class Submit_Bid extends React.Component {
     return (
       <div>
         <p>Welcome to Submit Bid Page</p>
-
         <p>Contract Details:</p>
         {this.props.location.state.company}
         <br />

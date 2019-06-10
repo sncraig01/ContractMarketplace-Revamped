@@ -85,7 +85,6 @@ class Student_Home extends React.Component
 
     }
 
-
     async getSkills()
     {   
         let temp = this.state.student_email; 
@@ -113,7 +112,6 @@ class Student_Home extends React.Component
           this.setState({skill_arr : temp_arr}); 
           })  
     }
-
 
     render()
     {
