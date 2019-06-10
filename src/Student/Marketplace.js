@@ -63,6 +63,7 @@ class Marketplace extends React.Component {
 
   retrieveAllContracts = async () => {
     let counter = 0;
+
     let tempContractNames = [];
     let tempContractDetails = [];
     let tempCompanyNames = [];
