@@ -26,17 +26,15 @@ class Student_EditProfile extends React.Component
     bio: ""
 }
 
-    componentDidMount=()=>{
+
+async componentDidMount(){
 
         //Finds the users email through Firebase authentication
-        firebase.auth().onAuthStateChanged(user => {
+       const temp3 = await firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 console.log("user is signed in")
                 console.log(user.email);
                 this.setState({student_email : user.email})
-                //let uid=currentUser[user].uid;
-                //console.log(uid);
-              //let data = this.getData(currentUser);
             } else {
               // No user is signed in.
               console.log("Invalid Username or Password")
@@ -44,45 +42,50 @@ class Student_EditProfile extends React.Component
           });
 
           //Finds the matching Name and Listed skills from Firebase
-          const userRef = firebase.database().ref("users"); // access all users
+          const userRef = await firebase.database().ref("users"); // access all users
           userRef.on('value', (snapshot) => {
           let users = snapshot.val();
           for(let itr in users){
               if(this.state.student_email == users[itr].email) // check for a user with a matching email
               {   
-                this.setState({student_name : users[itr].name}) 
+                this.setState({student_name : users[itr].name})
                 break;
               }
             }
             })
-            
-            this.getSkills();
+         
             this.getBio();
+               
+            this.getSkills();
     }
 
     //Gets Skills from firebase
     getSkills()
     {   
+        let temp = this.state.student_email; 
+        let temp_arr = this.state.skill_arr; 
           //Finds the matching Name and Listed skills from Firebase
           this.state.skill_arr = []; 
           const userRef = firebase.database().ref("users"); // access all users
           userRef.on('value', (snapshot) => {
           let users = snapshot.val();
-          for(let itr in users){
-              if(this.state.student_email == users[itr].email) // check for a user with a matching email
-              {   
-                  if(users[itr].skills != undefined)
-                  {
-                    for(let itr2 in users[itr].skills)
-                    {
-                        this.state.skill_arr.push(users[itr].skills[itr2]);
-                    }
+          snapshot.forEach(function(childSnapshot)
+          {
+              var item = childSnapshot.val();
+              console.log("ITEM: " + item.email)
+            if(temp == item.email) // check for a user with a matching email
+                  {   
+                      if(item.skills != undefined)
+                      {
+                        for(let itr2 in item.skills)
+                        {
+                           temp_arr.push(item.skills[itr2]);
+                        }
+                      }
                   }
-                break;
-              }
-            }
-            })
-            
+          })
+          this.setState({skill_arr : temp_arr}); 
+          })  
     }
 
      //Gets bio from firebase
@@ -114,7 +117,7 @@ class Student_EditProfile extends React.Component
     addSkill()
     {
         console.log("adding skill")
-        this.state.skill_arr.push(this.state.skill);
+        //this.state.skill_arr.push(this.state.skill);
         this.updateFirebase(); 
         this.getSkills();
     }
@@ -287,7 +290,7 @@ class Student_EditProfile extends React.Component
                         onChange={(e)=>this.handleChange(e)}
                         //className={classes.textField}
                         margin="normal"
-                        helperText="Edit your bio here!"
+                        helperText="Be sure to save your edits"
                         variant="outlined"
                     />
                     <div>
@@ -298,7 +301,8 @@ class Student_EditProfile extends React.Component
                    
                    </CardContent>
                
-               </Card>   
+               </Card>  
+             
            </div>
    </div>
           );

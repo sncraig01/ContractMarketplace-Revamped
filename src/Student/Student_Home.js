@@ -12,12 +12,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import firebase from '../firebase.js'
 import './Student_Home.css';
+import { Button } from '@material-ui/core';
 
 class Student_Home extends React.Component 
 {
     state = {
     student_email: "",
     student_name: "",
+    skill_arr: [], 
+    contract_arr: []
 }
 
     componentDidMount=()=>{
@@ -50,21 +53,67 @@ class Student_Home extends React.Component
             }
             })
 
-        //     //Finds all of the contracts
-        //   const userRef = firebase.database().ref("users"); // access all users
-        //   userRef.on('value', (snapshot) => {
-        //   let users = snapshot.val();
-        //   for(let itr in users){
-        //       if(this.state.student_email == users[itr].email) // check for a user with a matching email
-        //       {   
-        //         this.setState({student_name : users[itr].name}) 
-        //         break;
-        //       }
-        //     }
-        //     })
+        ///Finds all of the contracts
+        let temp = this.state.student_email; 
+        let temp_arr = this.state.contract_arr; 
+          //Finds the matching Name and Listed skills from Firebase
+          this.state.skill_arr = []; 
+          const referenceUsers = firebase.database().ref("users"); // access all users
+          referenceUsers.on('value', (snapshot) => {
+          let users = snapshot.val();
+          snapshot.forEach(function(childSnapshot)
+          {
+            var item = childSnapshot.val();
+            console.log("ITEM: " + item.email)
+              if(temp == item.email) // check for a user with a matching email
+                {  
+                    //Iterates through all of the items in the user   
+                    if(item.bids != undefined)
+                    {
+                        for(let itr in item.bids)        
+                        {                               
+                                temp_arr.push(item.bids[itr]);
+                        } 
+                    }
+                }
+          })
+          this.setState({contract_arr : temp_arr}); 
+          })  
 
+        
+            this.getSkills()
 
     }
+
+
+    async getSkills()
+    {   
+        let temp = this.state.student_email; 
+        let temp_arr = this.state.skill_arr; 
+          //Finds the matching Name and Listed skills from Firebase
+          this.state.skill_arr = []; 
+          const userRef = await firebase.database().ref("users"); // access all users
+          userRef.on('value', (snapshot) => {
+          let users = snapshot.val();
+          snapshot.forEach(function(childSnapshot)
+          {
+              var item = childSnapshot.val();
+              console.log("ITEM: " + item.email)
+            if(temp == item.email) // check for a user with a matching email
+                  {   
+                      if(item.skills != undefined)
+                      {
+                        for(let itr2 in item.skills)
+                        {
+                           temp_arr.push(item.skills[itr2]);
+                        }
+                      }
+                  }
+          })
+          this.setState({skill_arr : temp_arr}); 
+          })  
+    }
+
 
     render()
     {
@@ -92,6 +141,8 @@ class Student_Home extends React.Component
                         </div>
                         <div>
                             <b>Listed Skills:</b>
+                            <Button onClick={()=>this.getSkills()}>Show Skills</Button>
+                            {this.state.skill_arr.map((itr) =>itr + ", ")}
                         </div>
 
                    </CardContent>
