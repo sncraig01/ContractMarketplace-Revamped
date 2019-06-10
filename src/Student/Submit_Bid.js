@@ -122,6 +122,7 @@ class Submit_Bid extends React.Component {
             }
           });
         });
+
         if (matchingKey.length > 0) {
           console.log("MATCHINGKEY = " + matchingKey);
 
