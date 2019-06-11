@@ -71,23 +71,26 @@ componentDidMount(){ //find the user and save the information
 
           contractArr.push( contract )
           */
-          if( individContract.val().available){
+          if( individContract.val().available ){ //AVAILABLE CONTRACTS
             let contract = {
               contract_name : individContract.val().contractName,
               contract_details :individContract.val().contractDetails,
             }
             available.push( contract )
           } 
-          else {
+          else if( !individContract.val().available && (individContract.key !== "bids") ) {  //NOT AVAILABLE CONTRACTS
+            console.log( "individ contract" )
+            console.log( individContract.val().assignedTo )
             let contract = {
               contract_name : individContract.val().contractName,
               contract_details :individContract.val().contractDetails,
+              assigned_to: individContract.val().assignedTo,
             }
             assigned.push( contract )
           }
-        })
-         
-       })
+        });    
+       });
+
        //this.setState( { allContracts: contractArr });
        this.setState( {availableContracts: available, assignedContracts: assigned });       
      });  
@@ -126,8 +129,11 @@ viewBidsClicked = ( contract_name ) => {
               </div>
               <CardContent>
                 {this.state.assignedContracts.map((con) => 
-                  <div> <b> {con.contract_name} </b> {con.contract_details} </div> ) }
-                    
+                  <div> 
+                    <b> {con.contract_name} </b> 
+                    <div>{con.contract_details} </div>
+                    <div className="assignedTo"> {con.assigned_to} </div> 
+                  </div> )}       
               </CardContent>
                     
            </Card>   
