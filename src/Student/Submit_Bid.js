@@ -22,6 +22,27 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import Student_NavBar from "./Student_NavBar";
+import "./Submit_Bid.css";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import { async } from "q";
+
+const useStyles = makeStyles({
+  card: {
+    minWidth: 275
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  },
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 12
+  }
+});
 
 class Submit_Bid extends React.Component {
   // In marketplace, want to show all contracts with status of available
@@ -54,6 +75,13 @@ class Submit_Bid extends React.Component {
     });
     console.log(newValue);
   }
+
+  whenClicked = async () => {
+    await this.submitBid();
+    this.props.history.push({
+      pathname: "/studentdashboard"
+    });
+  };
 
   submitBid = async () => {
     let costOfBid = this.state.bidRate * this.state.bidHours;
@@ -113,6 +141,7 @@ class Submit_Bid extends React.Component {
             .database()
             .ref("users/" + matchingKey + "/bids");
           matchingUserRef.push(newBid);
+          console.log("WORKING PROPERLY!!!!!");
         } else {
           console.log("MATCHINGKEY = " + matchingKey);
         }
@@ -124,26 +153,41 @@ class Submit_Bid extends React.Component {
   };
 
   render() {
+    const classes = useStyles;
+
     return (
       <div>
-        <p>Welcome to Submit Bid Page</p>
-        <p>Contract Details:</p>
-        {this.props.location.state.company}
-        <br />
-        {this.props.location.state.contract}
-        <br />
-        {this.props.location.state.details}
-        <br />
+        <Student_NavBar title={"Submit Bid"} />
+        <div className="everything">
+          <div className="bidCard">
+            <Card raised className={classes.card}>
+              <CardActionArea>
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    {this.props.location.state.company}
+                  </Typography>
+                  <Typography variant="h5" component="h2">
+                    {this.props.location.state.contract}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    {this.props.location.state.details}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions />
+            </Card>
+            <br />
+          </div>
 
-        <div>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div /*className={classes.paper}*/>
-              <Typography component="h1" variant="h5">
-                Submit bid
-              </Typography>
-              <form /*className={classes.form}*/ noValidate>
-                <Grid container spacing={2}>
+          <div>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <form noValidate>
+                <Grid container spacing={1}>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       required
@@ -164,7 +208,7 @@ class Submit_Bid extends React.Component {
                       required
                       id="hours"
                       name="hours"
-                      label="Total Hours to Complete"
+                      label="Hours to Complete"
                       onChange={e =>
                         this.updateField("bidHours", e.target.value)
                       }
@@ -174,10 +218,10 @@ class Submit_Bid extends React.Component {
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={20} sm={10}>
                     <p>
                       {this.state.bidHours && this.state.bidRate
-                        ? "Total Price of Bid: $" +
+                        ? "Total Cost of Bid: $" +
                           this.state.bidHours * this.state.bidRate
                         : "Enter details above to calculate total cost"}
                     </p>
@@ -207,12 +251,12 @@ class Submit_Bid extends React.Component {
                 variant="contained"
                 color="primary"
                 // className={classes.submit}
-                onClick={() => this.submitBid()}
+                onClick={() => this.whenClicked()}
               >
                 Submit Bid
               </Button>
-            </div>
-          </Container>
+            </Container>
+          </div>
         </div>
       </div>
     );
