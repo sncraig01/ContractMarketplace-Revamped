@@ -7,6 +7,7 @@
     "@material-ui/icons": "^4.0.1",
     "firebase": "^6.1.0",
     "material-ui-icons": "^1.0.0-beta.36",
+    "mui-datatables": "^2.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
