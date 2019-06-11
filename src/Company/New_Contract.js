@@ -87,12 +87,12 @@ class New_Contract extends React.Component {
       contractName: this.state.contractName,
       contractDetails: this.state.contractDetails,
       available: true,
+      assignedTo: "", //when the contract is assigned, this field will hold the username of who it's assigned to
       name: this.state.companyName,
     };
     contractRef.push(contract);  
 
-    this.props.history.push("/companyhome");
-
+    this.props.history.push("/companydashboard");
   }
 
   render(){
