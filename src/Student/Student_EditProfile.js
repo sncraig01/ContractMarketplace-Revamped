@@ -13,7 +13,8 @@ import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase.js'
-import './Student_Home.css';
+import './Student_EditProfile.css';
+import Student_NavBar from './Student_NavBar';
 
 class Student_EditProfile extends React.Component 
 {
@@ -217,14 +218,14 @@ async componentDidMount(){
     render()
     {
         return (
-          <div className= 'Student-whole'>
-          <Admin_NavBar/>
+          <div className= 'StudentEdit-whole'>
+            <Student_NavBar title={"Dashboard"} />
 
-           <div className = 'Student-Profile'>
+           <div className = 'StudentEdit-Profile'>
        
                <List>
                    {/** Implemented a scrollbar */}
-               <Card className='Student-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
+               <Card className='StudentEdit-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
                    <div>
                        <b>
                          EDIT PROFILE Profile: 
@@ -243,16 +244,16 @@ async componentDidMount(){
                </List>
        
            </div>
-           <div className = 'Student-ContractBids'>
+           <div className = 'StudentEdit-ContractBids'>
                {/** Implemented a scrollbar */}
-               <Card className='Student-contractholder' style={{maxHeight: 200, overflow: 'auto'}}> 
+               <Card className='StudentEdit-contractholder' style={{maxHeight: 200, overflow: 'auto'}}> 
                    <div>
                     <b>
                         Add/Remove Skills
                     </b>
                    <Divider/>
                    </div>
-                   <div className = "Student-Searchbarholder">
+                   <div className = "StudentEdit-Searchbarholder">
                        <SearchIcon />
                        <InputBase 
                        placeholder="Add Skill"
@@ -261,20 +262,19 @@ async componentDidMount(){
                         <Button  onClick={()=>this.addSkill()}>Add</Button>
                    </div>
                    <CardContent> 
-                   
                        {this.state.skill_arr.map((itr) =><div>{itr}<Button onClick={()=>this.removeSkill(itr)}>Delete</Button></div>)}
                    
                    </CardContent>
                
                </Card>   
-               <Card className='Student-bidholder' style={{maxHeight: 200, overflow: 'auto'}}> 
+               <Card className='StudentEdit-bidholder' style={{maxHeight: 200, overflow: 'auto'}}> 
                    <div>
                     <b>
                         Bio:
                     </b>
                    <Divider/>
                    </div>
-                   <div className = "Student-Searchbarholder">
+                   <div className = "StudentEdit-Searchbarholder">
                    <TextField
                         id="outlined-multiline-flexible"
                         label="Current Bio"
@@ -286,6 +286,7 @@ async componentDidMount(){
                         margin="normal"
                         helperText="Be sure to save your edits"
                         variant="outlined"
+                        width="100"
                     />
                     <div>
                     <Button onClick={()=>this.saveBio()}>Save</Button>
