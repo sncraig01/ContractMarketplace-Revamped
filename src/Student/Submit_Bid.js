@@ -1,31 +1,18 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Admin_NavBar from "../Admin/Admin_NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import Divider from "@material-ui/core/Divider";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
 import firebase from "../firebase.js";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Student_NavBar from "./Student_NavBar";
 import "./Submit_Bid.css";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import { async } from "q";
 
 const useStyles = makeStyles({
   card: {
@@ -58,6 +45,7 @@ class Submit_Bid extends React.Component {
       bidHours: 0,
       bidTotalCost: 0,
       otherInfo: ""
+      // keyMatch: ""
     };
   }
 
@@ -83,12 +71,12 @@ class Submit_Bid extends React.Component {
     });
   };
 
-  submitBid = async () => {
+  submitBid = () => {
     let costOfBid = this.state.bidRate * this.state.bidHours;
     let matchingKey = "";
     let newBid = [];
 
-    await firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user ====" + user.email);
         console.log("userkey === " + user.key);
@@ -121,7 +109,7 @@ class Submit_Bid extends React.Component {
         const usersRef = firebase.database().ref("users");
         usersRef.on("value", snapshot => {
           // loop through all users
-          snapshot.forEach(function(tempUser) {
+          snapshot.forEach(tempUser => {
             // loop through each contract
             console.log("loop user email = " + tempUser.val().email);
             console.log("loop user key = " + tempUser.key);
@@ -130,10 +118,10 @@ class Submit_Bid extends React.Component {
               console.log("MATCH! Email" + tempUser.val().email);
               console.log("MATCH! Key" + tempUser.key);
               matchingKey = tempUser.key;
+              // this.addToFirebaseUser(matchingKey, newBid);
             }
           });
         });
-
         if (matchingKey.length > 0) {
           console.log("MATCHINGKEY = " + matchingKey);
 
@@ -143,13 +131,27 @@ class Submit_Bid extends React.Component {
           matchingUserRef.push(newBid);
           console.log("WORKING PROPERLY!!!!!");
         } else {
-          console.log("MATCHINGKEY = " + matchingKey);
+          console.log("NOT WORKING PROPERLY = " + matchingKey);
         }
+
+        // this.addToFirebaseUser(matchingKey, newBid);
       } else {
         // No user is signed in.
         console.log("Invalid Username or Password");
       }
     });
+  };
+
+  addToFirebaseUser = (key, bid) => {
+    if (key.length > 0) {
+      console.log("MATCHINGKEY = " + key);
+
+      const matchingUserRef = firebase.database().ref("users/" + key + "/bids");
+      matchingUserRef.push(bid);
+      console.log("WORKING PROPERLY!!!!!");
+    } else {
+      console.log("NOT WORKING PROPERLY = " + key);
+    }
   };
 
   render() {
@@ -251,7 +253,7 @@ class Submit_Bid extends React.Component {
                 variant="contained"
                 color="primary"
                 // className={classes.submit}
-                onClick={() => this.whenClicked()}
+                onClick={() => this.submitBid()}
               >
                 Submit Bid
               </Button>
