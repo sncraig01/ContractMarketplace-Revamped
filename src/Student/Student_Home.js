@@ -20,7 +20,10 @@ class Student_Home extends React.Component
     student_email: "",
     student_name: "",
     skill_arr: [], 
-    contract_arr: []
+    contract_arr: [], 
+    bid_arr: [], 
+    assigned_search: "", 
+    bid_search: ""
 }
 
     componentDidMount=()=>{
@@ -53,33 +56,7 @@ class Student_Home extends React.Component
             }
             })
 
-        ///Finds all of the contracts
-        let temp = this.state.student_email; 
-        let temp_arr = this.state.contract_arr; 
-          //Finds the matching Name and Listed skills from Firebase
-          this.state.skill_arr = []; 
-          const referenceUsers = firebase.database().ref("users"); // access all users
-          referenceUsers.on('value', (snapshot) => {
-          let users = snapshot.val();
-          snapshot.forEach(function(childSnapshot)
-          {
-            var item = childSnapshot.val();
-            console.log("ITEM: " + item.email)
-              if(temp == item.email) // check for a user with a matching email
-                {  
-                    //Iterates through all of the items in the user   
-                    if(item.bids != undefined)
-                    {
-                        for(let itr in item.bids)        
-                        {                               
-                                temp_arr.push(item.bids[itr]);
-                        } 
-                    }
-                }
-          })
-          this.setState({contract_arr : temp_arr}); 
-          })  
-
+        ///Finds all of the contractsS
         
             this.getSkills()
 
@@ -88,7 +65,7 @@ class Student_Home extends React.Component
     async getSkills()
     {   
         let temp = this.state.student_email; 
-        let temp_arr = this.state.skill_arr; 
+        let temp_arr = []; 
           //Finds the matching Name and Listed skills from Firebase
           this.state.skill_arr = []; 
           const userRef = await firebase.database().ref("users"); // access all users
@@ -113,6 +90,99 @@ class Student_Home extends React.Component
           })  
     }
 
+    getContracts()
+    {
+        let temp = this.state.student_email; 
+        let temp_contract = []; 
+          //Finds the matching Name and Listed skills from Firebase
+          const referenceUsers = firebase.database().ref("users"); // access all users
+          referenceUsers.on('value', (snapshot) => {
+          let users = snapshot.val();
+          snapshot.forEach(function(childSnapshot)
+          {
+            var item = childSnapshot.val();
+            console.log("ITEM: " + item.email)
+              if(temp == item.email) // check for a user with a matching email
+                {  
+                    //Iterates through all of the items in the user   
+                    if(item.bids != undefined)
+                    {
+                        console.log("bids in contracts is not undefined")
+                        for(let itr in item.bids)        
+                        {            
+                            if(item.bids[itr].Accepted == true)
+                            {
+                                console.log("BIDS" + item.bids[itr].Company);                    
+                                temp_contract.push(item.bids[itr]);
+                            }
+                        } 
+                    }
+                }
+          })
+          this.setState({contract_arr : temp_contract}); 
+          })  
+    }
+
+
+ getBids()
+    {
+        let temp = this.state.student_email; 
+        let temp_bid = []; 
+          //Finds the matching Name and Listed skills from Firebase
+          const referenceUsers = firebase.database().ref("users"); // access all users
+            referenceUsers.on('value', (snapshot) => {
+          let users = snapshot.val();
+        snapshot.forEach(function(childSnapshot)
+          {
+            var item = childSnapshot.val();
+            console.log("ITEM: " + item.email)
+              if(temp == item.email) // check for a user with a matching email
+                {  
+                    //Iterates through all of the items in the user   
+                    if(item.bids != undefined)
+                    {
+                        console.log("bids in bids is not undefined")
+                        for(let itr in item.bids)        
+                        {  
+                            console.log(itr + " in bids") 
+                            console.log("status: " + item.bids[itr].Accepted)         
+                            if(item.bids[itr].Accepted == false)
+                            {
+                                console.log("BIDS" + item.bids[itr].Company);                    
+                                temp_bid.push(item.bids[itr]);
+                            }
+                        } 
+                    }
+                }
+          })
+            
+        this.setState({bid_arr : temp_bid}); 
+            
+          })  
+    }
+
+      //Updates the state of assigned search
+      updatingAssignedSearch=(assigned_search)=>
+      {
+          this.setState({assigned_search})
+          console.log(assigned_search)
+      }
+
+      //Updates the state of bid search
+      updatingBidSearch=(bid_search)=>
+      {
+          this.setState({bid_search})
+          console.log(bid_search)      
+      }
+
+    //Routes to edit profile when clicked 
+    editProfileClicked = e => {
+        // Redirects to marketplace page
+        return (window.location = "/editstudentprofile");
+      };
+
+
+    //The render method
     render()
     {
         return (
@@ -142,7 +212,9 @@ class Student_Home extends React.Component
                             <Button onClick={()=>this.getSkills()}>Show Skills</Button>
                             {this.state.skill_arr.map((itr) =>itr + ", ")}
                         </div>
-
+                        <div>
+                            <Button onClick={() => this.editProfileClicked()}>Edit Profile</Button>
+                        </div>
                    </CardContent>
                    
                </Card>   
@@ -154,19 +226,33 @@ class Student_Home extends React.Component
                <Card className='Student-contractholder' style={{maxHeight: 200, overflow: 'auto'}}> 
                    <div>
                    <b>
-                       Current Contracts:
+                       Current Contracts Assigned:
                    </b>
                    <Divider/>
                    </div>
                    <div className = "Student-Searchbarholder">
                        <SearchIcon />
                        <InputBase 
-                       placeholder="Current Contracts"
+                       placeholder="Search Contracts Assigned"
+                       onChange={(e)=>{this.updatingAssignedSearch(e.target.value)}}
                        />
                    </div>
                    <CardContent>
-                   
-                   </CardContent>
+                   <Button onClick={()=>this.getContracts()}>Show Contracts</Button>
+                   {this.state.contract_arr.map((itr) => {return itr.Company.includes(this.state.assigned_search) ||  itr.Contract.includes(this.state.assigned_search)
+                    || itr.Cost.includes(this.state.assigned_search) || itr.Details.includes(this.state.assigned_search) || itr.Hours.includes(this.state.assigned_search)
+                    || itr.Info.includes(this.state.assigned_search) || itr.Rate.includes(this.state.assigned_search) || itr.sCompany.includes(this.state.assigned_search)
+                ? 
+                        <div>
+                       <div> Company: {itr.Company} </div>
+                       <div> Contract: {itr.Contract} </div>
+                       <div> Cost: {itr.Cost} </div>
+                       <div> Hours: {itr.Hours} </div>
+                       <div> ------------------ </div>
+                   </div> : <div></div> })}
+
+                 
+                 </CardContent>
                
                </Card>   
                <Card className='Student-bidholder' style={{maxHeight: 200, overflow: 'auto'}}> 
@@ -180,10 +266,23 @@ class Student_Home extends React.Component
                        <SearchIcon />
                        <InputBase 
                        placeholder="Search Bids"
+                       onChange={(e)=>{this.updatingBidSearch(e.target.value)}}
                        />
                    </div>
                    <CardContent>
-                   
+                   <Button onClick={()=>this.getBids()}>Show Bids</Button>
+                
+                   {this.state.bid_arr.map((itr2) => {return itr2.Company.includes(this.state.bid_search) ||  itr2.Contract.includes(this.state.bid_search)
+                    || itr2.Cost.toString().includes(this.state.bid_search) || itr2.Details.includes(this.state.bid_search) || itr2.Hours.toString().includes(this.state.bid_search)
+                    || itr2.Info.includes(this.state.bid_search) || itr2.Rate.includes(this.state.bid_search) || itr2.Company.includes(this.state.bid_search)
+                     ? <div>
+                       <div> Company: {itr2.Company} </div>
+                       <div> Contract: {itr2.Contract} </div>
+                       <div> Cost: {itr2.Cost} </div>
+                       <div> Hours: {itr2.Hours} </div>
+                       <div> ------------------ </div>
+                   </div> : <div> </div>})}
+
                    </CardContent>
                
                </Card>   

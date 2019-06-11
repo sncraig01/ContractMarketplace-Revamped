@@ -160,11 +160,6 @@ function Student_NavBar(props) {
         </IconButton>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton color="inherit" onClick={() => studentProfileClicked()}>
-          <AccountCircle />
-        </IconButton>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton color="inherit" onClick={() => logoutClicked()}>
           <ExitToApp />
         </IconButton>
@@ -209,14 +204,7 @@ function Student_NavBar(props) {
                 <Store />
               </IconButton>
             </Tooltip>
-            <Tooltip title="My Profile">
-              <IconButton
-                color="inherit"
-                onClick={() => studentProfileClicked()}
-              >
-                <AccountCircle />
-              </IconButton>
-            </Tooltip>
+        
             <Tooltip title="Logout">
               <IconButton color="inherit" onClick={() => logoutClicked()}>
                 <ExitToApp />
