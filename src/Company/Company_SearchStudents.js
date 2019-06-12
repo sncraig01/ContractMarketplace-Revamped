@@ -1,6 +1,6 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import Company_NavBar_New from "./Company_NavBar_New";
+import Company_NavBarNew from "./Company_NavBar_New";
 import firebase from "../firebase.js";
 
 export default class Company_SearchStudents extends React.Component {
@@ -21,7 +21,7 @@ export default class Company_SearchStudents extends React.Component {
         snapshot.forEach(async userSnapshot => {
           var user = userSnapshot.val();
           // console.log(user);
-          if (user.type == "student") {
+          if (user.type === "student") {
             console.log(user);
             let newNames = this.state.studentNames;
             let newEmails = this.state.emails;

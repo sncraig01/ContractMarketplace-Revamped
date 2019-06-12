@@ -163,7 +163,7 @@ class Marketplace extends React.Component {
             <div className="allBidCards">
               {this.state.indices.length > 0 ? (
                 this.state.indices.map(index => {
-                  return this.state.searchText == "" ||
+                  return this.state.searchText === "" ||
                     this.state.companyNames[index].includes(
                       this.state.searchText
                     ) ||

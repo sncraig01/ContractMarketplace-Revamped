@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Company_Home from "./Company/Company_Home";
 import New_Contract from "./Company/New_Contract";
@@ -17,8 +16,6 @@ import Admin_ManageUsers from "./Admin/Admin_ManageUsers";
 import Student_Profile from "./Student/Student_Profile";
 import Company_ViewBids from "./Company/Company_ViewBids.js";
 import Student_EditProfile from "./Student/Student_EditProfile";
-
-let mountNode = document.getElementById("root");
 
 class Routes extends React.Component {
   constructor(props) {

@@ -52,7 +52,6 @@ export default class Admin_ManageContracts extends React.Component {
     }
   }
 
-
   deleteClicked = ( deletedRows ) => {
 
     // figure out which rows were deleted

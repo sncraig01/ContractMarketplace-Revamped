@@ -102,7 +102,7 @@ class New_Contract extends React.Component {
           title={"Create New Contract"}
           history={this.props.history}
         />
-        <h1> {this.state.companyName}: Submit a new Contract </h1>
+        <h1> {this.state.companyName} Submit a new Contract </h1>
         <div> {this.state.email} </div>
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
