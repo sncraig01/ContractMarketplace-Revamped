@@ -78,16 +78,13 @@ class Authentication extends React.Component {
                 route.push("/companydashboard");
               }
             }
-          });
-        });
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
-        console.log("there was an error");
-      });
-  };
+        })
+      });   
+    }).catch(function(error) {
+      // Handle Errors here.
+      console.log( "there was an error")
+    });  
+  }
 
   render() {
     const classes = useStyles;

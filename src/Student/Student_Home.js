@@ -55,28 +55,32 @@ class StudentHome extends React.Component {
     this.getSkills();
   };
 
-  getSkills() {
-    let temp = this.state.student_email;
-    let temp_arr = [];
-    //Finds the matching Name and Listed skills from Firebase
-    this.setState({ skill_arr: [] });
-    const userRef = firebase.database().ref("users"); // access all users
-    userRef.on("value", snapshot => {
-      snapshot.forEach(function(childSnapshot) {
-        var item = childSnapshot.val();
-        console.log("ITEM: " + item.email);
-        if (temp === item.email) {
-          // check for a user with a matching email
-          if (item.skills !== undefined) {
-            for (let itr2 in item.skills) {
-              temp_arr.push(item.skills[itr2]);
-            }
-          }
-        }
-      });
-      this.setState({ skill_arr: temp_arr });
-    });
-  }
+   getSkills=()=>
+   {  
+       let temp = this.state.student_email;
+       let temp_arr = [];
+         //Finds the matching Name and Listed skills from Firebase
+         this.setState({skill_arr: []});
+         const userRef = firebase.database().ref("users"); // access all users
+         userRef.on('value', (snapshot) => {
+         snapshot.forEach(function(childSnapshot)
+         {
+             var item = childSnapshot.val();
+             console.log("ITEM: " + item.email)
+           if(temp === item.email) // check for a user with a matching email
+                 {  
+                     if(item.skills != undefined)
+                     {
+                       for(let itr2 in item.skills)
+                       {
+                          temp_arr.push(item.skills[itr2]);
+                       }
+                     }
+                 }
+         })
+         this.setState({skill_arr : temp_arr});
+         }) 
+   }
 
   getContracts() {
     let temp = this.state.student_email;

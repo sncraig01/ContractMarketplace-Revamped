@@ -9,7 +9,8 @@ export default class AdminManageContracts extends React.Component {
     companyNames: [],
     contractTitles: [],
     contractDetails: [],
-    areAvailable: []
+    areAvailable: [],
+
   };
 
   componentDidMount() {
@@ -51,10 +52,37 @@ export default class AdminManageContracts extends React.Component {
     }
   }
 
-  deleteClicked = deletedRows => {
-    console.log("deleting");
-    console.log(deletedRows);
-  };
+  deleteClicked = ( deletedRows ) => {
+
+    // figure out which rows were deleted
+    const deletedIndexes = Object.keys(deletedRows.lookup);
+    //console.log( deletedIndexes )
+
+    //find which contract name they refer to and remove it
+    for( let i = 0; i < deletedIndexes.length; i++ ){
+      
+      console.log( deletedIndexes[i] )
+      let compName = this.state.companyNames[ deletedIndexes[i] ]
+      let contractName = this.state.contractTitles[ deletedIndexes[i] ]
+      console.log( "deleting " + compName + " " + contractName )
+      var contractRef = firebase.database().ref( "contracts/" + compName + "/" + contractName)
+      contractRef.remove() //actually remove it
+      
+    }
+
+    /*
+    //remove all bids that pertain to that contract
+    for( let i = 0; i < deletedIndexes.length; i++ ){
+      console.log( deletedIndexes[i] )
+      let compName = this.state.companyNames[ deletedIndexes[i] ]
+      let contractName = this.state.contractTitles[ deletedIndexes[i] ]
+      console.log( "deleting bids for " + compName + " " + contractName )
+
+    }
+    */
+
+    window.location.reload();
+  }
 
   render() {
     const columns = [
@@ -64,6 +92,7 @@ export default class AdminManageContracts extends React.Component {
       "Available"
     ];
 
+ 
     const data = [];
     for (var i = 0; i < this.state.companyNames.length; i++) {
       data.push([
@@ -74,11 +103,11 @@ export default class AdminManageContracts extends React.Component {
       ]);
     }
 
+
     const options = {
       filterType: "dropdown",
       responsive: "scroll",
-      //onRowsSelect: ()=>this.selectRowsClicked(),
-      onRowsDelete: this.deleteClicked
+      onRowsDelete: this.deleteClicked,
     };
 
     return (
