@@ -1,5 +1,5 @@
 import React from "react";
-import Company_NavBar_New from "./Company_NavBar_New";
+import CompanyNavBarNew from "./Company_NavBar_New";
 import firebase from "../firebase.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class New_Contract extends React.Component {
+class NewContract extends React.Component {
   state = {
     companyName: "",
     email: "",
@@ -58,17 +58,6 @@ class New_Contract extends React.Component {
     }
   }
 
-  //for material UI
-  OutlinedTextFields = () => {
-    const classes = useStyles();
-    const [values, setValues] = React.useState({
-      name: "Cat in the Hat",
-      age: "",
-      multiline: "Controlled",
-      currency: "EUR"
-    });
-  };
-
   updateField(field, newValue) {
     this.setState({
       ...this.state,
@@ -98,7 +87,7 @@ class New_Contract extends React.Component {
     const classes = useStyles;
     return (
       <div className="App">
-        <Company_NavBar_New
+        <CompanyNavBarNew
           title={"Create New Contract"}
           history={this.props.history}
         />
@@ -145,4 +134,4 @@ class New_Contract extends React.Component {
   }
 }
 
-export default New_Contract;
+export default NewContract;

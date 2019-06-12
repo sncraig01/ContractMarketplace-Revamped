@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Company_NavBar(props) {
+function CompanyNavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -240,4 +240,4 @@ function Company_NavBar(props) {
   );
 }
 
-export default Company_NavBar;
+export default CompanyNavBar;

@@ -1,55 +1,75 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import Company_NavBarNew from "./Company_NavBar_New";
+import CompanyNavBarNew from "./Company_NavBar_New";
 import firebase from "../firebase.js";
 
-export default class Company_SearchStudents extends React.Component {
+export default class CompanySearchStudents extends React.Component {
   state = {
     initialized: false,
-    studentNames: ["Me"],
-    emails: ["me@gmail.com"],
-    bios: ["It's me"],
+    studentNames: [],
+    emails: [],
+    bios: [],
     skills: [],
     individualSkills: []
   };
 
   componentDidMount() {
+    let newNames = [];
+    let newEmails = [];
+    // let newBios = [];
+    // let newSkills = [];
+
     if (!this.state.initialized) {
       const usersRef = firebase.database().ref("users"); //reference to the database "users" key
-
       usersRef.on("value", snapshot => {
-        snapshot.forEach(async userSnapshot => {
+        snapshot.forEach(userSnapshot => {
           var user = userSnapshot.val();
-          // console.log(user);
           if (user.type === "student") {
-            console.log(user);
-            let newNames = this.state.studentNames;
-            let newEmails = this.state.emails;
-            let newBios = this.state.bios;
-            // let newSkills = this.state.skills;
-
             newNames.push(user.name);
-            // console.log(newNames);
             newEmails.push(user.email);
-            newBios.push(user.bio);
+            // let key = userSnapshot.key;
 
-            // let mySkills = [];
+            // const studentRef = firebase.database().ref("users/" + key);
+            // studentRef.on("value", snapshot => {
+            //   var user = snapshot.val();
+            //   var bioObject = user.bio;
+            //   var skillObject = user.skills;
 
-            // userSnapshot.forEach(async skillsSnapshot => {
-            //   let mySkills = [];
-            //   mySkills.push(skillsSnapshot.val());
-            //   await this.setState({ inidividualSkills: mySkills });
+            //   // bioObject.forEach(function(bioLine){
+                
+            //   // })
+
+            //   console.log(bioObject);
+            //   // snapshot.forEach(userSnapshot => {
+            //   //   console.log(userSnapshot.val());
+            //   // userSnapshot.forEach(arraySnapshot => {
+            //   //   console.log(arraySnapshot.val());
+            //   // })
+            //   // })
             // });
 
-            // newSkills.push(mySkills);
+            // console.log(newEmails);
+            // console.log(newBios);
 
-            await this.setState({
-              studentNames: newNames,
-              emails: newEmails,
-              bios: newBios
-              // skills: newSkills
-            });
+            // userSnapshot.forEach(detailsSnapshot => {
+            //   // console.log(detailsSnapshot.val());
+            //   detailsSnapshot.forEach(arraySnapshot => {
+            //     // console.log(arraySnapshot.val());
+            //   });
+            //   // let mySkills = [];
+            //   // mySkills.push(skillsSnapshot.val());
+            //   // this.setState({ inidividualSkills: mySkills });
+
+            //   // newBios.push(user.bio);
+            //   // newSkills.push(mySkills);
+            // });
           }
+        });
+        this.setState({
+          studentNames: newNames,
+          emails: newEmails
+          // bios: newBios
+          // skills: newSkills
         });
       });
       this.setState({ initialized: true });
@@ -76,8 +96,10 @@ export default class Company_SearchStudents extends React.Component {
 
     return (
       <div>
-
-        <Company_NavBar_New history={this.props.history} title={"Search Students"} />
+        <CompanyNavBarNew
+          history={this.props.history}
+          title={"Search Students"}
+        />
         <div>
           <MUIDataTable
             title={"Students"}

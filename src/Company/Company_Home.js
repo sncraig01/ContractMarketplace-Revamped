@@ -1,5 +1,5 @@
 import React from "react";
-import Company_NavBar_New from "./Company_NavBar_New.js";
+import CompanyNavBarNew from "./Company_NavBar_New.js";
 import firebase from "../firebase.js";
 import List from "@material-ui/core/List";
 import CardContent from "@material-ui/core/CardContent";
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class Company_Home extends React.Component {
+class CompanyHome extends React.Component {
   state = {
     companyName: "",
     email: "",
@@ -122,7 +122,7 @@ class Company_Home extends React.Component {
 
     return (
       <div className="App">
-        <Company_NavBar_New history={this.props.history} title={"Home"} />
+        <CompanyNavBarNew history={this.props.history} title={"Home"} />
         <h1> {this.state.companyName} </h1>
         <div> {this.state.email} </div>
         <div type="dashinfo">
@@ -177,6 +177,6 @@ class Company_Home extends React.Component {
   }
 }
 
-export default Company_Home;
+export default CompanyHome;
 
 //<Company_NavBar title={"Home"} />
