@@ -171,15 +171,7 @@ function StudentNavBar(props) {
           >
             RevTek
           </Typography>
-          <Typography
-            className={classes.title}
-            variant="h6"
-            noWrap
-            align="center"
-            style={{ fontSize: "20px" }}
-          >
-            {props.title}
-          </Typography>
+          
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Tooltip title="Dashboard">

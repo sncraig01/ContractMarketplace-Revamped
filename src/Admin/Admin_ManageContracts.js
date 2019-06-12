@@ -61,26 +61,54 @@ export default class AdminManageContracts extends React.Component {
     //find which contract name they refer to and remove it
     for( let i = 0; i < deletedIndexes.length; i++ ){
       
-      console.log( deletedIndexes[i] )
+      //console.log( deletedIndexes[i] )
       let compName = this.state.companyNames[ deletedIndexes[i] ]
       let contractName = this.state.contractTitles[ deletedIndexes[i] ]
-      console.log( "deleting " + compName + " " + contractName )
+      //console.log( "deleting " + compName + " " + contractName )
       var contractRef = firebase.database().ref( "contracts/" + compName + "/" + contractName)
       contractRef.remove() //actually remove it
       
     }
 
-    /*
+    
     //remove all bids that pertain to that contract
     for( let i = 0; i < deletedIndexes.length; i++ ){
-      console.log( deletedIndexes[i] )
       let compName = this.state.companyNames[ deletedIndexes[i] ]
       let contractName = this.state.contractTitles[ deletedIndexes[i] ]
       console.log( "deleting bids for " + compName + " " + contractName )
+      var usersRef = firebase.database().ref( "users/")
+      usersRef.on("value", snapshot => {
+        //console.log( snapshot.val() )
+        snapshot.forEach(function(user) {
+          if( user.val().bids !== undefined ){
+            let userKey = user.key; 
+            //console.log( user.val())
+            user.forEach( function(folder){
+              if( folder.key == "bids" ){
+                //console.log( folder.val() )
+                folder.forEach( function( individBid ){
+                  console.log( individBid.val().Contract )
+                  if( individBid.val().Contract === contractName ){
+                    let bidKey = individBid.key;
+                    console.log( "found the bid! Going to delete it...")
+                    var toDeleteBidRef = firebase.database().ref( "users/" + userKey + "/bids/"+ bidKey  )
+                    toDeleteBidRef.remove() //remove all bids
+                  }
+                })
+              }
+            })
+
+          }
+
+
+
+        })
+      })
 
     }
-    */
+    
 
+    //RELOAD THE PAGE
     window.location.reload();
   }
 

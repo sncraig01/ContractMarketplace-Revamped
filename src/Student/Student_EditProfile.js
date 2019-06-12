@@ -223,6 +223,7 @@ async componentDidMount(){
         return (
           <div className= 'StudentEdit-whole'>
             <Student_NavBar title={"Dashboard"} />
+            <h1>Edit Your Profile</h1>
 
            <div className = 'StudentEdit-Profile'>
        
@@ -231,14 +232,11 @@ async componentDidMount(){
                <Card className='StudentEdit-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
                    <div>
                        <b>
-                         EDIT PROFILE Profile: 
+                        {this.state.student_name}
                        </b>
                        <Divider/>
                    </div>
                    <CardContent>
-                        <div>
-                            <b> Name:</b> {this.state.student_name}
-                        </div>
                         <div>
                             <b>Email:</b> {this.state.student_email}
                         </div>
