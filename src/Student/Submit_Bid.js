@@ -44,7 +44,11 @@ class Submit_Bid extends React.Component {
       bidRate: 0,
       bidHours: 0,
       bidTotalCost: 0,
-      otherInfo: ""
+      otherInfo: "",
+      matchFound: false,
+      stateKey: "",
+      theBid: [],
+      counter: 0
       // keyMatch: ""
     };
   }
@@ -65,18 +69,21 @@ class Submit_Bid extends React.Component {
   }
 
   whenClicked = async () => {
-    await this.submitBid();
-    this.props.history.push({
-      pathname: "/studentdashboard"
-    });
+    this.submitBid();
+    // this.submitToUser();
+    // this.props.history.push({
+    //   pathname: "/studentdashboard"
+    // });
   };
 
-  submitBid = () => {
+  submitBid = async () => {
     let costOfBid = this.state.bidRate * this.state.bidHours;
     let matchingKey = "";
     let newBid = [];
+    let tempBool = false;
+    let counter = 0;
 
-    firebase.auth().onAuthStateChanged(user => {
+    await firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user ====" + user.email);
         console.log("userkey === " + user.key);
@@ -105,7 +112,7 @@ class Submit_Bid extends React.Component {
           );
         contractRef.push(newBid);
 
-        // Add bid under the appropriate user in firebase
+        // Find user to add to
         const usersRef = firebase.database().ref("users");
         usersRef.on("value", snapshot => {
           // loop through all users
@@ -115,23 +122,26 @@ class Submit_Bid extends React.Component {
             console.log("loop user key = " + tempUser.key);
 
             if (tempUser.val().email === user.email) {
+              counter++;
               console.log("MATCH! Email" + tempUser.val().email);
               console.log("MATCH! Key" + tempUser.key);
               matchingKey = tempUser.key;
+              tempBool = true;
 
-              // CAUSES INFINITE LOOP!
-              // if (matchingKey.length > 0) {
-              //   console.log("MATCHINGKEY = " + matchingKey);
+              if (counter == 1) {
+                if (matchingKey.length > 0) {
+                  console.log("MATCHINGKEY = " + matchingKey);
 
-              //   const matchingUserRef = firebase
-              //     .database()
-              //     .ref("users/" + matchingKey + "/bids");
-              //   matchingUserRef.push(newBid);
-
-              //   console.log("WORKING PROPERLY!!!!!");
-              // } else {
-              //   console.log("NOT WORKING PROPERLY = " + matchingKey);
-              // }
+                  const matchingUserRef = firebase
+                    .database()
+                    .ref("users/" + matchingKey + "/bids");
+                  matchingUserRef.push(newBid);
+                  console.log("WORKING PROPERLY!!!!!");
+                  // matchingKey = "";
+                } else {
+                  console.log("NOT WORKING PROPERLY = " + matchingKey);
+                }
+              }
             }
           });
         });
@@ -142,17 +152,24 @@ class Submit_Bid extends React.Component {
     });
   };
 
-  // addToFirebaseUser = (key, bid) => {
-  //   if (key.length > 0) {
-  //     console.log("MATCHINGKEY = " + key);
+  submitToUser = () => {
+    console.log("GOTHEREKEY = " + this.state.stateKey);
+    if (this.state.matchFound) {
+      // This is outside of the foreach, but inside the on
+      if (this.state.stateKey.length > 0) {
+        console.log("MATCHINGKEY = " + this.state.stateKey);
 
-  //     const matchingUserRef = firebase.database().ref("users/" + key + "/bids");
-  //     matchingUserRef.push(bid);
-  //     console.log("WORKING PROPERLY!!!!!");
-  //   } else {
-  //     console.log("NOT WORKING PROPERLY = " + key);
-  //   }
-  // };
+        const matchingUserRef = firebase
+          .database()
+          .ref("users/" + this.state.stateKey + "/bids");
+        matchingUserRef.push(this.state.theBid);
+        console.log("WORKING PROPERLY!!!!!");
+        // matchingKey = "";
+      } else {
+        console.log("NOT WORKING PROPERLY = " + this.state.stateKey);
+      }
+    }
+  };
 
   render() {
     const classes = useStyles;
