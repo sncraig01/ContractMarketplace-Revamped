@@ -12,6 +12,7 @@ import Home from "@material-ui/icons/Home";
 import Store from "@material-ui/icons/Store";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import GroupIcon from "@material-ui/icons/Group";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -120,17 +121,22 @@ function StudentNavBar(props) {
 
   const studentDashboardClicked = e => {
     // Redirects to admin home page
-    return (window.location = "/studentdashboard");
+    props.history.push("/studentdashboard");
   };
 
   const marketplaceClicked = e => {
     // Redirects to marketplace page
-    return (window.location = "/marketplace");
+    props.history.push("/marketplace");
+  };
+
+  const studentCommunityClicked = e => {
+    // Redirects to marketplace page
+    props.history.push("/studentcommunity");
   };
 
   const logoutClicked = e => {
     // Redirects to landing page
-    return (window.location = "/");
+    props.history.push("/");
   };
 
   const renderMobileMenu = (
@@ -149,6 +155,11 @@ function StudentNavBar(props) {
       <MenuItem>
         <IconButton color="inherit" onClick={() => marketplaceClicked()}>
           <Store />
+        </IconButton>
+      </MenuItem>
+      <MenuItem>
+        <IconButton color="inherit" onClick={() => studentCommunityClicked()}>
+          <GroupIcon />
         </IconButton>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -195,7 +206,14 @@ function StudentNavBar(props) {
                 <Store />
               </IconButton>
             </Tooltip>
-
+            <Tooltip title="Student Community">
+              <IconButton
+                color="inherit"
+                onClick={() => studentCommunityClicked()}
+              >
+                <GroupIcon />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Logout">
               <IconButton color="inherit" onClick={() => logoutClicked()}>
                 <ExitToApp />

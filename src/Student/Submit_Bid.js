@@ -159,7 +159,8 @@ class Submit_Bid extends React.Component {
 
     return (
       <div>
-        <StudentNavBar title={"Submit Bid"} />
+        <StudentNavBar history={this.props.history} />
+        <h1>Submit Bid</h1>
         <div className="everything">
           <div className="bidCard">
             <Card raised className={classes.card}>
