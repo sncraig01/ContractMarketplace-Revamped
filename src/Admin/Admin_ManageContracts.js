@@ -1,16 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import MUIDataTable from "mui-datatables";
-import Admin_NavBar from "./Admin_NavBar";
+import AdminNavBar from "./Admin_NavBar";
 import firebase from "../firebase.js";
 
-export default class Admin_ManageContracts extends React.Component {
+export default class AdminManageContracts extends React.Component {
   state = {
     initialized: false,
     companyNames: [],
     contractTitles: [],
     contractDetails: [],
-    areAvailable: []
+    areAvailable: [],
+
   };
 
   componentDidMount() {
@@ -22,7 +22,7 @@ export default class Admin_ManageContracts extends React.Component {
           contractsSnapshot.forEach(detailsSnapshot => {
             detailsSnapshot.forEach(async contractFieldsSnapshot => {
               var contractField = contractFieldsSnapshot.val();
-              if (!(contractField == "bids")) {
+              if (!(contractField === "bids")) {
                 let newNames = this.state.companyNames;
                 let newTitles = this.state.contractTitles;
                 let newDetails = this.state.contractDetails;
@@ -37,10 +37,12 @@ export default class Admin_ManageContracts extends React.Component {
                   newAvailable.push("No");
                 }
 
-                await this.setState({ companyNames: newNames });
-                await this.setState({ contractTitles: newTitles });
-                await this.setState({ contractDetails: newDetails });
-                await this.setState({ areAvailable: newAvailable });
+                await this.setState({
+                  companyNames: newNames,
+                  contractTitles: newTitles,
+                  contractDetails: newDetails,
+                  areAvailable: newAvailable
+                });
               }
             });
           });
@@ -48,6 +50,38 @@ export default class Admin_ManageContracts extends React.Component {
       });
       this.setState({ initialized: true });
     }
+  }
+
+  deleteClicked = ( deletedRows ) => {
+
+    // figure out which rows were deleted
+    const deletedIndexes = Object.keys(deletedRows.lookup);
+    //console.log( deletedIndexes )
+
+    //find which contract name they refer to and remove it
+    for( let i = 0; i < deletedIndexes.length; i++ ){
+      
+      console.log( deletedIndexes[i] )
+      let compName = this.state.companyNames[ deletedIndexes[i] ]
+      let contractName = this.state.contractTitles[ deletedIndexes[i] ]
+      console.log( "deleting " + compName + " " + contractName )
+      var contractRef = firebase.database().ref( "contracts/" + compName + "/" + contractName)
+      contractRef.remove() //actually remove it
+      
+    }
+
+    /*
+    //remove all bids that pertain to that contract
+    for( let i = 0; i < deletedIndexes.length; i++ ){
+      console.log( deletedIndexes[i] )
+      let compName = this.state.companyNames[ deletedIndexes[i] ]
+      let contractName = this.state.contractTitles[ deletedIndexes[i] ]
+      console.log( "deleting bids for " + compName + " " + contractName )
+
+    }
+    */
+
+    window.location.reload();
   }
 
   render() {
@@ -58,6 +92,7 @@ export default class Admin_ManageContracts extends React.Component {
       "Available"
     ];
 
+ 
     const data = [];
     for (var i = 0; i < this.state.companyNames.length; i++) {
       data.push([
@@ -68,14 +103,16 @@ export default class Admin_ManageContracts extends React.Component {
       ]);
     }
 
+
     const options = {
       filterType: "dropdown",
-      responsive: "scroll"
+      responsive: "scroll",
+      onRowsDelete: this.deleteClicked,
     };
 
     return (
       <div>
-        <Admin_NavBar title={"Manage Contracts"} />
+        <AdminNavBar title={"Manage Contracts"} />
         <div>
           <MUIDataTable
             title={"Contracts"}
@@ -88,5 +125,3 @@ export default class Admin_ManageContracts extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<Admin_ManageContracts />, document.getElementById("root"));

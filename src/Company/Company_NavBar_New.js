@@ -9,7 +9,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
-// import Dashboard from "@material-ui/icons/Dashboard";
 import AddCircle from "@material-ui/icons/AddCircle";
 import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
@@ -92,32 +91,32 @@ const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
 */
 
-class Company_NavBar_New extends React.Component {
-    constructor(props) {
-        super(props);
-        this.newContractClicked = this.newContractClicked.bind(this);
-        this.state = {
-            anchorEl: null,
-            mobileMoreAnchorEl: null,
-          };
-      }
-
-  handleProfileMenuOpen = (event) => {
-    this.setState({anchorEl: event.currentTarget} );
+class CompanyNavBarNew extends React.Component {
+  constructor(props) {
+    super(props);
+    this.newContractClicked = this.newContractClicked.bind(this);
+    this.state = {
+      anchorEl: null,
+      mobileMoreAnchorEl: null
+    };
   }
+
+  handleProfileMenuOpen = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
   handleMobileMenuClose = () => {
-    this.setState({ mobileMoreAnchorEl : null} );
-  }
+    this.setState({ mobileMoreAnchorEl: null });
+  };
 
   handleMenuClose = () => {
-    this.setState({anchorEl: null} );
+    this.setState({ anchorEl: null });
     this.handleMobileMenuClose();
-  }
+  };
 
-  handleMobileMenuOpen = (event) => {
+  handleMobileMenuOpen = event => {
     this.setMobileMoreAnchorEl(event.currentTarget);
-  }
+  };
 
   companyDashboardClicked = e => {
     // Redirects to marketplace page
@@ -143,8 +142,6 @@ class Company_NavBar_New extends React.Component {
     //return (window.location = "/");
   };
 
-
-
   render() {
     const classes = useStyles;
 
@@ -152,113 +149,122 @@ class Company_NavBar_New extends React.Component {
     const isMobileMenuOpen = Boolean(this.state.mobileMoreAnchorEl);
 
     const renderMobileMenu = (
-        <Menu
-          anchorEl={this.state.mobileMoreAnchorEl}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isMobileMenuOpen}
-          onClose={() => this.handleMobileMenuClose()}
-        >
-          <MenuItem>
-            <IconButton color="inherit" onClick={() => this.companyDashboardClicked()}>
-              <Home />
-            </IconButton>
-          </MenuItem>
-          <MenuItem onClick={() => this.handleProfileMenuOpen()}>
-            <IconButton color="inherit" onClick={() => this.newContractClicked()}>
-              <AddCircle />
-            </IconButton>
-          </MenuItem>
-          <MenuItem>
-            <IconButton color="inherit" onClick={() => this.searchStudentsClicked()}>
-              <SearchIcon />
-            </IconButton>
-          </MenuItem>
-          <MenuItem onClick={() => this.handleProfileMenuOpen()}>
-            <IconButton color="inherit" onClick={() => this.logoutClicked()}>
-              <ExitToApp />
-            </IconButton>
-          </MenuItem>
-        </Menu>
-      );
-      const renderMenu = (
-        <Menu
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isMenuOpen}
-          onClose={() => this.handleMenuClose()}
-        />
-      );
+      <Menu
+        anchorEl={this.state.mobileMoreAnchorEl}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isMobileMenuOpen}
+        onClose={() => this.handleMobileMenuClose()}
+      >
+        <MenuItem>
+          <IconButton
+            color="inherit"
+            onClick={() => this.companyDashboardClicked()}
+          >
+            <Home />
+          </IconButton>
+        </MenuItem>
+        <MenuItem onClick={() => this.handleProfileMenuOpen()}>
+          <IconButton color="inherit" onClick={() => this.newContractClicked()}>
+            <AddCircle />
+          </IconButton>
+        </MenuItem>
+        <MenuItem>
+          <IconButton
+            color="inherit"
+            onClick={() => this.searchStudentsClicked()}
+          >
+            <SearchIcon />
+          </IconButton>
+        </MenuItem>
+        <MenuItem onClick={() => this.handleProfileMenuOpen()}>
+          <IconButton color="inherit" onClick={() => this.logoutClicked()}>
+            <ExitToApp />
+          </IconButton>
+        </MenuItem>
+      </Menu>
+    );
+    const renderMenu = (
+      <Menu
+        anchorEl={this.state.anchorEl}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isMenuOpen}
+        onClose={() => this.handleMenuClose()}
+      />
+    );
     return (
-        <div className={classes.grow}>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography
-                className={classes.company}
-                variant="h5"
-                noWrap
-                strong
-                style={{ fontSize: "26px" }}
-              >
-                RevTek
-              </Typography>
-              <Typography
-                className={classes.title}
-                variant="h6"
-                noWrap
-                align="center"
-                style={{ fontSize: "20px" }}
-              >
-                {this.props.title}
-              </Typography>
-              <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
-                <Tooltip title="Dashboard">
-                  <IconButton
-                    color="inherit"
-                    onClick={() => this.companyDashboardClicked()}
-                  >
-                    <Home />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Post New Contract">
-                  <IconButton color="inherit" onClick={() => this.newContractClicked()}>
-                    <AddCircle />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Search Students">
-                  <IconButton
-                    color="inherit"
-                    onClick={() => this.searchStudentsClicked()}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Logout">
-                  <IconButton color="inherit" onClick={() => this.logoutClicked()}>
-                    <ExitToApp />
-                  </IconButton>
-                </Tooltip>
-              </div>
-              <div className={classes.sectionMobile}>
+      <div className={classes.grow}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography
+              className={classes.company}
+              variant="h5"
+              noWrap
+              style={{ fontSize: "26px" }}
+            >
+              RevTek
+            </Typography>
+            <Typography
+              className={classes.title}
+              variant="h6"
+              noWrap
+              align="center"
+              style={{ fontSize: "20px" }}
+            >
+              {this.props.title}
+            </Typography>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <Tooltip title="Dashboard">
                 <IconButton
-                  aria-haspopup="true"
-                  onClick={ () => this.handleMobileMenuOpen()}
                   color="inherit"
+                  onClick={() => this.companyDashboardClicked()}
                 >
-                  <MoreIcon />
+                  <Home />
                 </IconButton>
-              </div>
-            </Toolbar>
-          </AppBar>
-          {renderMenu}
-          {renderMobileMenu}
-        </div>
-      );
-
+              </Tooltip>
+              <Tooltip title="Post New Contract">
+                <IconButton
+                  color="inherit"
+                  onClick={() => this.newContractClicked()}
+                >
+                  <AddCircle />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Search Students">
+                <IconButton
+                  color="inherit"
+                  onClick={() => this.searchStudentsClicked()}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Logout">
+                <IconButton
+                  color="inherit"
+                  onClick={() => this.logoutClicked()}
+                >
+                  <ExitToApp />
+                </IconButton>
+              </Tooltip>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-haspopup="true"
+                onClick={() => this.handleMobileMenuOpen()}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMenu}
+        {renderMobileMenu}
+      </div>
+    );
   }
-
 }
 
-export default Company_NavBar_New;
+export default CompanyNavBarNew;

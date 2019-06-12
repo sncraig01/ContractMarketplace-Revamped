@@ -1,13 +1,11 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-// import "./Admin_ManageContracts.css";
-import Student_NavBar from "./Student_NavBar";
+import StudentNavBar from "./Student_NavBar";
 
 class Student_Profile extends React.Component {
   render() {
     return (
       <div className="Admin-contracts-whole">
-        <Student_NavBar title={"My Profile"} />
+        <StudentNavBar title={"My Profile"} />
       </div>
     );
   }

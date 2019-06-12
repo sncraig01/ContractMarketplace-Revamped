@@ -9,7 +9,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
-// import Dashboard from "@material-ui/icons/Dashboard";
 import AddCircle from "@material-ui/icons/AddCircle";
 import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
@@ -85,7 +84,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Company_NavBar(props) {
+function CompanyNavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -182,7 +181,6 @@ function Company_NavBar(props) {
             className={classes.company}
             variant="h5"
             noWrap
-            strong
             style={{ fontSize: "26px" }}
           >
             RevTek
@@ -242,4 +240,4 @@ function Company_NavBar(props) {
   );
 }
 
-export default Company_NavBar;
+export default CompanyNavBar;

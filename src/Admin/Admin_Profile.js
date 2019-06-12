@@ -1,12 +1,12 @@
 import React from "react";
-import Admin_NavBar from "./Admin_NavBar";
+import AdminNavBar from "./Admin_NavBar";
 
-function Admin_Profile(props) {
+function AdminProfile(props) {
   return (
     <div className="App">
-      <Admin_NavBar title={"Your Profile"} />
+      <AdminNavBar title={"Your Profile"} />
     </div>
   );
 }
 
-export default Admin_Profile;
+export default AdminProfile;
