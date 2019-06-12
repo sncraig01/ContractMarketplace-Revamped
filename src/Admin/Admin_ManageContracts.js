@@ -1,9 +1,9 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import Admin_NavBar from "./Admin_NavBar";
+import AdminNavBar from "./Admin_NavBar";
 import firebase from "../firebase.js";
 
-export default class Admin_ManageContracts extends React.Component {
+export default class AdminManageContracts extends React.Component {
   state = {
     initialized: false,
     companyNames: [],
@@ -51,11 +51,10 @@ export default class Admin_ManageContracts extends React.Component {
     }
   }
 
-
-  deleteClicked= (deletedRows) => {
-    console.log( "deleting" )
-    console.log( deletedRows )
-  }
+  deleteClicked = deletedRows => {
+    console.log("deleting");
+    console.log(deletedRows);
+  };
 
   render() {
     const columns = [
@@ -79,12 +78,12 @@ export default class Admin_ManageContracts extends React.Component {
       filterType: "dropdown",
       responsive: "scroll",
       //onRowsSelect: ()=>this.selectRowsClicked(),
-      onRowsDelete: this.deleteClicked,
+      onRowsDelete: this.deleteClicked
     };
 
     return (
       <div>
-        <Admin_NavBar title={"Manage Contracts"} />
+        <AdminNavBar title={"Manage Contracts"} />
         <div>
           <MUIDataTable
             title={"Contracts"}

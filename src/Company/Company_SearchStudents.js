@@ -1,9 +1,9 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import Company_NavBarNew from "./Company_NavBar_New";
+import CompanyNavBarNew from "./Company_NavBar_New";
 import firebase from "../firebase.js";
 
-export default class Company_SearchStudents extends React.Component {
+export default class CompanySearchStudents extends React.Component {
   state = {
     initialized: false,
     studentNames: ["Me"],
@@ -76,7 +76,10 @@ export default class Company_SearchStudents extends React.Component {
 
     return (
       <div>
-        <Company_NavBarNew history={this.props.history} title={"Search Students"} />
+        <CompanyNavBarNew
+          history={this.props.history}
+          title={"Search Students"}
+        />
         <div>
           <MUIDataTable
             title={"Students"}

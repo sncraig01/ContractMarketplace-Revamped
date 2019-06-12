@@ -1,11 +1,11 @@
 import React from "react";
-import Student_NavBar from "./Student_NavBar";
+import StudentNavBar from "./Student_NavBar";
 
 class Student_Marketplace extends React.Component {
   render() {
     return (
       <div className="Admin-contracts-whole">
-        <Student_NavBar title={"Contract Marketplace"} />
+        <StudentNavBar title={"Contract Marketplace"} />
       </div>
     );
   }

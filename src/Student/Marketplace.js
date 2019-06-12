@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import firebase from "../firebase.js";
 import Button from "@material-ui/core/Button";
 import "./Marketplace.css";
-import Student_NavBar from "./Student_NavBar";
+import StudentNavBar from "./Student_NavBar";
 import TextField from "@material-ui/core/TextField";
 import Search from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -134,7 +134,7 @@ class Marketplace extends React.Component {
     return (
       dataLoaded && (
         <div className="Student-whole">
-          <Student_NavBar title={"Marketplace"} />
+          <StudentNavBar title={"Marketplace"} />
           <div className="topstuff">
             <button onClick={() => this.retrieveAllContracts()}>
               Show contracts

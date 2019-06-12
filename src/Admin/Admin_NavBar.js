@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Admin_NavBar(props) {
+function AdminNavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -174,7 +174,12 @@ function Admin_NavBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.company} variant="h5" noWrap style={{fontSize: "26px"}}>
+          <Typography
+            className={classes.company}
+            variant="h5"
+            noWrap
+            style={{ fontSize: "26px" }}
+          >
             RevTek
           </Typography>
           <Typography
@@ -232,4 +237,4 @@ function Admin_NavBar(props) {
   );
 }
 
-export default Admin_NavBar;
+export default AdminNavBar;
