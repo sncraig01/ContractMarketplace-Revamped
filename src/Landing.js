@@ -1,7 +1,9 @@
 import React from "react";
-import "./App.css";
+import "./Landing.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Card from '@material-ui/core/Card';
+import RevTekHomeNavBar from "./RevTekHomeNavBar";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -32,16 +34,19 @@ class Landing extends React.Component {
     const classes = useStyles;
 
     return (
-      <div className="App">
-        <h1> Welcome to RevTek Contract Marketplace! </h1>
-        <p> Select how you would like to sign in</p>
+      <div>
+        <RevTekHomeNavBar/>
+        <div className="Landing-Body">
+        <Card className="Landing-Card">
+        <h1> Create your new RevTek Account! </h1>
+        <p> Please select how you would like to sign up.</p>
         <div>
           <Button
             variant="contained"
             className={classes.button}
             onClick={() => this.signInClicked()}
           >
-            Sign In
+            Return to Sign In
           </Button>
         </div>
         <br />
@@ -65,6 +70,8 @@ class Landing extends React.Component {
           >
             Sign Up as Company
           </Button>
+        </div>
+        </Card>
         </div>
       </div>
     );
