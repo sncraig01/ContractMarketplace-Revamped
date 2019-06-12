@@ -52,9 +52,9 @@ class Marketplace extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     // this.retrieveAllContracts();
-    await this.retrieveAllContracts();
+    this.retrieveAllContracts();
     this.setState({
       loaded: true
     });

@@ -66,10 +66,9 @@ class Submit_Bid extends React.Component {
 
   whenClicked = async () => {
     await this.submitBid();
-    // this.props.history.push({
-    //   pathname: "/studentdashboard"
-    // });
-    // window.location.href = ""
+    this.props.history.push({
+      pathname: "/studentdashboard"
+    });
   };
 
   submitBid = () => {
@@ -119,23 +118,23 @@ class Submit_Bid extends React.Component {
               console.log("MATCH! Email" + tempUser.val().email);
               console.log("MATCH! Key" + tempUser.key);
               matchingKey = tempUser.key;
-              // this.addToFirebaseUser(matchingKey, newBid);
+
+              // CAUSES INFINITE LOOP!
+              // if (matchingKey.length > 0) {
+              //   console.log("MATCHINGKEY = " + matchingKey);
+
+              //   const matchingUserRef = firebase
+              //     .database()
+              //     .ref("users/" + matchingKey + "/bids");
+              //   matchingUserRef.push(newBid);
+
+              //   console.log("WORKING PROPERLY!!!!!");
+              // } else {
+              //   console.log("NOT WORKING PROPERLY = " + matchingKey);
+              // }
             }
           });
         });
-        if (matchingKey.length > 0) {
-          console.log("MATCHINGKEY = " + matchingKey);
-
-          const matchingUserRef = firebase
-            .database()
-            .ref("users/" + matchingKey + "/bids");
-          matchingUserRef.push(newBid);
-          console.log("WORKING PROPERLY!!!!!");
-        } else {
-          console.log("NOT WORKING PROPERLY = " + matchingKey);
-        }
-
-        // this.addToFirebaseUser(matchingKey, newBid);
       } else {
         // No user is signed in.
         console.log("Invalid Username or Password");
@@ -143,17 +142,17 @@ class Submit_Bid extends React.Component {
     });
   };
 
-  addToFirebaseUser = (key, bid) => {
-    if (key.length > 0) {
-      console.log("MATCHINGKEY = " + key);
+  // addToFirebaseUser = (key, bid) => {
+  //   if (key.length > 0) {
+  //     console.log("MATCHINGKEY = " + key);
 
-      const matchingUserRef = firebase.database().ref("users/" + key + "/bids");
-      matchingUserRef.push(bid);
-      console.log("WORKING PROPERLY!!!!!");
-    } else {
-      console.log("NOT WORKING PROPERLY = " + key);
-    }
-  };
+  //     const matchingUserRef = firebase.database().ref("users/" + key + "/bids");
+  //     matchingUserRef.push(bid);
+  //     console.log("WORKING PROPERLY!!!!!");
+  //   } else {
+  //     console.log("NOT WORKING PROPERLY = " + key);
+  //   }
+  // };
 
   render() {
     const classes = useStyles;
@@ -221,7 +220,7 @@ class Submit_Bid extends React.Component {
                     />
                   </Grid>
 
-                  <Grid item xs={20} sm={10}>
+                  <Grid item xs={12} sm={10}>
                     <p>
                       {this.state.bidHours && this.state.bidRate
                         ? "Total Cost of Bid: $" +
@@ -254,7 +253,7 @@ class Submit_Bid extends React.Component {
                 variant="contained"
                 color="primary"
                 // className={classes.submit}
-                onClick={() => this.submitBid()}
+                onClick={() => this.whenClicked()}
               >
                 Submit Bid
               </Button>
