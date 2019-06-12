@@ -55,7 +55,6 @@ export default class Admin_ManageContracts extends React.Component {
   deleteClicked= (deletedRows) => {
     console.log( "deleting" )
     console.log( deletedRows )
-    const deletedIndexes = Object.keys(deletedRows.lookup);
   }
 
   render() {
