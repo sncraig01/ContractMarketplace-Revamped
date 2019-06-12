@@ -165,15 +165,15 @@ class Marketplace extends React.Component {
               {this.state.indices.length > 0 ? (
                 this.state.indices.map(index => {
                   return this.state.searchText === "" ||
-                    this.state.companyNames[index].includes(
-                      this.state.searchText
-                    ) ||
-                    this.state.contractNames[index].includes(
-                      this.state.searchText
-                    ) ||
-                    this.state.contractDetails[index].includes(
-                      this.state.searchText
-                    ) ? (
+                    this.state.companyNames[index]
+                      .toLowerCase()
+                      .includes(this.state.searchText.toLowerCase()) ||
+                    this.state.contractNames[index]
+                      .toLowerCase()
+                      .includes(this.state.searchText.toLowerCase()) ||
+                    this.state.contractDetails[index]
+                      .toLowerCase()
+                      .includes(this.state.searchText.toLowerCase()) ? (
                     <div className="bidCard" key={index}>
                       <Card raised className={classes.card}>
                         <CardActionArea>
