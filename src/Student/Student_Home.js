@@ -157,8 +157,10 @@ class StudentHome extends React.Component {
   render() {
     return (
       <div className="Student-whole">
+
         <StudentNavBar history={this.props.history} />
         <h1>Dashboard</h1>
+
         <div className="Student-Profile">
           <List>
             {/** Implemented a scrollbar */}
@@ -167,13 +169,10 @@ class StudentHome extends React.Component {
               style={{ maxHeight: 300, overflow: "auto" }}
             >
               <div>
-                <b>Profile:</b>
+                <b>{ this.state.student_name} </b>
                 <Divider />
               </div>
               <CardContent>
-                <div>
-                  <b> Name:</b> {this.state.student_name}
-                </div>
                 <div>
                   <b>Email:</b> {this.state.student_email}
                 </div>
@@ -215,26 +214,30 @@ class StudentHome extends React.Component {
               <Button onClick={() => this.getContracts()}>
                 Show Contracts
               </Button>
-              {this.state.contract_arr.map(itr => {
-                return itr.Company.includes(this.state.assigned_search) ||
-                  itr.Contract.includes(this.state.assigned_search) ||
-                  itr.Cost.includes(this.state.assigned_search) ||
-                  itr.Details.includes(this.state.assigned_search) ||
-                  itr.Hours.includes(this.state.assigned_search) ||
-                  itr.Info.includes(this.state.assigned_search) ||
-                  itr.Rate.includes(this.state.assigned_search) ||
-                  itr.sCompany.includes(this.state.assigned_search) ? (
-                  <div>
-                    <div> Company: {itr.Company} </div>
-                    <div> Contract: {itr.Contract} </div>
-                    <div> Cost: {itr.Cost} </div>
-                    <div> Hours: {itr.Hours} </div>
-                    <div> ------------------ </div>
-                  </div>
-                ) : (
-                  <div />
-                );
-              })}
+              { this.state.contract_arr.length === 0 ? 
+                <div> You have no contracts yet </div> : 
+              
+                this.state.contract_arr.map(itr => {
+                  return itr.Company.includes(this.state.assigned_search) ||
+                    itr.Contract.includes(this.state.assigned_search) ||
+                    itr.Cost.includes(this.state.assigned_search) ||
+                    itr.Details.includes(this.state.assigned_search) ||
+                    itr.Hours.includes(this.state.assigned_search) ||
+                    itr.Info.includes(this.state.assigned_search) ||
+                    itr.Rate.includes(this.state.assigned_search) ||
+                    itr.sCompany.includes(this.state.assigned_search) ? (
+                    <div>
+                      <div> Company: {itr.Company} </div>
+                      <div> Contract: {itr.Contract} </div>
+                      <div> Cost: {itr.Cost} </div>
+                      <div> Hours: {itr.Hours} </div>
+                      <div> ------------------ </div>
+                    </div>
+                  ) : (
+                    <div />
+                  );
+                })              
+              }
             </CardContent>
           </Card>
           <Card
@@ -257,26 +260,29 @@ class StudentHome extends React.Component {
             <CardContent>
               <Button onClick={() => this.getBids()}>Show Bids</Button>
 
-              {this.state.bid_arr.map(itr2 => {
-                return itr2.Company.includes(this.state.bid_search) ||
-                  itr2.Contract.includes(this.state.bid_search) ||
-                  itr2.Cost.toString().includes(this.state.bid_search) ||
-                  itr2.Details.includes(this.state.bid_search) ||
-                  itr2.Hours.toString().includes(this.state.bid_search) ||
-                  itr2.Info.includes(this.state.bid_search) ||
-                  itr2.Rate.includes(this.state.bid_search) ||
-                  itr2.Company.includes(this.state.bid_search) ? (
-                  <div>
-                    <div> Company: {itr2.Company} </div>
-                    <div> Contract: {itr2.Contract} </div>
-                    <div> Cost: {itr2.Cost} </div>
-                    <div> Hours: {itr2.Hours} </div>
-                    <div> ------------------ </div>
-                  </div>
-                ) : (
-                  <div> </div>
-                );
-              })}
+              { this.state.bid_arr.length === 0 ?
+                 <div> You have no bids yet </div> :               
+               this.state.bid_arr.map(itr2 => {
+                  return itr2.Company.includes(this.state.bid_search) ||
+                    itr2.Contract.includes(this.state.bid_search) ||
+                    itr2.Cost.toString().includes(this.state.bid_search) ||
+                    itr2.Details.includes(this.state.bid_search) ||
+                    itr2.Hours.toString().includes(this.state.bid_search) ||
+                    itr2.Info.includes(this.state.bid_search) ||
+                    itr2.Rate.includes(this.state.bid_search) ||
+                    itr2.Company.includes(this.state.bid_search) ? (
+                    <div>
+                      <b> Contract: {itr2.Contract} </b>
+                      <div> Company: {itr2.Company} </div>
+                      <div> Cost: {itr2.Cost} </div>
+                      <div> Hours: {itr2.Hours} </div>
+                      <div> ------------------ </div>
+                    </div>
+                  ) : (
+                    <div>  </div>
+                  );
+                })
+              }
             </CardContent>
           </Card>
         </div>

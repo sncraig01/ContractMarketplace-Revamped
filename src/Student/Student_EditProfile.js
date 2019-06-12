@@ -194,98 +194,92 @@ class Student_EditProfile extends React.Component {
     logRef.push(this.state.bio);
   }
 
-  handleChange(event) {
-    this.setState({ bio: event.target.value });
-  }
 
-  render() {
-    return (
-      <div className="StudentEdit-whole">
-        <StudentNavBar history={this.props.history} />
-        <h1>Edit Profile</h1>
-        <div className="StudentEdit-Profile">
-          <List>
-            {/** Implemented a scrollbar */}
-            <Card
-              className="StudentEdit-studentholder"
-              style={{ maxHeight: 300, overflow: "auto" }}
-            >
-              <div>
-                <b>Profile:</b>
-                <Divider />
-              </div>
-              <CardContent>
-                <div>
-                  <b> Name:</b> {this.state.student_name}
-                </div>
-                <div>
-                  <b>Email:</b> {this.state.student_email}
-                </div>
-              </CardContent>
-            </Card>
-          </List>
-        </div>
-        <div className="StudentEdit-ContractBids">
-          {/** Implemented a scrollbar */}
-          <Card
-            className="StudentEdit-contractholder"
-            style={{ maxHeight: 200, overflow: "auto" }}
-          >
-            <div>
-              <b>Add/Remove Skills</b>
-              <Divider />
-            </div>
-            <div className="StudentEdit-Searchbarholder">
-              <SearchIcon />
-              <InputBase
-                placeholder="Add Skill"
-                onChange={skill => {
-                  this.updatingSkill(skill.target.value);
-                }}
-              />
-              <Button onClick={() => this.addSkill()}>Add</Button>
-            </div>
-            <CardContent>
-              {this.state.skill_arr.map(itr => (
-                <div>
-                  {itr}
-                  <Button onClick={() => this.removeSkill(itr)}>Delete</Button>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-          <Card
-            className="StudentEdit-bidholder"
-            style={{ maxHeight: 200, overflow: "auto" }}
-          >
-            <div>
-              <b>Bio:</b>
-              <Divider />
-            </div>
-            <div className="StudentEdit-Searchbarholder">
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Current Bio"
-                multiline
-                rows="24"
-                value={this.state.bio}
-                onChange={e => this.handleChange(e)}
-                //className={classes.textField}
-                margin="normal"
-                helperText="Be sure to save your edits"
-                variant="outlined"
-                width="100"
-              />
-              <div>
-                <Button onClick={() => this.saveBio()}>Save</Button>
-              </div>
-            </div>
-            <CardContent />
-          </Card>
-        </div>
-      </div>
-    );
-  }
+    render()
+    {
+        return (
+          <div className= 'StudentEdit-whole'>
+            <Student_NavBar title={"Dashboard"} />
+            <h1>Edit Your Profile</h1>
+
+           <div className = 'StudentEdit-Profile'>
+       
+               <List>
+                   {/** Implemented a scrollbar */}
+               <Card className='StudentEdit-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
+                   <div>
+                       <b>
+                        {this.state.student_name}
+                       </b>
+                       <Divider/>
+                   </div>
+                   <CardContent>
+                        <div>
+                            <b>Email:</b> {this.state.student_email}
+                        </div>
+                   </CardContent>     
+               </Card>   
+               </List>
+       
+           </div>
+           <div className = 'StudentEdit-ContractBids'>
+               {/** Implemented a scrollbar */}
+               <Card className='StudentEdit-contractholder' style={{maxHeight: 200, overflow: 'auto'}}> 
+                   <div>
+                    <b>
+                        Add/Remove Skills
+                    </b>
+                   <Divider/>
+                   </div>
+                   <div className = "StudentEdit-Searchbarholder">
+                       <SearchIcon />
+                       <InputBase 
+                       placeholder="Add Skill"
+                       onChange={(skill)=>{this.updatingSkill(skill.target.value)}}
+                       />
+                        <Button  onClick={()=>this.addSkill()}>Add</Button>
+                   </div>
+                   <CardContent> 
+                       {this.state.skill_arr.map((itr) =><div>{itr}<Button onClick={()=>this.removeSkill(itr)}>Delete</Button></div>)}
+                   
+                   </CardContent>
+               
+               </Card>   
+               <Card className='StudentEdit-bidholder' style={{maxHeight: 200, overflow: 'auto'}}> 
+                   <div>
+                    <b>
+                        Bio:
+                    </b>
+                   <Divider/>
+                   </div>
+                   <div className = "StudentEdit-Searchbarholder">
+                   <TextField
+                        id="outlined-multiline-flexible"
+                        label="Current Bio"
+                        multiline
+                        rows="24"
+                        value={this.state.bio}
+                        onChange={(e)=>this.handleChange(e)}
+                        //className={classes.textField}
+                        margin="normal"
+                        helperText="Be sure to save your edits"
+                        variant="outlined"
+                        width="100"
+                    />
+                    <div>
+                    <Button onClick={()=>this.saveBio()}>Save</Button>
+                    </div>
+                   </div>
+                   <CardContent>
+                   
+                   </CardContent>
+               
+               </Card>  
+             
+           </div>
+   </div>
+          );
+    }
 }
 
 export default Student_EditProfile;
