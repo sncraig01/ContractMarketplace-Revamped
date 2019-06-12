@@ -66,9 +66,10 @@ class Submit_Bid extends React.Component {
 
   whenClicked = async () => {
     await this.submitBid();
-    this.props.history.push({
-      pathname: "/studentdashboard"
-    });
+    // this.props.history.push({
+    //   pathname: "/studentdashboard"
+    // });
+    // window.location.href = ""
   };
 
   submitBid = () => {

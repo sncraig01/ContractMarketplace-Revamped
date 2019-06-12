@@ -89,15 +89,15 @@ class Marketplace extends React.Component {
           });
         });
       });
-    });
 
-    this.setState({
-      contractNames: tempContractNames,
-      contractDetails: tempContractDetails,
-      companyNames: tempCompanyNames,
-      contractKeys: tempKeys,
-      indices: tempIndices,
-      loaded: true
+      this.setState({
+        contractNames: tempContractNames,
+        contractDetails: tempContractDetails,
+        companyNames: tempCompanyNames,
+        contractKeys: tempKeys,
+        indices: tempIndices,
+        loaded: true
+      });
     });
   };
 
@@ -136,9 +136,9 @@ class Marketplace extends React.Component {
         <div className="Student-whole">
           <Student_NavBar title={"Marketplace"} />
           <div className="topstuff">
-            <button onClick={() => this.retrieveAllContracts()}>
+            {/* <button onClick={() => this.retrieveAllContracts()}>
               Show contracts
-            </button>
+            </button> */}
             <h3>Available Contracts</h3>
 
             <div className="searchbar">
