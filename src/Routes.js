@@ -15,7 +15,7 @@ import Admin_Home from "./Admin/Admin_Home";
 import Admin_ManageContracts from "./Admin/Admin_ManageContracts";
 import Admin_ManageUsers from "./Admin/Admin_ManageUsers";
 import Student_Profile from "./Student/Student_Profile";
-import Company_ViewBids from "./Company/Company_ViewBids.js"
+import Company_ViewBids from "./Company/Company_ViewBids.js";
 import Student_EditProfile from "./Student/Student_EditProfile";
 
 let mountNode = document.getElementById("root");
@@ -52,7 +52,7 @@ class Routes extends React.Component {
         <Route path="/submitbid" component={Submit_Bid} />
         <Route path="/studentdashboard" component={Student_Home} />
         <Route path="/studentprofile" component={Student_Profile} />
-        <Route path="/editstudentprofile" component={Student_EditProfile}/>
+        <Route path="/editstudentprofile" component={Student_EditProfile} />
       </Router>
     );
   }

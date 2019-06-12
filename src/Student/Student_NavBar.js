@@ -130,7 +130,6 @@ function Student_NavBar(props) {
     return (window.location = "/marketplace");
   };
 
-
   const logoutClicked = e => {
     // Redirects to landing page
     return (window.location = "/");
@@ -170,7 +169,6 @@ function Student_NavBar(props) {
             className={classes.company}
             variant="h5"
             noWrap
-            strong
             style={{ fontSize: "26px" }}
           >
             RevTek
@@ -199,7 +197,7 @@ function Student_NavBar(props) {
                 <Store />
               </IconButton>
             </Tooltip>
-        
+
             <Tooltip title="Logout">
               <IconButton color="inherit" onClick={() => logoutClicked()}>
                 <ExitToApp />

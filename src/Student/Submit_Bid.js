@@ -1,31 +1,18 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Admin_NavBar from "../Admin/Admin_NavBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import Divider from "@material-ui/core/Divider";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
 import firebase from "../firebase.js";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Student_NavBar from "./Student_NavBar";
 import "./Submit_Bid.css";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import { async } from "q";
 
 const useStyles = makeStyles({
   card: {
@@ -126,7 +113,7 @@ class Submit_Bid extends React.Component {
             console.log("loop user email = " + tempUser.val().email);
             console.log("loop user key = " + tempUser.key);
 
-            if (tempUser.val().email == user.email) {
+            if (tempUser.val().email === user.email) {
               console.log("MATCH! Email" + tempUser.val().email);
               console.log("MATCH! Key" + tempUser.key);
               matchingKey = tempUser.key;

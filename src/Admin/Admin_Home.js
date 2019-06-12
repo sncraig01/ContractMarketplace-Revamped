@@ -1,14 +1,9 @@
 import React from "react";
-//import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-//import Paper from "@material-ui/core/Paper";
-//import List from "@material-ui/core/List";
-//import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import "./Admin_Home.css";
 import Admin_NavBar from "./Admin_NavBar";
 import firebase from "../firebase.js"
-//import { Row, Col } from 'antd';
 
 class Admin_Home extends React.Component {
 

@@ -182,7 +182,6 @@ function Company_NavBar(props) {
             className={classes.company}
             variant="h5"
             noWrap
-            strong
             style={{ fontSize: "26px" }}
           >
             RevTek
