@@ -9,10 +9,6 @@ export default class AdminManageUsers extends React.Component {
     emails: [],
     names: [],
     types: []
-    // companyNames: [],
-    // contractTitles: [],
-    // contractDetails: [],
-    // areAvailable: []
   };
 
   componentDidMount() {

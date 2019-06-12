@@ -109,6 +109,7 @@ export default class AdminManageContracts extends React.Component {
     return (
       <div>
         <AdminNavBar history={this.props.history} />
+        <h1>Manage Contracts</h1>
         <div>
           <MUIDataTable
             title={"Contracts"}

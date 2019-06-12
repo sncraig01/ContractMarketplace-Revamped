@@ -40,7 +40,7 @@ class Routes extends React.Component {
 
         {/* Company Routes */}
         <Route path="/companydashboard" component={CompanyHome} />
-        <Route path="/searchstudents" component={StudentSearchStudents} />
+        <Route path="/studentcommunity" component={StudentSearchStudents} />
         <Route path="/newcontract" component={NewContract} />
         <Route path="/viewbids" component={CompanyViewBids} />
 

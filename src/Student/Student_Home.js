@@ -158,7 +158,7 @@ class StudentHome extends React.Component {
     return (
       <div className="Student-whole">
         <StudentNavBar history={this.props.history} />
-
+        <h1>Dashboard</h1>
         <div className="Student-Profile">
           <List>
             {/** Implemented a scrollbar */}
@@ -191,6 +191,7 @@ class StudentHome extends React.Component {
             </Card>
           </List>
         </div>
+        <br />
         <div className="Student-ContractBids">
           {/** Implemented a scrollbar */}
           <Card

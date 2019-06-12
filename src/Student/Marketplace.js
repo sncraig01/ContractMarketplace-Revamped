@@ -135,6 +135,7 @@ class Marketplace extends React.Component {
       dataLoaded && (
         <div className="Student-whole">
           <StudentNavBar history={this.props.history} />
+          <h1>Contract Marketplace</h1>
           <div className="topstuff">
             {/* <button onClick={() => this.retrieveAllContracts()}>
               Show contracts

@@ -12,7 +12,7 @@ import Home from "@material-ui/icons/Home";
 import Store from "@material-ui/icons/Store";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import SearchIcon from "@material-ui/icons/Search";
+import GroupIcon from "@material-ui/icons/Group";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -129,9 +129,9 @@ function StudentNavBar(props) {
     props.history.push("/marketplace");
   };
 
-  const searchStudentsClicked = e => {
+  const studentCommunityClicked = e => {
     // Redirects to marketplace page
-    props.history.push("/searchstudents");
+    props.history.push("/studentcommunity");
   };
 
   const logoutClicked = e => {
@@ -158,8 +158,8 @@ function StudentNavBar(props) {
         </IconButton>
       </MenuItem>
       <MenuItem>
-        <IconButton color="inherit" onClick={() => searchStudentsClicked()}>
-          <SearchIcon />
+        <IconButton color="inherit" onClick={() => studentCommunityClicked()}>
+          <GroupIcon />
         </IconButton>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -206,12 +206,12 @@ function StudentNavBar(props) {
                 <Store />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Search Students">
+            <Tooltip title="Student Community">
               <IconButton
                 color="inherit"
-                onClick={() => searchStudentsClicked()}
+                onClick={() => studentCommunityClicked()}
               >
-                <SearchIcon />
+                <GroupIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title="Logout">

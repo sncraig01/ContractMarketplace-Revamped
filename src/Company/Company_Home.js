@@ -123,7 +123,8 @@ class CompanyHome extends React.Component {
     return (
       <div className="App">
         <CompanyNavBar history={this.props.history} />
-        <h1> {this.state.companyName} </h1>
+        <h1>Dashboard</h1>
+        <h2> {this.state.companyName} </h2>
         <div> {this.state.email} </div>
         <div type="dashinfo">
           <List className="individual">

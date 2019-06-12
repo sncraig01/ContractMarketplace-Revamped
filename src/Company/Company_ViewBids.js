@@ -202,8 +202,8 @@ class CompanyViewBids extends React.Component {
     return (
       <div className="App">
         <CompanyNavBar history={this.props.history} />
-        <div> Displaying bids for your contract: </div>
-        <h1> {this.props.location.state.contract_name} </h1>
+        <h1>View Bids</h1>
+        <h2> {this.props.location.state.contract_name} </h2>
         <div> {this.state.notification} </div>
         <div className="allBidCards"> {this.mapBids()} </div>
       </div>

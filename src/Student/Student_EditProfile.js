@@ -202,7 +202,7 @@ class Student_EditProfile extends React.Component {
     return (
       <div className="StudentEdit-whole">
         <StudentNavBar history={this.props.history} />
-
+        <h1>Edit Profile</h1>
         <div className="StudentEdit-Profile">
           <List>
             {/** Implemented a scrollbar */}
@@ -211,7 +211,7 @@ class Student_EditProfile extends React.Component {
               style={{ maxHeight: 300, overflow: "auto" }}
             >
               <div>
-                <b>EDIT PROFILE Profile:</b>
+                <b>Profile:</b>
                 <Divider />
               </div>
               <CardContent>
