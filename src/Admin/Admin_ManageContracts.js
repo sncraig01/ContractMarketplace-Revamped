@@ -50,6 +50,13 @@ export default class Admin_ManageContracts extends React.Component {
     }
   }
 
+
+  deleteClicked= (deletedRows) => {
+    console.log( "deleting" )
+    console.log( deletedRows )
+    const deletedIndexes = Object.keys(deletedRows.lookup);
+  }
+
   render() {
     const columns = [
       "Company",
@@ -70,7 +77,9 @@ export default class Admin_ManageContracts extends React.Component {
 
     const options = {
       filterType: "dropdown",
-      responsive: "scroll"
+      responsive: "scroll",
+      //onRowsSelect: ()=>this.selectRowsClicked(),
+      onRowsDelete: this.deleteClicked,
     };
 
     return (
@@ -89,4 +98,4 @@ export default class Admin_ManageContracts extends React.Component {
   }
 }
 
-ReactDOM.render(<Admin_ManageContracts />, document.getElementById("root"));
+//ReactDOM.render(<Admin_ManageContracts />, document.getElementById("root"));

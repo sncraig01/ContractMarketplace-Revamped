@@ -11,7 +11,7 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
 // import Dashboard from "@material-ui/icons/Dashboard";
 import Store from "@material-ui/icons/Store";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+//import AccountCircle from "@material-ui/icons/AccountCircle";
 // import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
