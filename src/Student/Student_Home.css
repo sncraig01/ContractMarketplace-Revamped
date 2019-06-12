@@ -1,56 +1,65 @@
-.Student-whole {
+
+
+.Student-whole { 
   min-height: 100vh;
-  background-color: rgb(255, 255, 255);
-}
+  background-color:rgb(255, 255, 255); 
+  }
+  
 
-.Student-Profile {
-  display: flexbox;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  min-height: 40%;
-}
+  .Student-Profile {
+    display: flexbox;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    min-height: 40%;
+  }
 
-.Student-ContractBids {
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: center;
-}
+  .Student-ContractBids {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto; 
+    justify-content: center;
+  }
+ 
+  .Student-contractholder {
+    background-color: #282c34;
+    min-height: 70vh;
+    font-size: calc(5px + 2vmin);
+    padding-left: 5px;
+    min-width: 50vh; 
+  }
 
-.Student-contractholder {
-  background-color: #282c34;
-  min-height: 70vh;
-  font-size: calc(5px + 2vmin);
-  padding-left: 5px;
-}
+  .Student-bidholder {
+    background-color: #282c34;
+    min-height: 70vh;
+    font-size: calc(5px + 2vmin);
+    padding-left: 5px;
+    min-width: 50vh; 
+  }
+  
 
-.Student-bidholder {
-  background-color: #282c34;
-  min-height: 70vh;
-  font-size: calc(5px + 2vmin);
-  padding-left: 5px;
-}
-
-.Student-Searchbarholder {
-  font-size: calc(5px + 2vmin);
-  padding-left: 20px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.Student-Card-Holder {
-  background-color: rgb(255, 255, 255);
-  display: flex;
-}
-
-.Student-Padding {
-  padding-bottom: 0;
-}
-
-.Student-link {
-  color: #61dafb;
-}
+  .Student-Searchbarholder
+  {
+    font-size: calc(5px + 2vmin);
+    padding-left: 20px;
+  }
+  
+ 
+  
+  .Student-Card-Holder{
+    background-color:rgb(255, 255, 255);
+    display: flex;
+  }
+  
+  .Student-Padding{
+    padding-bottom: 0;
+  }
+  
+  .Student-link {
+    color: #61dafb;
+  }
+  
+  
+  
+  
