@@ -9,7 +9,7 @@ import StudentSignup from "./StudentSignup.js";
 import CompanySignup from "./CompanySignup.js";
 import Marketplace from "./Student/Marketplace";
 import SubmitBid from "./Student/Submit_Bid";
-import CompanySearchStudents from "./Company/Company_SearchStudents";
+import StudentSearchStudents from "./Student/Student_SearchStudents";
 import AdminHome from "./Admin/Admin_Home";
 import AdminManageContracts from "./Admin/Admin_ManageContracts";
 import AdminManageUsers from "./Admin/Admin_ManageUsers";
@@ -40,7 +40,7 @@ class Routes extends React.Component {
 
         {/* Company Routes */}
         <Route path="/companydashboard" component={CompanyHome} />
-        <Route path="/searchstudents" component={CompanySearchStudents} />
+        <Route path="/studentcommunity" component={StudentSearchStudents} />
         <Route path="/newcontract" component={NewContract} />
         <Route path="/viewbids" component={CompanyViewBids} />
 

@@ -121,22 +121,22 @@ function AdminNavBar(props) {
 
   const adminDashboardClicked = e => {
     // Redirects to admin home page
-    return (window.location = "/admindashboard");
+    props.history.push("/admindashboard");
   };
 
   const manageContractsClicked = e => {
     // Redirects to marketplace page
-    return (window.location = "/managecontracts");
+    props.history.push("/managecontracts");
   };
 
   const manageUsersClicked = e => {
     // Redirects to marketplace page
-    return (window.location = "/manageusers");
+    props.history.push("/manageusers");
   };
 
   const logoutClicked = e => {
     // Redirects to landing page
-    return (window.location = "/");
+    props.history.push("/");
   };
 
   const renderMobileMenu = (
