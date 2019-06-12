@@ -76,7 +76,7 @@ export default class Company_SearchStudents extends React.Component {
 
     return (
       <div>
-        <Company_NavBar_New title={"Search Students"} />
+        <Company_NavBar_New title={"Search Students"} history={this.props.history}/>
         <div>
           <MUIDataTable
             title={"Students"}
