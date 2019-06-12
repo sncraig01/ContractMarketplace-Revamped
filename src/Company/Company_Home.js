@@ -1,5 +1,5 @@
 import React from "react";
-import Company_NavBar_New from "./Company_NavBar_New.js";
+import CompanyNavBarNew from "./Company_NavBar_New.js";
 import firebase from "../firebase.js";
 import List from "@material-ui/core/List";
 import CardContent from "@material-ui/core/CardContent";
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-class Company_Home extends React.Component {
+class CompanyHome extends React.Component {
   state = {
     companyName: "",
     email: "",
@@ -58,7 +58,6 @@ class Company_Home extends React.Component {
       const contractRef = firebase.database().ref("contracts/" + info[0]);
       contractRef.on("value", snapshot => {
         //console.log( snapshot.val() )
-        let contractArr = [];
         let available = [];
         let assigned = [];
         snapshot.forEach(function(contracts) {
@@ -123,7 +122,7 @@ class Company_Home extends React.Component {
 
     return (
       <div className="App">
-        <Company_NavBar_New history={this.props.history} title={"Home"} />
+        <CompanyNavBarNew history={this.props.history} title={"Home"} />
         <h1> {this.state.companyName} </h1>
         <div> {this.state.email} </div>
         <div type="dashinfo">
@@ -135,7 +134,7 @@ class Company_Home extends React.Component {
               </div>
               <CardContent>
                 {this.state.assignedContracts.map(con => (
-                  <div>
+                  <div key={con.contract_details}>
                     <b> {con.contract_name} </b>
                     <div>{con.contract_details} </div>
                     <div className="assignedTo"> {con.assigned_to} </div>
@@ -178,6 +177,6 @@ class Company_Home extends React.Component {
   }
 }
 
-export default Company_Home;
+export default CompanyHome;
 
 //<Company_NavBar title={"Home"} />

@@ -91,7 +91,7 @@ const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
 */
 
-class Company_NavBar_New extends React.Component {
+class CompanyNavBarNew extends React.Component {
   constructor(props) {
     super(props);
     this.newContractClicked = this.newContractClicked.bind(this);
@@ -267,4 +267,4 @@ class Company_NavBar_New extends React.Component {
   }
 }
 
-export default Company_NavBar_New;
+export default CompanyNavBarNew;

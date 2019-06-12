@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Student_NavBar from "./Student_NavBar";
+import StudentNavBar from "./Student_NavBar";
 import "./Submit_Bid.css";
 import CardActionArea from "@material-ui/core/CardActionArea";
 
@@ -159,7 +159,7 @@ class Submit_Bid extends React.Component {
 
     return (
       <div>
-        <Student_NavBar title={"Submit Bid"} />
+        <StudentNavBar title={"Submit Bid"} />
         <div className="everything">
           <div className="bidCard">
             <Card raised className={classes.card}>

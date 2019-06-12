@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Student_NavBar(props) {
+function StudentNavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -219,4 +219,4 @@ function Student_NavBar(props) {
   );
 }
 
-export default Student_NavBar;
+export default StudentNavBar;

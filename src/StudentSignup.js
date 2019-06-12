@@ -10,8 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "./firebase.js";
-require('firebase/auth')
-
+require("firebase/auth");
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -58,31 +57,32 @@ class StudentSignup extends React.Component {
     });
   }
 
-
   doRegister = () => {
+    console.log(this.state.password);
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => {
+        // creation successful
+        console.log("SUCCESS");
 
-    console.log( this.state.password )
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
-     // creation successful
-      console.log( "SUCCESS")
+        const usersRef = firebase.database().ref("users"); //reference to the database "users" key
+        const user = {
+          //create thing to be pushed
+          email: this.state.email,
+          name: this.state.firstName + " " + this.state.lastName,
+          type: "student"
+        };
+        usersRef.push(user); //push the data to the database
 
-      const usersRef = firebase.database().ref( "users" ); //reference to the database "users" key
-      const user = { //create thing to be pushed
-        email: this.state.email,
-        name: this.state.firstName + " " + this.state.lastName,
-        type: "student",
-      }
-      usersRef.push(user); //push the data to the database
-      
-      this.props.history.push("/studenthome");
-
-    }).catch(function(error) {
+        this.props.history.push("/studenthome");
+      })
+      .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log( errorCode )
+        // var errorMessage = error.message;
+        console.log(errorCode);
       });
-
   };
 
   render() {
@@ -162,17 +162,16 @@ class StudentSignup extends React.Component {
               </Grid>
             </Grid>
           </form>
-              <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => this.doRegister()}
-            >
-              Sign Up
-            </Button>
-
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={() => this.doRegister()}
+          >
+            Sign Up
+          </Button>
         </div>
       </Container>
     );
