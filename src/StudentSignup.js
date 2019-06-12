@@ -10,6 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "./firebase.js";
+import RevTekHomeNavBar from "./RevTekHomeNavBar";
+import Card from '@material-ui/core/Card';
+import "./Landing.css"
+
 require("firebase/auth");
 
 const useStyles = makeStyles(theme => ({
@@ -75,7 +79,7 @@ class StudentSignup extends React.Component {
         };
         usersRef.push(user); //push the data to the database
 
-        this.props.history.push("/studenthome");
+        this.props.history.push("/studentdashboard");
       })
       .catch(function(error) {
         // Handle Errors here.
@@ -88,6 +92,11 @@ class StudentSignup extends React.Component {
   render() {
     const classes = useStyles;
     return (
+      <div>
+        <RevTekHomeNavBar/>
+        <div className="Landing-Body">
+
+    <Card className="SignUp-Card">
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -174,6 +183,9 @@ class StudentSignup extends React.Component {
           </Button>
         </div>
       </Container>
+      </Card>
+      </div>
+      </div>
     );
   }
 }

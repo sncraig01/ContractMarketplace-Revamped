@@ -10,6 +10,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "./firebase.js";
+import RevTekHomeNavBar from "./RevTekHomeNavBar";
+import Card from '@material-ui/core/Card';
+import "./Landing.css"
 require("firebase/auth");
 
 const useStyles = makeStyles(theme => ({
@@ -52,6 +55,12 @@ class Authentication extends React.Component {
     this.setState({ password: text });
   };
 
+  signUp = () => 
+  {
+    let route = this.props.history;
+    route.push("/signUp");
+  }
+
   onSignIn = () => {
     console.log("here");
 
@@ -91,6 +100,9 @@ class Authentication extends React.Component {
 
     return (
       <div className="App">
+        <RevTekHomeNavBar/>
+        <div className="Landing-Body">
+          <Card className="SignUp-Card">
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -132,7 +144,7 @@ class Authentication extends React.Component {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="#" variant="body2"  onClick={() => this.signUp()}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
@@ -150,7 +162,10 @@ class Authentication extends React.Component {
             </Button>
           </div>
         </Container>
-      </div>
+        </Card>
+        </div>
+        </div>
+   
     );
   }
 }

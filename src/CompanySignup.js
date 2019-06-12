@@ -10,6 +10,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "./firebase.js";
+import RevTekHomeNavBar from "./RevTekHomeNavBar";
+import Card from '@material-ui/core/Card';
+import "./Landing.css"
+
 require("firebase/auth");
 
 const useStyles = makeStyles(theme => ({
@@ -81,6 +85,9 @@ class CompanySignup extends React.Component {
     const classes = useStyles;
     return (
       <div>
+        <RevTekHomeNavBar/>
+        <div className="Landing-Body">
+          <Card className="SignUp-Card">
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
@@ -158,6 +165,8 @@ class CompanySignup extends React.Component {
             </Button>
           </div>
         </Container>
+        </Card>
+        </div>
       </div>
     );
   }

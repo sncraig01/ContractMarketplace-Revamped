@@ -1,3 +1,4 @@
+
 import React from "react";
 import List from "@material-ui/core/List";
 import CardContent from "@material-ui/core/CardContent";
@@ -199,8 +200,10 @@ class Student_EditProfile extends React.Component {
     {
         return (
           <div className= 'StudentEdit-whole'>
-            <Student_NavBar title={"Dashboard"} />
+
+            <StudentNavBar title={"Dashboard"} />
             <h1>Edit Your Profile</h1>
+
 
            <div className = 'StudentEdit-Profile'>
        

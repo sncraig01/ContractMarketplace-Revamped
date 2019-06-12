@@ -16,6 +16,7 @@ import AdminManageUsers from "./Admin/Admin_ManageUsers";
 import StudentProfile from "./Student/Student_Profile";
 import CompanyViewBids from "./Company/Company_ViewBids.js";
 import StudentEditProfile from "./Student/Student_EditProfile";
+import RevTekHome from "./RevTekHome";
 
 class Routes extends React.Component {
   constructor(props) {
@@ -27,8 +28,8 @@ class Routes extends React.Component {
   render() {
     return (
       <Router>
-        <Route exact path="/" component={Landing} />
-
+        <Route exact path="/" component={RevTekHome} />
+        <Route exact path="/SignUp" component={Landing} />
         <Route path="/signin" component={Authentication} />
         <Route path="/signupstudent" component={StudentSignup} />
         <Route path="/signupcompany" component={CompanySignup} />
