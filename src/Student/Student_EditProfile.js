@@ -111,6 +111,9 @@ async componentDidMount(){
              
      }
 
+
+
+     
     //Adds skill to the users profile in firebase
     addSkill()
     {
