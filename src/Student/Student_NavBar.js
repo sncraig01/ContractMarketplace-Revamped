@@ -11,7 +11,6 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
 // import Dashboard from "@material-ui/icons/Dashboard";
 import Store from "@material-ui/icons/Store";
-//import AccountCircle from "@material-ui/icons/AccountCircle";
 // import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
@@ -131,10 +130,6 @@ function Student_NavBar(props) {
     return (window.location = "/marketplace");
   };
 
-  const studentProfileClicked = e => {
-    // Redirects to marketplace page
-    return (window.location = "/studentprofile");
-  };
 
   const logoutClicked = e => {
     // Redirects to landing page

@@ -22,7 +22,7 @@ export default class Admin_ManageContracts extends React.Component {
           contractsSnapshot.forEach(detailsSnapshot => {
             detailsSnapshot.forEach(async contractFieldsSnapshot => {
               var contractField = contractFieldsSnapshot.val();
-              if (!(contractField == "bids")) {
+              if (!(contractField === "bids")) {
                 let newNames = this.state.companyNames;
                 let newTitles = this.state.contractTitles;
                 let newDetails = this.state.contractDetails;
