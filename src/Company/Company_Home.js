@@ -1,5 +1,5 @@
 import React from "react";
-import CompanyNavBarNew from "./Company_NavBar_New.js";
+import CompanyNavBar from "./Company_NavBar.js";
 import firebase from "../firebase.js";
 import List from "@material-ui/core/List";
 import CardContent from "@material-ui/core/CardContent";
@@ -122,7 +122,7 @@ class CompanyHome extends React.Component {
 
     return (
       <div className="App">
-        <CompanyNavBarNew history={this.props.history} title={"Home"} />
+        <CompanyNavBar history={this.props.history} />
         <h1> {this.state.companyName} </h1>
         <div> {this.state.email} </div>
         <div type="dashinfo">

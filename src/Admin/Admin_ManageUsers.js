@@ -1,59 +1,108 @@
 import React from "react";
-import Card from "@material-ui/core/Card";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import CardContent from "@material-ui/core/CardContent";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
-import "./Admin_ManageUsers.css";
+import MUIDataTable from "mui-datatables";
 import AdminNavBar from "./Admin_NavBar";
+import firebase from "../firebase.js";
 
-class AdminManageUsers extends React.Component {
+export default class AdminManageUsers extends React.Component {
+  state = {
+    initialized: false,
+    emails: [],
+    names: [],
+    types: []
+    // companyNames: [],
+    // contractTitles: [],
+    // contractDetails: [],
+    // areAvailable: []
+  };
+
+  componentDidMount() {
+    let newEmails = [];
+    let newNames = [];
+    let newTypes = [];
+
+    if (!this.state.initialized) {
+      const usersRef = firebase.database().ref("users"); //reference to the database "users" key
+      usersRef.on("value", snapshot => {
+        snapshot.forEach(usersSnapshot => {
+          var userField = usersSnapshot.val();
+
+          newEmails.push(userField.email);
+          newNames.push(userField.name);
+          newTypes.push(userField.type);
+
+          this.setState({
+            emails: newEmails,
+            names: newNames,
+            types: newTypes
+          });
+        });
+      });
+      this.setState({ initialized: true });
+    }
+  }
+
+  deleteClicked = deletedRows => {
+    // figure out which rows were deleted
+    const deletedIndexes = Object.keys(deletedRows.lookup);
+    //console.log( deletedIndexes )
+
+    //find which contract name they refer to and remove it
+    for (let i = 0; i < deletedIndexes.length; i++) {
+      console.log(deletedIndexes[i]);
+      let compName = this.state.companyNames[deletedIndexes[i]];
+      let contractName = this.state.contractTitles[deletedIndexes[i]];
+      console.log("deleting " + compName + " " + contractName);
+      var contractRef = firebase
+        .database()
+        .ref("contracts/" + compName + "/" + contractName);
+      contractRef.remove(); //actually remove it
+    }
+
+    /*
+    //remove all bids that pertain to that contract
+    for( let i = 0; i < deletedIndexes.length; i++ ){
+      console.log( deletedIndexes[i] )
+      let compName = this.state.companyNames[ deletedIndexes[i] ]
+      let contractName = this.state.contractTitles[ deletedIndexes[i] ]
+      console.log( "deleting bids for " + compName + " " + contractName )
+
+    }
+    */
+
+    window.location.reload();
+  };
+
   render() {
+    const columns = ["Name", "User Type", "Email"];
+
+    const data = [];
+    for (var i = 0; i < this.state.names.length; i++) {
+      data.push([
+        this.state.names[i],
+        this.state.types[i],
+        this.state.emails[i]
+      ]);
+    }
+
+    const options = {
+      filterType: "dropdown",
+      responsive: "scroll",
+      onRowsDelete: this.deleteClicked
+    };
+
     return (
-      <div className="Admin-users-whole">
-        <AdminNavBar title={"Manage Users"} />
-        <div className="Admin-Card-Holder">
-          <div className="Admin-Cards">
-            <List>
-              {/** Implemented a scrollbar */}
-              <Card
-                className="Admin-studentholder"
-                style={{ maxHeight: 200, overflow: "auto" }}
-              >
-                <div>
-                  <b>Students:</b>
-                  <Divider />
-                </div>
-                <div className="Admin-Searchbarholder">
-                  <SearchIcon />
-                  <InputBase placeholder="Search Students" width="50%" />
-                </div>
-                <CardContent />
-              </Card>
-            </List>
-          </div>
-          <div className="Admin-Cards">
-            {/** Implemented a scrollbar */}
-            <Card
-              className="Admin-contactholder"
-              style={{ maxHeight: 200, overflow: "auto" }}
-            >
-              <div>
-                <b>Companies:</b>
-                <Divider />
-              </div>
-              <div className="Admin-Searchbarholder">
-                <SearchIcon />
-                <InputBase color="white" placeholder="Search Companies" />
-              </div>
-              <CardContent />
-            </Card>
-          </div>
+      <div>
+        <AdminNavBar history={this.props.history} />
+        <h1>Manage Users</h1>
+        <div>
+          <MUIDataTable
+            title={"Users"}
+            data={data}
+            columns={columns}
+            options={options}
+          />
         </div>
       </div>
     );
   }
 }
-
-export default AdminManageUsers;

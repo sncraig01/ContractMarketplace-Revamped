@@ -10,7 +10,6 @@ import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
 import AddCircle from "@material-ui/icons/AddCircle";
-import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
@@ -121,25 +120,17 @@ function CompanyNavBar(props) {
 
   const companyDashboardClicked = e => {
     // Redirects to marketplace page
-    //props.history.push("/marketplace");
-    return (window.location = "/companydashboard");
-  };
-
-  const searchStudentsClicked = e => {
-    // Redirects to marketplace page
-    // props.history.push("/marketplace");
-    return (window.location = "/searchstudents");
+    props.history.push("/companydashboard");
   };
 
   const newContractClicked = e => {
     // Redirects to new contract page
-    //props.history.push("/newcontract");
-    //return (window.location = "/newcontract");
+    props.history.push("/newcontract");
   };
 
   const logoutClicked = e => {
     // Redirects to landing page
-    return (window.location = "/");
+    props.history.push("/");
   };
 
   const renderMobileMenu = (
@@ -158,11 +149,6 @@ function CompanyNavBar(props) {
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton color="inherit" onClick={() => newContractClicked()}>
           <AddCircle />
-        </IconButton>
-      </MenuItem>
-      <MenuItem>
-        <IconButton color="inherit" onClick={() => searchStudentsClicked()}>
-          <SearchIcon />
         </IconButton>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -207,14 +193,6 @@ function CompanyNavBar(props) {
             <Tooltip title="Post New Contract">
               <IconButton color="inherit" onClick={() => newContractClicked()}>
                 <AddCircle />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Search Students">
-              <IconButton
-                color="inherit"
-                onClick={() => searchStudentsClicked()}
-              >
-                <SearchIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title="Logout">

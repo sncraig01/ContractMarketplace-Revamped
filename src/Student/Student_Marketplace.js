@@ -5,7 +5,7 @@ class Student_Marketplace extends React.Component {
   render() {
     return (
       <div className="Admin-contracts-whole">
-        <StudentNavBar title={"Contract Marketplace"} />
+        <StudentNavBar history={this.props.history} />
       </div>
     );
   }

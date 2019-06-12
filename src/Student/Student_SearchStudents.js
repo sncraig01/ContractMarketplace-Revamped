@@ -1,9 +1,9 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
-import CompanyNavBarNew from "./Company_NavBar_New";
-import firebase from "../firebase.js";
+import StudentNavBar from "./Student_NavBar";
+import firebase from "../firebase";
 
-export default class CompanySearchStudents extends React.Component {
+export default class StudentSearchStudents extends React.Component {
   state = {
     initialized: false,
     studentNames: [],
@@ -27,42 +27,42 @@ export default class CompanySearchStudents extends React.Component {
           if (user.type === "student") {
             newNames.push(user.name);
             newEmails.push(user.email);
-            // let key = userSnapshot.key;
+            let key = userSnapshot.key;
 
-            // const studentRef = firebase.database().ref("users/" + key);
-            // studentRef.on("value", snapshot => {
-            //   var user = snapshot.val();
-            //   var bioObject = user.bio;
-            //   var skillObject = user.skills;
+            const studentRef = firebase.database().ref("users/" + key);
+            studentRef.on("value", snapshot => {
+              var user = snapshot.val();
+              var bioObject = user.bio;
+              var skillObject = user.skills;
 
-            //   // bioObject.forEach(function(bioLine){
-                
-            //   // })
+              // bioObject.forEach(function(bioLine){
 
-            //   console.log(bioObject);
-            //   // snapshot.forEach(userSnapshot => {
-            //   //   console.log(userSnapshot.val());
-            //   // userSnapshot.forEach(arraySnapshot => {
-            //   //   console.log(arraySnapshot.val());
-            //   // })
-            //   // })
-            // });
+              // })
+
+              console.log(bioObject);
+              // snapshot.forEach(userSnapshot => {
+              //   console.log(userSnapshot.val());
+              // userSnapshot.forEach(arraySnapshot => {
+              //   console.log(arraySnapshot.val());
+              // })
+              // })
+            });
 
             // console.log(newEmails);
             // console.log(newBios);
 
-            // userSnapshot.forEach(detailsSnapshot => {
-            //   // console.log(detailsSnapshot.val());
-            //   detailsSnapshot.forEach(arraySnapshot => {
-            //     // console.log(arraySnapshot.val());
-            //   });
-            //   // let mySkills = [];
-            //   // mySkills.push(skillsSnapshot.val());
-            //   // this.setState({ inidividualSkills: mySkills });
+            userSnapshot.forEach(detailsSnapshot => {
+              // console.log(detailsSnapshot.val());
+              detailsSnapshot.forEach(arraySnapshot => {
+                // console.log(arraySnapshot.val());
+              });
+              // let mySkills = [];
+              // mySkills.push(skillsSnapshot.val());
+              // this.setState({ inidividualSkills: mySkills });
 
-            //   // newBios.push(user.bio);
-            //   // newSkills.push(mySkills);
-            // });
+              // newBios.push(user.bio);
+              // newSkills.push(mySkills);
+            });
           }
         });
         this.setState({
@@ -96,10 +96,7 @@ export default class CompanySearchStudents extends React.Component {
 
     return (
       <div>
-        <CompanyNavBarNew
-          history={this.props.history}
-          title={"Search Students"}
-        />
+        <StudentNavBar history={this.props.history} />
         <div>
           <MUIDataTable
             title={"Students"}
@@ -112,5 +109,3 @@ export default class CompanySearchStudents extends React.Component {
     );
   }
 }
-
-// ReactDOM.render(<Company_SearchStudents />, document.getElementById("root"));

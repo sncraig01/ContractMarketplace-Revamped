@@ -1,5 +1,5 @@
 import React from "react";
-import CompanyNavBarNew from "./Company_NavBar_New.js";
+import CompanyNavBar from "./Company_NavBar.js";
 import "./Company.css";
 import firebase from "../firebase.js";
 import { makeStyles } from "@material-ui/core/styles";
@@ -201,7 +201,7 @@ class CompanyViewBids extends React.Component {
   render() {
     return (
       <div className="App">
-        <CompanyNavBarNew history={this.props.history} title={"Bids"} />
+        <CompanyNavBar history={this.props.history} />
         <div> Displaying bids for your contract: </div>
         <h1> {this.props.location.state.contract_name} </h1>
         <div> {this.state.notification} </div>
