@@ -62,7 +62,7 @@ class Student_Home extends React.Component
 
    }
 
-   getSkills()
+   getSkills=()=>
    {  
        let temp = this.state.student_email;
        let temp_arr = [];

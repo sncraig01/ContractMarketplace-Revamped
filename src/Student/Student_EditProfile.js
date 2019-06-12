@@ -61,7 +61,7 @@ class Student_EditProfile extends React.Component {
    }
 
    //Gets Skills from firebase
-   getSkills()
+   getSkills=()=>
    {  
        console.log("getting Skills")
        let temp = this.state.student_email;
@@ -80,11 +80,11 @@ class Student_EditProfile extends React.Component {
                      if(item.skills !== undefined)
                      {
                            console.log("Skills is not undefined")
-                       //     temp_arr.forEach(function(childTemp){
-                       //     var itr2 = childTemp.val();
-                       //     console.log("Value of itr2: " + itr2)
+                           temp_arr.forEach(function(childTemp){
+                           var itr2 = childTemp;
+                           console.log("Value of itr2: " + itr2)
 
-                       // })
+                       })
                       
                        for(let skill_itr in item.skills)
                        {
@@ -147,9 +147,11 @@ class Student_EditProfile extends React.Component {
            for (let user in users) {
                if( email_id === users[user].email){
                    console.log(user);
+                   userID = user; 
                }
            }
        })
+       console.log("User ID: " + userID)
        var logRef = firebase.database().ref(`/users/${userID}/skills/`);
        console.log(logRef);
        logRef.push(this.state.skill);
@@ -187,9 +189,8 @@ class Student_EditProfile extends React.Component {
        this.setState({skill})
    }
 
-   saveBio(e)
-   {
-       //e.preventDefault()
+   saveBio=(e)=>
+   {      
        console.log("adding bio")
        let Bio_currentUser = firebase.auth().currentUser;
        console.log(Bio_currentUser)
@@ -213,17 +214,22 @@ class Student_EditProfile extends React.Component {
        var Bio_logRef = firebase.database().ref(`/users/${userID}/bio/`);
        console.log(Bio_logRef);
        Bio_logRef.push(this.state.bio);
-
+        e.preventDefault()
    }
 
-   handleChange(event)
+   handleChange=(event)=>
    {
        this.setState({bio : event.target.value});
+       event.preventDefault();
    }
 
    displaySkills()
    {
-       return (this.state.skill_arr.map((itr) =><div>{itr}<Button onClick={()=>this.removeSkill(itr)}>Delete</Button></div>))
+       return (
+           this.state.skill_arr.map((itr) =>
+           <div key={itr}>{console.log(itr)}{itr}<Button onClick={()=>this.removeSkill(itr)}>Delete</Button></div>
+           )
+           )
    }
 
    render()
@@ -271,6 +277,8 @@ class Student_EditProfile extends React.Component {
                       onChange={(skill)=>{this.updatingSkill(skill.target.value)}}
                       />
                        <Button  onClick={()=>this.addSkill()}>Add</Button>
+                       <Button onClick={()=>this.getSkills()}>Show Skills</Button>
+                        
                   </div>
                   <CardContent>
                       {this.displaySkills()}
