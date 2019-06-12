@@ -13,9 +13,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 class Landing extends React.Component{
-    constructor(props) {
-        super(props);
-    }
+  
     
     signInClicked = e => {
         // Redirects to profile page
