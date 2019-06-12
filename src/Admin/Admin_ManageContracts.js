@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import MUIDataTable from "mui-datatables";
 import Admin_NavBar from "./Admin_NavBar";
 import firebase from "../firebase.js";
@@ -88,5 +87,3 @@ export default class Admin_ManageContracts extends React.Component {
     );
   }
 }
-
-ReactDOM.render(<Admin_ManageContracts />, document.getElementById("root"));
