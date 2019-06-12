@@ -12,6 +12,7 @@ import Home from "@material-ui/icons/Home";
 import AddCircle from "@material-ui/icons/AddCircle";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -163,14 +164,20 @@ function CompanyNavBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            className={classes.company}
-            variant="h5"
+          <Button
+            variant="text"
             noWrap
-            style={{ fontSize: "26px" }}
+            style={{
+              fontSize: "26px",
+              backgroundColor: "transparent",
+              color: "white",
+              textTransform: "none",
+              boxShadow: "none"
+            }}
+            href="/"
           >
             RevTek
-          </Typography>
+          </Button>
           <Typography
             className={classes.title}
             variant="h6"
