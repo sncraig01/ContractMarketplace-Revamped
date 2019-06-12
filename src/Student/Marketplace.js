@@ -1,16 +1,10 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Admin_NavBar from "../Admin/Admin_NavBar";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
 import firebase from "../firebase.js";
 import Button from "@material-ui/core/Button";
 import "./Marketplace.css";
@@ -193,7 +187,7 @@ class Marketplace extends React.Component {
           <div className="allBidCards">
             {this.state.indices.length > 0 ? (
               this.state.indices.map(index => {
-                return this.state.searchText == "" ||
+                return this.state.searchText === "" ||
                   this.state.companyNames[index].includes(
                     this.state.searchText
                   ) ||

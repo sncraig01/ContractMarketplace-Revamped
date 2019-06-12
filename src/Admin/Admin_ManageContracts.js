@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import MUIDataTable from "mui-datatables";
 import Admin_NavBar from "./Admin_NavBar";
 import firebase from "../firebase.js";
@@ -22,7 +21,7 @@ export default class Admin_ManageContracts extends React.Component {
           contractsSnapshot.forEach(detailsSnapshot => {
             detailsSnapshot.forEach(async contractFieldsSnapshot => {
               var contractField = contractFieldsSnapshot.val();
-              if (!(contractField == "bids")) {
+              if (!(contractField === "bids")) {
                 let newNames = this.state.companyNames;
                 let newTitles = this.state.contractTitles;
                 let newDetails = this.state.contractDetails;
@@ -37,10 +36,12 @@ export default class Admin_ManageContracts extends React.Component {
                   newAvailable.push("No");
                 }
 
-                await this.setState({ companyNames: newNames });
-                await this.setState({ contractTitles: newTitles });
-                await this.setState({ contractDetails: newDetails });
-                await this.setState({ areAvailable: newAvailable });
+                await this.setState({
+                  companyNames: newNames,
+                  contractTitles: newTitles,
+                  contractDetails: newDetails,
+                  areAvailable: newAvailable
+                });
               }
             });
           });
@@ -89,4 +90,4 @@ export default class Admin_ManageContracts extends React.Component {
   }
 }
 
-ReactDOM.render(<Admin_ManageContracts />, document.getElementById("root"));
+// ReactDOM.render(<Admin_ManageContracts />, document.getElementById("root"));
