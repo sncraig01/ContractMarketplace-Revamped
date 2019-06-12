@@ -1,228 +1,209 @@
-import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import List from '@material-ui/core/List';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Admin_NavBar from '../Admin/Admin_NavBar';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Divider from '@material-ui/core/Divider';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import firebase from '../firebase.js'
-import './Student_EditProfile.css';
-import StudentNavBar from './StudentNavBar';
 
-class Student_EditProfile extends React.Component 
-{
-    state = {
+import React from "react";
+import List from "@material-ui/core/List";
+import CardContent from "@material-ui/core/CardContent";
+import Card from "@material-ui/core/Card";
+import Divider from "@material-ui/core/Divider";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import firebase from "../firebase.js";
+import "./Student_EditProfile.css";
+import StudentNavBar from "./Student_NavBar";
+
+class Student_EditProfile extends React.Component {
+  state = {
     student_email: "",
     student_name: "",
-    skill: "", 
+    skill: "",
     skill_arr: [],
     bio: ""
-}
+  };
 
-async componentDidMount(){
-        //Finds the users email through Firebase authentication
-       const temp3 = await firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                console.log("user is signed in")
-                console.log(user.email);
-                this.setState({student_email : user.email})
-            } else {
-              // No user is signed in.
-              console.log("Invalid Username or Password")
-            }
-          });
+  async componentDidMount() {
+    //Finds the users email through Firebase authentication
+    await firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("user is signed in");
+        console.log(user.email);
+        this.setState({ student_email: user.email });
+      } else {
+        // No user is signed in.
+        console.log("Invalid Username or Password");
+      }
+    });
 
-          //Finds the matching Name and Listed skills from Firebase
-          const userRef = await firebase.database().ref("users"); // access all users
-          userRef.on('value', (snapshot) => {
-          let users = snapshot.val();
-          for(let itr in users){
-              if(this.state.student_email == users[itr].email) // check for a user with a matching email
-              {   
-                this.setState({student_name : users[itr].name})
-                break;
-              }
-            }
-            })
-         
-            this.getBio();
-               
-            this.getSkills();
-    }
+    //Finds the matching Name and Listed skills from Firebase
+    const userRef = await firebase.database().ref("users"); // access all users
+    userRef.on("value", snapshot => {
+      let users = snapshot.val();
+      for (let itr in users) {
+        if (this.state.student_email === users[itr].email) {
+          // check for a user with a matching email
+          this.setState({ student_name: users[itr].name });
+          break;
+        }
+      }
+    });
 
-    //Gets Skills from firebase
-    getSkills()
-    {   
-        let temp = this.state.student_email; 
-        let temp_arr = this.state.skill_arr; 
-          //Finds the matching Name and Listed skills from Firebase
-          this.state.skill_arr = []; 
-          const userRef = firebase.database().ref("users"); // access all users
-          userRef.on('value', (snapshot) => {
-          let users = snapshot.val();
-          snapshot.forEach(function(childSnapshot)
-          {
-              var item = childSnapshot.val();
-              console.log("ITEM: " + item.email)
-            if(temp == item.email) // check for a user with a matching email
-                  {   
-                      if(item.skills != undefined)
-                      {
-                        for(let itr2 in item.skills)
-                        {
-                           temp_arr.push(item.skills[itr2]);
-                        }
-                      }
-                  }
-          })
-          this.setState({skill_arr : temp_arr}); 
-          })  
-    }
+    this.getBio();
 
-     //Gets bio from firebase
-     getBio()
-     {   
-           //Finds the matching Name and Listed skills from Firebase
+    this.getSkills();
+  }
 
-           const userObj = firebase.database().ref("users"); // access all users
-           userObj.on('value', (snapshot) => {
-           let users_snap = snapshot.val();
-           for(let itr in users_snap){
-               if(this.state.student_email == users_snap[itr].email) // check for a user with a matching email
-               {   
-                   if(users_snap[itr].bio != undefined)
-                   {
-                     for(let itr2 in users_snap[itr].bio)
-                     {
-                         this.setState({bio : users_snap[itr].bio[itr2]});
-                     }
-                   }
-                 break;
-               }
-             }
-             })
-             
-     }
-
-
-
-     
-    //Adds skill to the users profile in firebase
-    addSkill()
-    {
-        console.log("adding skill")
-        //this.state.skill_arr.push(this.state.skill);
-        this.updateFirebase(); 
-        this.getSkills();
-    }
-
-    //Adds a new skill to firebase
-    updateFirebase = () => {
-        let currentUser = firebase.auth().currentUser;
-        console.log(currentUser)
-        console.log(currentUser.email);
-        const email_id = currentUser.email;
-        console.log(this.state.activity);
-    
-        var usersRef = firebase.database().ref("/users" );
-        console.log(usersRef)
-        let userID="";
-        let log=[];
-        usersRef.on('value', (snapshot) => {
-            let users = snapshot.val();
-            console.log(users);
-            for (let user in users) {
-                if( email_id == users[user].email){
-                    console.log(user);
-                    userID=user;
-                    log=users[user].skills;
-                }
-            }
-        })
-        var logRef = firebase.database().ref(`/users/${userID}/skills/`);
-        console.log(logRef);
-        logRef.push(this.state.skill);
-    }
-
-    //Removes Skill from firebase and the list
-    removeSkill(delete_skill)
-    {
-        const userRef = firebase.database().ref("users"); // access all users
-        userRef.on('value', (snapshot) => {
-        let users = snapshot.val();
-       // let keys = snapshot.key(); 
-        for(let itr in users){
-            if(this.state.student_email == users[itr].email) // check for a user with a matching email
-            {   
-                for(let itr2 in users[itr].skills)
-                {
-                   if(users[itr].skills[itr2] === delete_skill)
-                   {
-                       console.log("The key for " + delete_skill)
-                       console.log(itr2);
-                       firebase.database().ref('users').child(itr).child('skills').child(itr2).remove();
-                   }
-                }
-                this.getSkills();
-              break;
+  //Gets Skills from firebase
+  getSkills() {
+    let temp = this.state.student_email;
+    let temp_arr = this.state.skill_arr;
+    //Finds the matching Name and Listed skills from Firebase
+    this.setState({ skill_arr: [] });
+    const userRef = firebase.database().ref("users"); // access all users
+    userRef.on("value", snapshot => {
+      snapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        console.log("ITEM: " + item.email);
+        if (temp === item.email) {
+          // check for a user with a matching email
+          if (item.skills !== undefined) {
+            for (let itr2 in item.skills) {
+              temp_arr.push(item.skills[itr2]);
             }
           }
-          })
-    }
+        }
+      });
+      this.setState({ skill_arr: temp_arr });
+    });
+  }
 
-    //Updates the state of skill everytime the add skill input box changes
-    updatingSkill=(skill)=>
-    {
-        this.setState({skill})
-    }
+  //Gets bio from firebase
+  getBio() {
+    //Finds the matching Name and Listed skills from Firebase
 
-    saveBio()
-    {
-        console.log("adding bio")
-        let currentUser = firebase.auth().currentUser;
-        console.log(currentUser)
-        console.log(currentUser.email);
-        const email_id = currentUser.email;
-        console.log(this.state.activity);
-    
-        var usersRef = firebase.database().ref("/users" );
-        console.log(usersRef)
-        let userID="";
-        let log=[];
-        usersRef.on('value', (snapshot) => {
-            let users = snapshot.val();
-            console.log(users);
-            for (let user in users) {
-                if( email_id == users[user].email){
-                    console.log(user);
-                    userID=user;
-                    log=users[user].bio;
-                }
+    const userObj = firebase.database().ref("users"); // access all users
+    userObj.on("value", snapshot => {
+      let users_snap = snapshot.val();
+      for (let itr in users_snap) {
+        if (this.state.student_email === users_snap[itr].email) {
+          // check for a user with a matching email
+          if (users_snap[itr].bio !== undefined) {
+            for (let itr2 in users_snap[itr].bio) {
+              this.setState({ bio: users_snap[itr].bio[itr2] });
             }
-        })
-        var logRef = firebase.database().ref(`/users/${userID}/bio/`);
-        console.log(logRef);
-        logRef.push(this.state.bio);
+          }
+          break;
+        }
+      }
+    });
+  }
 
-    }
+  //Adds skill to the users profile in firebase
+  addSkill() {
+    console.log("adding skill");
+    //this.state.skill_arr.push(this.state.skill);
+    this.updateFirebase();
+    this.getSkills();
+  }
 
-    handleChange(event)
-    {
-        this.setState({bio : event.target.value});
-    }
+  //Adds a new skill to firebase
+  updateFirebase = () => {
+    let currentUser = firebase.auth().currentUser;
+    console.log(currentUser);
+    console.log(currentUser.email);
+    const email_id = currentUser.email;
+    console.log(this.state.activity);
+
+    var usersRef = firebase.database().ref("/users");
+    console.log(usersRef);
+    let userID = "";
+    let log = [];
+    usersRef.on("value", snapshot => {
+      let users = snapshot.val();
+      console.log(users);
+      for (let user in users) {
+        if (email_id === users[user].email) {
+          console.log(user);
+          userID = user;
+          log = users[user].skills;
+        }
+      }
+    });
+    var logRef = firebase.database().ref(`/users/${userID}/skills/`);
+    console.log(logRef);
+    logRef.push(this.state.skill);
+  };
+
+  //Removes Skill from firebase and the list
+  removeSkill(delete_skill) {
+    const userRef = firebase.database().ref("users"); // access all users
+    userRef.on("value", snapshot => {
+      let users = snapshot.val();
+      // let keys = snapshot.key();
+      for (let itr in users) {
+        if (this.state.student_email === users[itr].email) {
+          // check for a user with a matching email
+          for (let itr2 in users[itr].skills) {
+            if (users[itr].skills[itr2] === delete_skill) {
+              console.log("The key for " + delete_skill);
+              console.log(itr2);
+              firebase
+                .database()
+                .ref("users")
+                .child(itr)
+                .child("skills")
+                .child(itr2)
+                .remove();
+            }
+          }
+          this.getSkills();
+          break;
+        }
+      }
+    });
+  }
+
+  //Updates the state of skill everytime the add skill input box changes
+  updatingSkill = skill => {
+    this.setState({ skill });
+  };
+
+  saveBio() {
+    console.log("adding bio");
+    let currentUser = firebase.auth().currentUser;
+    console.log(currentUser);
+    console.log(currentUser.email);
+    const email_id = currentUser.email;
+    console.log(this.state.activity);
+
+    var usersRef = firebase.database().ref("/users");
+    console.log(usersRef);
+    let userID = "";
+    let log = [];
+    usersRef.on("value", snapshot => {
+      let users = snapshot.val();
+      console.log(users);
+      for (let user in users) {
+        if (email_id === users[user].email) {
+          console.log(user);
+          userID = user;
+          log = users[user].bio;
+        }
+      }
+    });
+    var logRef = firebase.database().ref(`/users/${userID}/bio/`);
+    console.log(logRef);
+    logRef.push(this.state.bio);
+  }
+
 
     render()
     {
         return (
           <div className= 'StudentEdit-whole'>
+
             <StudentNavBar title={"Dashboard"} />
+            <h1>Edit Your Profile</h1>
+
 
            <div className = 'StudentEdit-Profile'>
        
@@ -231,14 +212,11 @@ async componentDidMount(){
                <Card className='StudentEdit-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
                    <div>
                        <b>
-                         EDIT PROFILE Profile: 
+                        {this.state.student_name}
                        </b>
                        <Divider/>
                    </div>
                    <CardContent>
-                        <div>
-                            <b> Name:</b> {this.state.student_name}
-                        </div>
                         <div>
                             <b>Email:</b> {this.state.student_email}
                         </div>
@@ -308,4 +286,3 @@ async componentDidMount(){
 }
 
 export default Student_EditProfile;
-

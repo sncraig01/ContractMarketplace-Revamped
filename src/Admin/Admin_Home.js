@@ -74,9 +74,12 @@ class AdminHome extends React.Component {
   render() {
     return (
       <div className="Admin-dash-whole">
-        <AdminNavBar title={"Dashboard"} />
-        <h1> Welcome Admin! </h1>
-        <div> RevTek's current statistics... </div>
+        <AdminNavBar history={this.props.history} />
+        <h1>Dashboard</h1>
+        <h2> Welcome Admin! </h2>
+        <br/>
+        <div> RevTek's Current Statistics:</div>
+        <br/>
         <div className="Admin-Cards">
           <Card className="Admin-header">
             <div>

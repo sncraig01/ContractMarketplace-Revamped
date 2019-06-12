@@ -1,5 +1,5 @@
 import React from "react";
-import CompanyNavBarNew from "./Company_NavBar_New";
+import CompanyNavBar from "./Company_NavBar";
 import firebase from "../firebase.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -87,10 +87,7 @@ class NewContract extends React.Component {
     const classes = useStyles;
     return (
       <div className="App">
-        <CompanyNavBarNew
-          title={"Create New Contract"}
-          history={this.props.history}
-        />
+        <CompanyNavBar history={this.props.history} />
         <h1> {this.state.companyName} Submit a new Contract </h1>
         <div> {this.state.email} </div>
         <form className={classes.container} noValidate autoComplete="off">

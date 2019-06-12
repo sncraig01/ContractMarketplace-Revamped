@@ -10,7 +10,6 @@ import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
 import AddCircle from "@material-ui/icons/AddCircle";
-import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
@@ -124,12 +123,6 @@ class CompanyNavBarNew extends React.Component {
     //return (window.location = "/companydashboard");
   };
 
-  searchStudentsClicked = e => {
-    // Redirects to marketplace page
-    this.props.history.push("/searchstudents");
-    //return (window.location = "/searchstudents");
-  };
-
   newContractClicked = () => {
     // Redirects to new contract page
     this.props.history.push("/newcontract");
@@ -167,14 +160,6 @@ class CompanyNavBarNew extends React.Component {
         <MenuItem onClick={() => this.handleProfileMenuOpen()}>
           <IconButton color="inherit" onClick={() => this.newContractClicked()}>
             <AddCircle />
-          </IconButton>
-        </MenuItem>
-        <MenuItem>
-          <IconButton
-            color="inherit"
-            onClick={() => this.searchStudentsClicked()}
-          >
-            <SearchIcon />
           </IconButton>
         </MenuItem>
         <MenuItem onClick={() => this.handleProfileMenuOpen()}>
@@ -232,14 +217,6 @@ class CompanyNavBarNew extends React.Component {
                   <AddCircle />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Search Students">
-                <IconButton
-                  color="inherit"
-                  onClick={() => this.searchStudentsClicked()}
-                >
-                  <SearchIcon />
-                </IconButton>
-              </Tooltip>
               <Tooltip title="Logout">
                 <IconButton
                   color="inherit"
@@ -248,15 +225,6 @@ class CompanyNavBarNew extends React.Component {
                   <ExitToApp />
                 </IconButton>
               </Tooltip>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton
-                aria-haspopup="true"
-                onClick={() => this.handleMobileMenuOpen()}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
             </div>
           </Toolbar>
         </AppBar>

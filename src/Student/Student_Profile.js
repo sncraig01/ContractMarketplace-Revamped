@@ -5,7 +5,7 @@ class Student_Profile extends React.Component {
   render() {
     return (
       <div className="Admin-contracts-whole">
-        <StudentNavBar title={"My Profile"} />
+        <StudentNavBar history={this.props.history} />
       </div>
     );
   }
