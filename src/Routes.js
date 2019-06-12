@@ -57,6 +57,4 @@ class Routes extends React.Component {
     );
   }
 }
-
-//ReactDOM.render(<Routes />, mountNode);
 export default Routes;

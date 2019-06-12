@@ -9,10 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
-// import Dashboard from "@material-ui/icons/Dashboard";
 import Contracts from "@material-ui/icons/Assignment";
 import Users from "@material-ui/icons/AssignmentInd";
-// import SearchIcon from "@material-ui/icons/Search";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
@@ -21,13 +19,13 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   company: {
-    marginRight: theme.spacing(5),
+    marginRight: theme.spacing(5)
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block"
-    },
+    }
   },
   search: {
     position: "relative",
@@ -179,7 +177,13 @@ function Admin_NavBar(props) {
           <Typography className={classes.company} variant="h5" noWrap style={{fontSize: "26px"}}>
             RevTek
           </Typography>
-          <Typography className={classes.title} variant="h6" noWrap align="center" style={{fontSize: "20px"}}>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+            align="center"
+            style={{ fontSize: "20px" }}
+          >
             {props.title}
           </Typography>
           <div className={classes.grow} />

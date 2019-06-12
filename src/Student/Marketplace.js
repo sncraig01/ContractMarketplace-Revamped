@@ -47,15 +47,20 @@ class Marketplace extends React.Component {
       companyNames: [],
       contractKeys: [],
       indices: [],
-      searchText: ""
+      searchText: "",
+      loaded: false
     };
   }
 
-  componentDidMount = () => {
-    this.retrieveAllContracts();
+  componentDidMount = async () => {
+    // this.retrieveAllContracts();
+    await this.retrieveAllContracts();
+    this.setState({
+      loaded: true
+    });
   };
 
-  retrieveAllContracts = async () => {
+  retrieveAllContracts = () => {
     let counter = 0;
 
     let tempContractNames = [];
@@ -64,22 +69,13 @@ class Marketplace extends React.Component {
     let tempIndices = [];
     let tempKeys = [];
     const contractsRef = firebase.database().ref("contracts");
-    await contractsRef.on("value", snapshot => {
+    contractsRef.on("value", snapshot => {
       // loop through all companies
       snapshot.forEach(function(companies) {
         // loop through each contract
         companies.forEach(function(contracts) {
-          // loop through each indiv contract?
+          // need another loop because of the way firebase is structured
           contracts.forEach(function(individualContract) {
-            console.log("KEY? = " + individualContract.key);
-            console.log(
-              "Contract Name = " + individualContract.val().contractName
-            );
-            console.log(
-              "Contract Details = " + individualContract.val().contractDetails
-            );
-            console.log("Company = " + individualContract.val().name);
-
             if (individualContract.val().available) {
               tempIndices.push(counter);
               counter++;
@@ -95,16 +91,14 @@ class Marketplace extends React.Component {
       });
     });
 
-    this.setState(
-      {
-        contractNames: tempContractNames,
-        contractDetails: tempContractDetails,
-        companyNames: tempCompanyNames,
-        contractKeys: tempKeys,
-        indices: tempIndices
-      },
-      () => console.log("names: " + this.state.contractNames)
-    );
+    this.setState({
+      contractNames: tempContractNames,
+      contractDetails: tempContractDetails,
+      companyNames: tempCompanyNames,
+      contractKeys: tempKeys,
+      indices: tempIndices,
+      loaded: true
+    });
   };
 
   submitBidOnContract = (
@@ -125,128 +119,111 @@ class Marketplace extends React.Component {
     });
   };
 
-  displayContracts = () => {
-    this.retrieveAllContracts();
-    let allContracts = [];
-
-    for (let i = 0; i < this.state.companyNames; i++) {
-      allContracts.push(
-        <li>
-          {this.state.companyNames[i]}
-          <br />
-          {this.state.contractNames[i]}
-          <br />
-          {this.state.contractDetails[i]}
-          <br />
-        </li>
-      );
-    }
-
-    return allContracts;
-  };
-
   updateField(field, newValue) {
     this.setState({
       ...this.state,
       [field]: newValue
     });
-    console.log(newValue);
   }
 
   render() {
     const classes = useStyles;
 
+    const dataLoaded = this.state.loaded;
+
     return (
-      <div className="Student-whole">
-        <Student_NavBar title={"Marketplace"} />
-        <div className="topstuff">
-          <button onClick={() => this.displayContracts()}>
-            Show contracts
-          </button>
-          <h3>Available Contracts</h3>
+      dataLoaded && (
+        <div className="Student-whole">
+          <Student_NavBar title={"Marketplace"} />
+          <div className="topstuff">
+            <button onClick={() => this.retrieveAllContracts()}>
+              Show contracts
+            </button>
+            <h3>Available Contracts</h3>
 
-          <div className="searchbar">
-            <TextField
-              variant="outlined"
-              id="searchbar"
-              name="Search for Contracts"
-              label="Search for Contracts"
-              onChange={e => this.updateField("searchText", e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                )
-              }}
-            />
-          </div>
+            <div className="searchbar">
+              <TextField
+                variant="outlined"
+                id="searchbar"
+                name="Search for Contracts"
+                label="Search for Contracts"
+                onChange={e => this.updateField("searchText", e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </div>
 
-          <p>{this.state.searchText}</p>
+            <p>{this.state.searchText}</p>
 
-          <div className="allBidCards">
-            {this.state.indices.length > 0 ? (
-              this.state.indices.map(index => {
-                return this.state.searchText === "" ||
-                  this.state.companyNames[index].includes(
-                    this.state.searchText
-                  ) ||
-                  this.state.contractNames[index].includes(
-                    this.state.searchText
-                  ) ||
-                  this.state.contractDetails[index].includes(
-                    this.state.searchText
-                  ) ? (
-                  <div className="bidCard">
-                    <Card raised className={classes.card}>
-                      <CardActionArea>
-                        <CardContent>
-                          <Typography
-                            className={classes.title}
-                            color="textSecondary"
-                            gutterBottom
-                          >
-                            {this.state.companyNames[index]}
-                          </Typography>
-                          <Typography variant="h5" component="h2">
-                            {this.state.contractNames[index]}
-                          </Typography>
-                          <Typography variant="body2" component="p">
-                            {this.state.contractDetails[index]}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <div className="submitButton">
-                          <Button
-                            size="small"
-                            color="primary"
-                            onClick={() =>
-                              this.submitBidOnContract(
-                                this.state.contractKeys[index],
-                                this.state.companyNames[index],
-                                this.state.contractNames[index],
-                                this.state.contractDetails[index]
-                              )
-                            }
-                          >
-                            Submit Bid
-                          </Button>
-                        </div>
-                      </CardActions>
-                    </Card>
-                    <br />
-                  </div>
-                ) : (
-                  <div />
-                );
-              })
-            ) : (
-              <p />
-            )}
+            <div className="allBidCards">
+              {this.state.indices.length > 0 ? (
+                this.state.indices.map(index => {
+                  return this.state.searchText == "" ||
+                    this.state.companyNames[index].includes(
+                      this.state.searchText
+                    ) ||
+                    this.state.contractNames[index].includes(
+                      this.state.searchText
+                    ) ||
+                    this.state.contractDetails[index].includes(
+                      this.state.searchText
+                    ) ? (
+                    <div className="bidCard" key={index}>
+                      <Card raised className={classes.card}>
+                        <CardActionArea>
+                          <CardContent>
+                            <Typography
+                              className={classes.title}
+                              color="textSecondary"
+                              gutterBottom
+                            >
+                              {this.state.companyNames[index]}
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                              {this.state.contractNames[index]}
+                            </Typography>
+                            <Typography variant="body2" component="p">
+                              {this.state.contractDetails[index]}
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                          <div className="submitButton">
+                            <Button
+                              size="small"
+                              color="primary"
+                              onClick={() =>
+                                this.submitBidOnContract(
+                                  this.state.contractKeys[index],
+                                  this.state.companyNames[index],
+                                  this.state.contractNames[index],
+                                  this.state.contractDetails[index]
+                                )
+                              }
+                            >
+                              Submit Bid
+                            </Button>
+                          </div>
+                        </CardActions>
+                      </Card>
+                      <br />
+                    </div>
+                  ) : (
+                    <div key={index} />
+                  );
+                })
+              ) : (
+                <p />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )
     );
   }
 }

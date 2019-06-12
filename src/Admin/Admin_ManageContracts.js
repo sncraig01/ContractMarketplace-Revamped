@@ -98,5 +98,3 @@ export default class Admin_ManageContracts extends React.Component {
     );
   }
 }
-
-//ReactDOM.render(<Admin_ManageContracts />, document.getElementById("root"));
