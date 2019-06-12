@@ -128,11 +128,6 @@ function Student_NavBar(props) {
     return (window.location = "/marketplace");
   };
 
-  const studentProfileClicked = e => {
-    // Redirects to marketplace page
-    return (window.location = "/studentprofile");
-  };
-
   const logoutClicked = e => {
     // Redirects to landing page
     return (window.location = "/");
@@ -172,7 +167,6 @@ function Student_NavBar(props) {
             className={classes.company}
             variant="h5"
             noWrap
-            strong
             style={{ fontSize: "26px" }}
           >
             RevTek

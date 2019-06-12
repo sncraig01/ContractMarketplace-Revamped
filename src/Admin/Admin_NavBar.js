@@ -174,12 +174,7 @@ function Admin_NavBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            className={classes.company}
-            variant="h5"
-            noWrap
-            style={{ fontSize: "26px" }}
-          >
+          <Typography className={classes.company} variant="h5" noWrap style={{fontSize: "26px"}}>
             RevTek
           </Typography>
           <Typography

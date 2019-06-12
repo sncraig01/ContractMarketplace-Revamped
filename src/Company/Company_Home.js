@@ -1,5 +1,4 @@
 import React from "react";
-import Company_NavBar from "./Company_NavBar";
 import Company_NavBar_New from "./Company_NavBar_New.js";
 import firebase from "../firebase.js";
 import List from "@material-ui/core/List";

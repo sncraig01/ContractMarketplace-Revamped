@@ -21,7 +21,7 @@ export default class Admin_ManageContracts extends React.Component {
           contractsSnapshot.forEach(detailsSnapshot => {
             detailsSnapshot.forEach(async contractFieldsSnapshot => {
               var contractField = contractFieldsSnapshot.val();
-              if (!(contractField == "bids")) {
+              if (!(contractField === "bids")) {
                 let newNames = this.state.companyNames;
                 let newTitles = this.state.contractTitles;
                 let newDetails = this.state.contractDetails;
@@ -36,10 +36,12 @@ export default class Admin_ManageContracts extends React.Component {
                   newAvailable.push("No");
                 }
 
-                await this.setState({ companyNames: newNames });
-                await this.setState({ contractTitles: newTitles });
-                await this.setState({ contractDetails: newDetails });
-                await this.setState({ areAvailable: newAvailable });
+                await this.setState({
+                  companyNames: newNames,
+                  contractTitles: newTitles,
+                  contractDetails: newDetails,
+                  areAvailable: newAvailable
+                });
               }
             });
           });
@@ -47,6 +49,13 @@ export default class Admin_ManageContracts extends React.Component {
       });
       this.setState({ initialized: true });
     }
+  }
+
+
+  deleteClicked= (deletedRows) => {
+    console.log( "deleting" )
+    console.log( deletedRows )
+    const deletedIndexes = Object.keys(deletedRows.lookup);
   }
 
   render() {
@@ -69,7 +78,9 @@ export default class Admin_ManageContracts extends React.Component {
 
     const options = {
       filterType: "dropdown",
-      responsive: "scroll"
+      responsive: "scroll",
+      //onRowsSelect: ()=>this.selectRowsClicked(),
+      onRowsDelete: this.deleteClicked,
     };
 
     return (

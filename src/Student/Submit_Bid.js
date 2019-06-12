@@ -114,7 +114,7 @@ class Submit_Bid extends React.Component {
             console.log("loop user email = " + tempUser.val().email);
             console.log("loop user key = " + tempUser.key);
 
-            if (tempUser.val().email == user.email) {
+            if (tempUser.val().email === user.email) {
               console.log("MATCH! Email" + tempUser.val().email);
               console.log("MATCH! Key" + tempUser.key);
               matchingKey = tempUser.key;

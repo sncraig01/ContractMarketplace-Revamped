@@ -1,12 +1,93 @@
 import React from "react";
-import Company_NavBar from "./Company_NavBar";
+import MUIDataTable from "mui-datatables";
+import Company_NavBar_New from "./Company_NavBar_New";
+import firebase from "../firebase.js";
 
-function Company_SearchStudents() {
-  return (
-    <div className="App">
-      <Company_NavBar title={"Search Students"}/>
-    </div>
-  );
+export default class Company_SearchStudents extends React.Component {
+  state = {
+    initialized: false,
+    studentNames: ["Me"],
+    emails: ["me@gmail.com"],
+    bios: ["It's me"],
+    skills: [],
+    individualSkills: []
+  };
+
+  componentDidMount() {
+    if (!this.state.initialized) {
+      const usersRef = firebase.database().ref("users"); //reference to the database "users" key
+
+      usersRef.on("value", snapshot => {
+        snapshot.forEach(async userSnapshot => {
+          var user = userSnapshot.val();
+          // console.log(user);
+          if (user.type == "student") {
+            console.log(user);
+            let newNames = this.state.studentNames;
+            let newEmails = this.state.emails;
+            let newBios = this.state.bios;
+            // let newSkills = this.state.skills;
+
+            newNames.push(user.name);
+            // console.log(newNames);
+            newEmails.push(user.email);
+            newBios.push(user.bio);
+
+            // let mySkills = [];
+
+            // userSnapshot.forEach(async skillsSnapshot => {
+            //   let mySkills = [];
+            //   mySkills.push(skillsSnapshot.val());
+            //   await this.setState({ inidividualSkills: mySkills });
+            // });
+
+            // newSkills.push(mySkills);
+
+            await this.setState({
+              studentNames: newNames,
+              emails: newEmails,
+              bios: newBios
+              // skills: newSkills
+            });
+          }
+        });
+      });
+      this.setState({ initialized: true });
+    }
+  }
+
+  render() {
+    const columns = ["Name", "Email", "Bio", "Skills"];
+
+    const data = [];
+    for (var i = 0; i < this.state.studentNames.length; i++) {
+      data.push([
+        this.state.studentNames[i],
+        this.state.emails[i],
+        this.state.bios[i]
+        // this.state.skills[i]
+      ]);
+    }
+
+    const options = {
+      filterType: "dropdown",
+      responsive: "scroll"
+    };
+
+    return (
+      <div>
+        <Company_NavBar_New title={"Search Students"} />
+        <div>
+          <MUIDataTable
+            title={"Students"}
+            data={data}
+            columns={columns}
+            options={options}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Company_SearchStudents;
+// ReactDOM.render(<Company_SearchStudents />, document.getElementById("root"));

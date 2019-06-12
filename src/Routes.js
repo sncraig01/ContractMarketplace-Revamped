@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Company_Home from "./Company/Company_Home";
@@ -57,5 +57,4 @@ class Routes extends React.Component {
     );
   }
 }
-
 export default Routes;

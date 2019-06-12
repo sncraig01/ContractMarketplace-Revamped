@@ -201,7 +201,6 @@ class Company_NavBar_New extends React.Component {
               className={classes.company}
               variant="h5"
               noWrap
-              strong
               style={{ fontSize: "26px" }}
             >
               RevTek
