@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import firebase from '../firebase.js'
 import './Student_EditProfile.css';
-import Student_NavBar from './Student_NavBar';
+import StudentNavBar from './StudentNavBar';
 
 class Student_EditProfile extends React.Component 
 {
@@ -222,7 +222,7 @@ async componentDidMount(){
     {
         return (
           <div className= 'StudentEdit-whole'>
-            <Student_NavBar title={"Dashboard"} />
+            <StudentNavBar title={"Dashboard"} />
 
            <div className = 'StudentEdit-Profile'>
        
