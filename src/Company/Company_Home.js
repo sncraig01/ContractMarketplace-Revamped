@@ -58,7 +58,6 @@ class Company_Home extends React.Component {
       const contractRef = firebase.database().ref("contracts/" + info[0]);
       contractRef.on("value", snapshot => {
         //console.log( snapshot.val() )
-        let contractArr = [];
         let available = [];
         let assigned = [];
         snapshot.forEach(function(contracts) {
@@ -135,7 +134,7 @@ class Company_Home extends React.Component {
               </div>
               <CardContent>
                 {this.state.assignedContracts.map(con => (
-                  <div>
+                  <div key={con.contract_details}>
                     <b> {con.contract_name} </b>
                     <div>{con.contract_details} </div>
                     <div className="assignedTo"> {con.assigned_to} </div>

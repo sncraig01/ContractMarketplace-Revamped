@@ -82,8 +82,7 @@ class Authentication extends React.Component {
       });   
     }).catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+
       console.log( "there was an error")
     });
     
@@ -101,7 +100,7 @@ class Authentication extends React.Component {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" color="black">
+        <Typography component="h1" variant="h5" >
           Sign in
         </Typography>
         <form className={classes.form} noValidate>

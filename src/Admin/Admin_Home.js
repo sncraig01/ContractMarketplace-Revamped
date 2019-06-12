@@ -26,10 +26,10 @@ class Admin_Home extends React.Component {
       snapshot.forEach(function(childSnapshot) {
         var item = childSnapshot.val();
         //console.log( item )
-        if( item.type == "student"){
+        if( item.type === "student"){
           studCount++;
         }
-        else if( item.type == "company" ){
+        else if( item.type === "company" ){
           compCount++;
         }
         
