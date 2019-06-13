@@ -128,10 +128,6 @@ function RevTekHomeNavBar(props) {
     return (window.location = "/signin");
   };
 
-  const logoutClicked = e => {
-    // Redirects to landing page
-    return (window.location = "/");
-  };
 
   const renderMobileMenu = (
     <Menu
