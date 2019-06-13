@@ -16,8 +16,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 const useStyles = makeStyles({
   card: {
     minWidth: 600,
-    maxWidth: 600,
-    margin: 200
+    maxWidth: 600
   },
   bullet: {
     display: "inline-block",
@@ -185,7 +184,12 @@ class Marketplace extends React.Component {
                       .toLowerCase()
                       .includes(this.state.searchText.toLowerCase()) ? (
                     <div className="bidCard" key={index}>
-                      <Card raised className={classes.card}>
+                      <Card
+                        raised
+                        minWidth="400"
+                        maxWidth="400"
+                        className={classes.card}
+                      >
                         <CardActionArea>
                           <CardContent>
                             <Typography

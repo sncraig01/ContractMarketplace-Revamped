@@ -142,7 +142,12 @@ class StudentHome extends React.Component {
             {/** Implemented a scrollbar */}
             <Card
               className="Student-studentholder"
-              style={{ maxHeight: 300, overflow: "auto" }}
+              style={{
+                minWidth: 700,
+                maxWidth: 700,
+                maxHeight: 300,
+                overflow: "auto"
+              }}
             >
               <div>
                 <b className="name">{this.state.student_name} </b>
@@ -179,7 +184,13 @@ class StudentHome extends React.Component {
           {/** Implemented a scrollbar */}
           <Card
             className="Student-contractholder"
-            style={{ maxHeight: 200, overflow: "auto" }}
+            style={{
+              margin: 5,
+              minWidth: 400,
+              maxWidth: 400,
+              maxHeight: 200,
+              overflow: "auto"
+            }}
           >
             <div>
               <b>Current Contracts Assigned:</b>
@@ -229,6 +240,7 @@ class StudentHome extends React.Component {
                       </div>
                       <div className="contractInfo"> Cost: {itr.Cost} </div>
                       <div className="contractInfo"> Hours: {itr.Hours} </div>
+                      <br />
                     </div>
                   ) : (
                     <div />
@@ -239,7 +251,13 @@ class StudentHome extends React.Component {
           </Card>
           <Card
             className="Student-bidholder"
-            style={{ maxHeight: 200, overflow: "auto" }}
+            style={{
+              margin: 5,
+              minWidth: 400,
+              maxWidth: 400,
+              maxHeight: 200,
+              overflow: "auto"
+            }}
           >
             <div>
               <b>Current Bids:</b>
@@ -291,6 +309,7 @@ class StudentHome extends React.Component {
                       </div>
                       <div className="contractInfo"> Cost: {itr2.Cost} </div>
                       <div className="contractInfo"> Hours: {itr2.Hours} </div>
+                      <br />
                     </div>
                   ) : (
                     <div> </div>
