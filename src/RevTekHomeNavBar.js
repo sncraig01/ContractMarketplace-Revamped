@@ -10,9 +10,8 @@ import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
 import Store from "@material-ui/icons/Store";
-// import Account_circle from "@material-ui/icons/Account_circle";
-import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -155,14 +154,20 @@ function RevTekHomeNavBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            className={classes.company}
-            variant="h5"
+          <Button
+            variant="text"
             noWrap
-            style={{ fontSize: "26px" }}
+            style={{
+              fontSize: "26px",
+              backgroundColor: "transparent",
+              color: "white",
+              textTransform: "none",
+              boxShadow: "none"
+            }}
+            href="/"
           >
             RevTek
-          </Typography>
+          </Button>
           <Typography
             className={classes.title}
             variant="h6"
@@ -175,10 +180,7 @@ function RevTekHomeNavBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Tooltip title="Home">
-              <IconButton
-                color="inherit"
-                onClick={() => homeClicked()}
-              >
+              <IconButton color="inherit" onClick={() => homeClicked()}>
                 <Home />
               </IconButton>
             </Tooltip>
@@ -187,7 +189,6 @@ function RevTekHomeNavBar(props) {
                 <Store />
               </IconButton>
             </Tooltip>
-
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

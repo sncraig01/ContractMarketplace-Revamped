@@ -124,7 +124,7 @@ class CompanyHome extends React.Component {
       <div className="App">
         <CompanyNavBar history={this.props.history} />
         <h1>Dashboard</h1>
-        <h2> {this.state.companyName} </h2>
+        <b className="name"> {this.state.companyName} </b>
         <div> {this.state.email} </div>
         <div type="dashinfo">
           <List className="individual">

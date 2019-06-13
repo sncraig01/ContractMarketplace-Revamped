@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
@@ -13,6 +12,7 @@ import Store from "@material-ui/icons/Store";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import GroupIcon from "@material-ui/icons/Group";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -174,15 +174,19 @@ function StudentNavBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            className={classes.company}
-            variant="h5"
-            noWrap
-            style={{ fontSize: "26px" }}
+          <Button
+            variant="text"
+            style={{
+              fontSize: "26px",
+              backgroundColor: "transparent",
+              color: "white",
+              textTransform: "none",
+              boxShadow: "none"
+            }}
+            href="/"
           >
             RevTek
-          </Typography>
-          
+          </Button>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Tooltip title="Dashboard">

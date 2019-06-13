@@ -82,7 +82,7 @@ export default class AdminManageContracts extends React.Component {
             let userKey = user.key; 
             //console.log( user.val())
             user.forEach( function(folder){
-              if( folder.key == "bids" ){
+              if( folder.key === "bids" ){
                 //console.log( folder.val() )
                 folder.forEach( function( individBid ){
                   console.log( individBid.val().Contract )
