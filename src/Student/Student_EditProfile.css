@@ -2,7 +2,8 @@
 
    .StudentEdit-whole {
     min-height: 100vh;
-    background-color:rgb(255, 255, 255);
+    background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+    background-size: cover; 
     }
    
      .StudentEdit-Profile {
@@ -19,7 +20,7 @@
       margin-right: auto;
       justify-content: center;
     }
-  
+   
     .StudentEdit-contractholder {
       background-color: #282c34;
       min-height: 70vh;
@@ -41,6 +42,9 @@
     {
       font-size: calc(5px + 2vmin);
       padding-left: 20px;
+      display: flex; 
+      flex-direction: column; 
+      padding-right: 20px; 
     }
    
     .StudentEdit-Card-Holder{

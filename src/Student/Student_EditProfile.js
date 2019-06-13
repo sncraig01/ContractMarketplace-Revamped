@@ -1,10 +1,11 @@
-
 import React from "react";
 import List from "@material-ui/core/List";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
 import SearchIcon from "@material-ui/icons/Search";
+import Delete from "@material-ui/icons/Delete";
+import IconButton from '@material-ui/core/IconButton';
 import InputBase from "@material-ui/core/InputBase";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -18,12 +19,13 @@ class Student_EditProfile extends React.Component {
     student_name: "",
     skill: "",
     skill_arr: [],
-    bio: ""
+    bio: "", 
+    biofeedback: false, 
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     //Finds the users email through Firebase authentication
-    await firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user is signed in");
         console.log(user.email);
@@ -34,52 +36,35 @@ class Student_EditProfile extends React.Component {
       }
     });
 
-    //Finds the matching Name and Listed skills from Firebase
-    const userRef = await firebase.database().ref("users"); // access all users
+    //Finds the matching Name and Listed skills from Firebase and sets the skills array 
+    this.setState({ skill_arr: [] });
+    const userRef = firebase.database().ref("users"); // access all users
     userRef.on("value", snapshot => {
       let users = snapshot.val();
+      let temp_arr = [];
       for (let itr in users) {
-        if (this.state.student_email === users[itr].email) {
+        if (this.state.student_email === users[itr].email)
+        {
           // check for a user with a matching email
           this.setState({ student_name: users[itr].name });
+          if (users[itr].skills !== undefined) 
+          {
+            for (let itr2 in users[itr].skills) 
+            {
+              temp_arr.push(users[itr].skills[itr2]);
+            }
+           // this.setState({ skill_arr: temp_arr });
+          }
+          this.setState({ skill_arr: temp_arr });
           break;
         }
       }
     });
+    console.log("In Component Did Mount")
 
-    this.getBio();
+  //Get the Bio from Firebase 
 
-    this.getSkills();
-  }
-
-  //Gets Skills from firebase
-  getSkills() {
-    let temp = this.state.student_email;
-    let temp_arr = this.state.skill_arr;
-    //Finds the matching Name and Listed skills from Firebase
-    this.setState({ skill_arr: [] });
-    const userRef = firebase.database().ref("users"); // access all users
-    userRef.on("value", snapshot => {
-      snapshot.forEach(function(childSnapshot) {
-        var item = childSnapshot.val();
-        console.log("ITEM: " + item.email);
-        if (temp === item.email) {
-          // check for a user with a matching email
-          if (item.skills !== undefined) {
-            for (let itr2 in item.skills) {
-              temp_arr.push(item.skills[itr2]);
-            }
-          }
-        }
-      });
-      this.setState({ skill_arr: temp_arr });
-    });
-  }
-
-  //Gets bio from firebase
-  getBio() {
-    //Finds the matching Name and Listed skills from Firebase
-
+   // Finds the matching Name and Listed skills from Firebase
     const userObj = firebase.database().ref("users"); // access all users
     userObj.on("value", snapshot => {
       let users_snap = snapshot.val();
@@ -95,18 +80,23 @@ class Student_EditProfile extends React.Component {
         }
       }
     });
+
   }
 
+
   //Adds skill to the users profile in firebase
-  addSkill() {
+  addSkill(e) {
     console.log("adding skill");
+    e.preventDefault()
     //this.state.skill_arr.push(this.state.skill);
     this.updateFirebase();
-    this.getSkills();
+    //this.getSkills();
+    this.setState({skill: ""})
   }
 
   //Adds a new skill to firebase
   updateFirebase = () => {
+    this.setState({skill_arr : []})
     let currentUser = firebase.auth().currentUser;
     console.log(currentUser);
     console.log(currentUser.email);
@@ -116,7 +106,7 @@ class Student_EditProfile extends React.Component {
     var usersRef = firebase.database().ref("/users");
     console.log(usersRef);
     let userID = "";
-    let log = [];
+  //  let log = [];
     usersRef.on("value", snapshot => {
       let users = snapshot.val();
       console.log(users);
@@ -124,7 +114,7 @@ class Student_EditProfile extends React.Component {
         if (email_id === users[user].email) {
           console.log(user);
           userID = user;
-          log = users[user].skills;
+       //   log = users[user].skills;
         }
       }
     });
@@ -134,7 +124,8 @@ class Student_EditProfile extends React.Component {
   };
 
   //Removes Skill from firebase and the list
-  removeSkill(delete_skill) {
+  removeSkill(e, delete_skill) {
+    e.preventDefault()
     const userRef = firebase.database().ref("users"); // access all users
     userRef.on("value", snapshot => {
       let users = snapshot.val();
@@ -155,11 +146,12 @@ class Student_EditProfile extends React.Component {
                 .remove();
             }
           }
-          this.getSkills();
           break;
         }
       }
     });
+    //this.setState({skill_arr : []})
+   // this.getSkills();
   }
 
   //Updates the state of skill everytime the add skill input box changes
@@ -167,7 +159,11 @@ class Student_EditProfile extends React.Component {
     this.setState({ skill });
   };
 
-  saveBio() {
+
+//Pushes the bio data to firebase 
+saveBio(e) {
+  e.preventDefault()
+this.setState({biofeedback : true})
     console.log("adding bio");
     let currentUser = firebase.auth().currentUser;
     console.log(currentUser);
@@ -195,18 +191,29 @@ class Student_EditProfile extends React.Component {
     logRef.push(this.state.bio);
   }
 
+//Handles a change in the bio text and sets it to state 
+  handleChange=(e)=>
+  {
+    e.preventDefault() 
+    this.setState({bio : e.target.value})
+  }
 
     render()
     {
         return (
           <div className= 'StudentEdit-whole'>
 
-            <StudentNavBar history={this.props.history}/>
-            <h1>Edit Your Profile</h1>
-
+            <StudentNavBar  history={this.props.history} />
 
            <div className = 'StudentEdit-Profile'>
-       
+             {/* <Card className='StudentEdit-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
+                   <CardContent>
+                        <div>
+                        <h1>Edit Your Profile</h1>
+                        </div>
+                   </CardContent>     
+               </Card>   */}
+               <h1>Edit Your Profile</h1>
                <List>
                    {/** Implemented a scrollbar */}
                <Card className='StudentEdit-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
@@ -240,10 +247,13 @@ class Student_EditProfile extends React.Component {
                        placeholder="Add Skill"
                        onChange={(skill)=>{this.updatingSkill(skill.target.value)}}
                        />
-                        <Button  onClick={()=>this.addSkill()}>Add</Button>
+                        <Button variant="contained" color="primary" onClick={(e)=>this.addSkill(e)}>Add</Button>
                    </div>
                    <CardContent> 
-                       {this.state.skill_arr.map((itr) =><div>{itr}<Button onClick={()=>this.removeSkill(itr)}>Delete</Button></div>)}
+                     <List>
+                     {this.state.skill_arr.length > 0 ? this.state.skill_arr.map((itr) =><div key={itr}>{itr}<IconButton onClick={(e)=>this.removeSkill(e, itr)}><Delete/></IconButton></div>) : "You have no entered skills"}
+                     </List>
+                      
                    
                    </CardContent>
                
@@ -270,9 +280,11 @@ class Student_EditProfile extends React.Component {
                         width="100"
                     />
                     <div>
-                    <Button onClick={()=>this.saveBio()}>Save</Button>
+                    <Button variant="contained" color="primary" onClick={(e)=>this.saveBio(e)}>Save</Button>
                     </div>
+                
                    </div>
+                   {this.state.biofeedback ? "Saved!" : ""}
                    <CardContent>
                    
                    </CardContent>
