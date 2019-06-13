@@ -178,7 +178,7 @@ class Marketplace extends React.Component {
                       .toLowerCase()
                       .includes(this.state.searchText.toLowerCase()) ? (
                     <div className="bidCard" key={index}>
-                      <Card raised className={classes.card}>
+                      <Card width="500" raised className={classes.card}>
                         <CardActionArea>
                           <CardContent>
                             <Typography
