@@ -36,3 +36,8 @@ div[type="dashinfo"] {
 .name {
   font-size: calc(10px + 2vmin);
 }
+
+.contract {
+  color: #4527a0;
+  font-size: calc(8px + 2vmin);
+}

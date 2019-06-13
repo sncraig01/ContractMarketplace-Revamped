@@ -179,22 +179,34 @@ class CompanyHome extends React.Component {
                 />
               </div>
               <CardContent>
-                {this.state.assignedContracts.map(itr => {
-                  return itr.contract_name
-                    .toLowerCase()
-                    .includes(this.state.assigned_search.toLowerCase()) ||
-                    itr.contract_details
+                {this.state.assignedContracts.length == 0 ? (
+                  <p>There are no assigned contracts</p>
+                ) : (
+                  this.state.assignedContracts.map(itr => {
+                    return itr.contract_name
                       .toLowerCase()
-                      .includes(this.state.assigned_search.toLowerCase()) ? (
-                    <div key={itr.contract_details}>
-                      <b> {itr.contract_name} </b>
-                      <div>{itr.contract_details} </div>
-                      <div className="assignedTo"> {itr.assigned_to} </div>
-                    </div>
-                  ) : (
-                    <div />
-                  );
-                })}
+                      .includes(this.state.assigned_search.toLowerCase()) ||
+                      itr.contract_details
+                        .toLowerCase()
+                        .includes(this.state.assigned_search.toLowerCase()) ||
+                      this.state.assigned_search == "" ? (
+                      <div key={itr.contract_details}>
+                        <div className="contract">
+                          {" "}
+                          <b>{itr.contract_name}</b>{" "}
+                        </div>
+                        <div>{itr.contract_details} </div>
+                        <div className="assignedTo">
+                          {" "}
+                          Assigned to: {itr.assigned_to}{" "}
+                        </div>
+                        <br />
+                      </div>
+                    ) : (
+                      <div />
+                    );
+                  })
+                )}
               </CardContent>
             </Card>
           </List>
@@ -223,28 +235,43 @@ class CompanyHome extends React.Component {
                 />
               </div>
               <CardContent>
-                {this.state.availableContracts.map(itr => {
-                  return itr.contract_name
-                    .toLowerCase()
-                    .includes(this.state.pending_search.toLowerCase()) ||
-                    itr.contract_details
+                {this.state.availableContracts.length == 0 ? (
+                  <p>There are no pending contracts</p>
+                ) : (
+                  this.state.availableContracts.map(itr => {
+                    return itr.contract_name
                       .toLowerCase()
-                      .includes(this.state.pending_search.toLowerCase()) ? (
-                    <div key={itr.contract_details}>
-                      <b> {itr.contract_name} </b>
-                      <div> {itr.contract_details} </div>
-                      <Button
-                        color="primary"
-                        className={classes.button}
-                        onClick={() => this.viewBidsClicked(itr.contract_name)}
-                      >
-                        SEE BIDS{" "}
-                      </Button>
-                    </div>
-                  ) : (
-                    <div />
-                  );
-                })}
+                      .includes(this.state.pending_search.toLowerCase()) ||
+                      itr.contract_details
+                        .toLowerCase()
+                        .includes(this.state.pending_search.toLowerCase()) ||
+                      this.state.pending_searc == "" ? (
+                      <div key={itr.contract_details}>
+                        <div className="contract">
+                          {" "}
+                          <b>{itr.contract_name}</b>{" "}
+                        </div>
+                        <div> {itr.contract_details} </div>
+
+                        <Button
+                          color="primary"
+                          size="small"
+                          variant="contained"
+                          className={classes.button}
+                          onClick={() =>
+                            this.viewBidsClicked(itr.contract_name)
+                          }
+                        >
+                          SEE BIDS{" "}
+                        </Button>
+                        <br />
+                        <br />
+                      </div>
+                    ) : (
+                      <div />
+                    );
+                  })
+                )}
               </CardContent>
             </Card>
           </List>
