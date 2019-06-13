@@ -1,7 +1,6 @@
 .bidCard {
   /* width: 300px; */
-  margin: 0px 3px 0px 3px;
-  background: red;
+  margin: 0px 30px 0px 30px;
 }
 
 .submitButton {
@@ -16,7 +15,6 @@
   justify-content: space-evenly;
   align-items: flex-start;
   padding-top: 10px;
-  background: green;
 }
 
 /* .searchbar {

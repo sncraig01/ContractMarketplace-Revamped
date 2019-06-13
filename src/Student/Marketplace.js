@@ -16,7 +16,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 const useStyles = makeStyles({
   card: {
     minWidth: 600,
-    maxWidth: 600
+    maxWidth: 600,
+    margin: 200
   },
   bullet: {
     display: "inline-block",
@@ -54,6 +55,7 @@ class Marketplace extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "RevTek";
     this.retrieveAllContracts();
     this.setState({
       loaded: true

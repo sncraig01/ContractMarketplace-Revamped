@@ -14,6 +14,8 @@ export default class StudentSearchStudents extends React.Component {
   };
 
   componentDidMount() {
+    document.title = "RevTek";
+
     let newNames = [];
     let newEmails = [];
     let newBios = [];

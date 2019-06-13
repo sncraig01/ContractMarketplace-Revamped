@@ -22,6 +22,8 @@ class StudentHome extends React.Component {
   };
 
   componentDidMount = () => {
+    document.title = "RevTek";
+
     //Finds the users email through Firebase authentication
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -30,10 +32,9 @@ class StudentHome extends React.Component {
         this.setState({ student_email: user.email });
 
         //get the pending bids and assigned contracts
-        this.getBids( user.email );
+        this.getBids(user.email);
         //get the skills
         this.getSkills();
-    
       } else {
         // No user is signed in.
         console.log("Invalid Username or Password");
@@ -52,7 +53,6 @@ class StudentHome extends React.Component {
         }
       }
     });
-
   };
 
   getSkills = () => {
@@ -78,45 +78,39 @@ class StudentHome extends React.Component {
     });
   };
 
-
   getBids = () => {
-    console.log( "going to get bids")
+    console.log("going to get bids");
     let temp = this.state.student_email;
     let temp_bid = [];
     let available_con = [];
     //Finds the matching Name and Listed skills from Firebase
     const referenceUsers = firebase.database().ref("users"); // access all users
     referenceUsers.on("value", snapshot => {
-      console.log( snapshot.val() )
+      console.log(snapshot.val());
       snapshot.forEach(function(childSnapshot) {
-
         var item = childSnapshot.val();
         //console.log("ITEM: " + item.email);
         if (temp === item.email) {
-          console.log( "found the folder")
+          console.log("found the folder");
           // check for a user with a matching email
           //Iterates through all of the items in the user
           if (item.bids !== undefined) {
             console.log("found bids");
             for (let itr in item.bids) {
-              console.log( item.bids[itr].Accepted )
+              console.log(item.bids[itr].Accepted);
               if (item.bids[itr].Accepted === false) {
                 temp_bid.push(item.bids[itr]);
-              }
-              else if(item.bids[itr].Accepted === true) {
-                available_con.push( item.bids[itr])
+              } else if (item.bids[itr].Accepted === true) {
+                available_con.push(item.bids[itr]);
               }
             }
           }
         }
       });
 
-      this.setState({ bid_arr: temp_bid, contract_arr: available_con});
+      this.setState({ bid_arr: temp_bid, contract_arr: available_con });
     });
-  }
-
-
-
+  };
 
   //Updates the state of assigned search
   updatingAssignedSearch = assigned_search => {
@@ -136,14 +130,10 @@ class StudentHome extends React.Component {
     return (window.location = "/editstudentprofile");
   };
 
-
-
-
   //The render method
   render() {
     return (
       <div className="Student-whole">
-
         <StudentNavBar history={this.props.history} />
         <h1>Dashboard</h1>
 
@@ -155,7 +145,7 @@ class StudentHome extends React.Component {
               style={{ maxHeight: 300, overflow: "auto" }}
             >
               <div>
-                <b className="name">{ this.state.student_name} </b>
+                <b className="name">{this.state.student_name} </b>
                 <Divider />
               </div>
               <CardContent>
@@ -164,14 +154,19 @@ class StudentHome extends React.Component {
                 </div>
                 <div>
                   <b>Listed Skills: </b>
-                  { this.state.skill_arr.length === 0 ? 
-                    <div> You have not entered any skills </div> : 
-                    this.state.skill_arr.map(itr => itr + ", ")              
-                  }
+                  {this.state.skill_arr.length === 0 ? (
+                    <div> You have not entered any skills </div>
+                  ) : (
+                    this.state.skill_arr.map(itr => itr + ", ")
+                  )}
                 </div>
-                <br/>
+                <br />
                 <div>
-                  <Button variant="contained" color="primary" onClick={() => this.editProfileClicked()}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.editProfileClicked()}
+                  >
                     Edit Profile
                   </Button>
                 </div>
@@ -200,29 +195,46 @@ class StudentHome extends React.Component {
               />
             </div>
             <CardContent>
-              { this.state.contract_arr.length === 0 ? 
-                <div> You have no contracts yet </div> : 
-              
+              {this.state.contract_arr.length === 0 ? (
+                <div> You have no contracts yet </div>
+              ) : (
                 this.state.contract_arr.map(itr => {
-                  return itr.Company.toLowerCase().includes(this.state.assigned_search.toLowerCase()) ||
-                    itr.Contract.toLowerCase().includes(this.state.assigned_search.toLowerCase()) ||
+                  return itr.Company.toLowerCase().includes(
+                    this.state.assigned_search.toLowerCase()
+                  ) ||
+                    itr.Contract.toLowerCase().includes(
+                      this.state.assigned_search.toLowerCase()
+                    ) ||
                     itr.Cost.toString().includes(this.state.assigned_search) ||
-                    itr.Details.toLowerCase().includes(this.state.assigned_search.toLowerCase()) ||
-                    itr.Hours.toLowerCase().includes(this.state.assigned_search.toLowerCase()) ||
-                    itr.Info.toLowerCase().includes(this.state.assigned_search.toLowerCase()) ||
-                    itr.Rate.toLowerCase().includes(this.state.assigned_search.toLowerCase()) ||
-                    itr.Company.toLowerCase().includes(this.state.assigned_search.toLowerCase()) ? (
+                    itr.Details.toLowerCase().includes(
+                      this.state.assigned_search.toLowerCase()
+                    ) ||
+                    itr.Hours.toLowerCase().includes(
+                      this.state.assigned_search.toLowerCase()
+                    ) ||
+                    itr.Info.toLowerCase().includes(
+                      this.state.assigned_search.toLowerCase()
+                    ) ||
+                    itr.Rate.toLowerCase().includes(
+                      this.state.assigned_search.toLowerCase()
+                    ) ||
+                    itr.Company.toLowerCase().includes(
+                      this.state.assigned_search.toLowerCase()
+                    ) ? (
                     <div>
-                      <b className="contract" > {itr.Contract} </b>
-                      <div className="contractInfo" > Company: {itr.Company} </div>
+                      <b className="contract"> {itr.Contract} </b>
+                      <div className="contractInfo">
+                        {" "}
+                        Company: {itr.Company}{" "}
+                      </div>
                       <div className="contractInfo"> Cost: {itr.Cost} </div>
                       <div className="contractInfo"> Hours: {itr.Hours} </div>
                     </div>
                   ) : (
                     <div />
                   );
-                })              
-              }
+                })
+              )}
             </CardContent>
           </Card>
           <Card
@@ -242,29 +254,49 @@ class StudentHome extends React.Component {
                 }}
               />
             </div>
-            <CardContent>    
-              { this.state.bid_arr.length === 0 ?
-                 <div> You have no bids yet </div> :               
-               this.state.bid_arr.map(itr2 => {
-                  return itr2.Company.toLowerCase().includes(this.state.bid_search.toLowerCase()) ||
-                    itr2.Contract.toLowerCase().includes(this.state.bid_search.toLowerCase()) ||
-                    itr2.Cost.toString().toLowerCase().includes(this.state.bid_search.toLowerCase()) ||
-                    itr2.Details.toLowerCase().includes(this.state.bid_search.toLowerCase()) ||
-                    itr2.Hours.toString().toLowerCase().includes(this.state.bid_search.toLowerCase()) ||
-                    itr2.Info.toLowerCase().includes(this.state.bid_search.toLowerCase()) ||
-                    itr2.Rate.toLowerCase().includes(this.state.bid_search.toLowerCase()) ||
-                    itr2.Company.toLowerCase().includes(this.state.bid_search.toLowerCase()) ? (
+            <CardContent>
+              {this.state.bid_arr.length === 0 ? (
+                <div> You have no bids yet </div>
+              ) : (
+                this.state.bid_arr.map(itr2 => {
+                  return itr2.Company.toLowerCase().includes(
+                    this.state.bid_search.toLowerCase()
+                  ) ||
+                    itr2.Contract.toLowerCase().includes(
+                      this.state.bid_search.toLowerCase()
+                    ) ||
+                    itr2.Cost.toString()
+                      .toLowerCase()
+                      .includes(this.state.bid_search.toLowerCase()) ||
+                    itr2.Details.toLowerCase().includes(
+                      this.state.bid_search.toLowerCase()
+                    ) ||
+                    itr2.Hours.toString()
+                      .toLowerCase()
+                      .includes(this.state.bid_search.toLowerCase()) ||
+                    itr2.Info.toLowerCase().includes(
+                      this.state.bid_search.toLowerCase()
+                    ) ||
+                    itr2.Rate.toLowerCase().includes(
+                      this.state.bid_search.toLowerCase()
+                    ) ||
+                    itr2.Company.toLowerCase().includes(
+                      this.state.bid_search.toLowerCase()
+                    ) ? (
                     <div>
-                      <b className="contract" > {itr2.Contract} </b>
-                      <div className="contractInfo" > Company: {itr2.Company} </div>
+                      <b className="contract"> {itr2.Contract} </b>
+                      <div className="contractInfo">
+                        {" "}
+                        Company: {itr2.Company}{" "}
+                      </div>
                       <div className="contractInfo"> Cost: {itr2.Cost} </div>
                       <div className="contractInfo"> Hours: {itr2.Hours} </div>
                     </div>
                   ) : (
-                    <div>  </div>
+                    <div> </div>
                   );
                 })
-              }
+              )}
             </CardContent>
           </Card>
         </div>

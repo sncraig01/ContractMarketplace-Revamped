@@ -15,6 +15,7 @@ class AdminHome extends React.Component {
   };
 
   componentDidMount() {
+    document.title = "RevTek";
     //get all the statistics
     const usersRef = firebase.database().ref("users"); //reference to the database "users" key
     /// GET NUMBERS OF USERS
@@ -77,9 +78,9 @@ class AdminHome extends React.Component {
         <AdminNavBar history={this.props.history} />
         <h1>Dashboard</h1>
         <h2> Welcome Admin! </h2>
-        <br/>
+        <br />
         <div> RevTek's Current Statistics:</div>
-        <br/>
+        <br />
         <div className="Admin-Cards">
           <Card className="Admin-header">
             <div>

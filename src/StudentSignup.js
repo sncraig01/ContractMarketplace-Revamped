@@ -55,6 +55,10 @@ class StudentSignup extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    document.title = "RevTek";
+  };
+
   //update the state when they enter information
   updateField(field, newValue) {
     this.setState({

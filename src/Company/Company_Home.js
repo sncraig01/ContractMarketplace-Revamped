@@ -34,6 +34,7 @@ class CompanyHome extends React.Component {
   };
 
   componentDidMount = async () => {
+    document.title = "RevTek";
     this.fetchData();
   };
 

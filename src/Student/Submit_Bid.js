@@ -47,7 +47,9 @@ class Submit_Bid extends React.Component {
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => {
+    document.title = "RevTek";
+  };
 
   updateField(field, newValue) {
     this.setState({

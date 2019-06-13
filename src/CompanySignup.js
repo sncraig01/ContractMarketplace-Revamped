@@ -54,6 +54,10 @@ class CompanySignup extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    document.title = "RevTek";
+  };
+
   updateField(field, newValue) {
     this.setState({
       ...this.state,

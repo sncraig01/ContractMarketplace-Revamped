@@ -37,6 +37,7 @@ class CompanyViewBids extends React.Component {
   };
 
   componentDidMount() {
+    document.title = "RevTek";
     let curEmail = "";
     var user = firebase.auth().currentUser;
     if (user !== null) {
@@ -114,7 +115,10 @@ class CompanyViewBids extends React.Component {
           let curKey = childSnapshot.key;
           //update the "Accepted" field
           //UPDATE
-          firebase.database().ref(refString + "/" + curKey + "/Accepted").set(true);
+          firebase
+            .database()
+            .ref(refString + "/" + curKey + "/Accepted")
+            .set(true);
           console.log("updated!");
         }
       });
@@ -130,46 +134,56 @@ class CompanyViewBids extends React.Component {
       snapshot.forEach(function(childSnapshot) {
         if (count === 1) {
           //UPDATE
-          firebase.database().ref(refString2 + "/" + childSnapshot.key + "/available").set(false); //mark it not available
-          firebase.database().ref(refString2 + "/" + childSnapshot.key + "/assignedTo").set(student);
+          firebase
+            .database()
+            .ref(refString2 + "/" + childSnapshot.key + "/available")
+            .set(false); //mark it not available
+          firebase
+            .database()
+            .ref(refString2 + "/" + childSnapshot.key + "/assignedTo")
+            .set(student);
         }
         count++;
       });
     });
 
-
-
-    let name = this.state.contract_name
-    let details = this.state.contract_details
+    let name = this.state.contract_name;
+    let details = this.state.contract_details;
 
     //change "Accepted" to "true" for the bid in the users folder
-    let usersRef = firebase.database().ref( "users/" );
-    usersRef.on( "value", snapshot => {
+    let usersRef = firebase.database().ref("users/");
+    usersRef.on("value", snapshot => {
       //console.log( snapshot.val())
       snapshot.forEach(function(childSnapshot) {
-        if( childSnapshot.val().email === student ){
+        if (childSnapshot.val().email === student) {
           //console.log( childSnapshot.val() )
-          let curKey = childSnapshot.key; 
+          let curKey = childSnapshot.key;
           //console.log( curKey )
-          childSnapshot.forEach( function(folder){
-            if( folder.key == "bids" ){
+          childSnapshot.forEach(function(folder) {
+            if (folder.key == "bids") {
               //console.log( folder.val() )
-              folder.forEach( function( bid ){
-                console.log( bid.val())
+              folder.forEach(function(bid) {
+                console.log(bid.val());
 
-                if (bid.val().Cost === cost &&  bid.val().Contract === name && bid.val().Details === details ){
-                  console.log( "found the bid!")
+                if (
+                  bid.val().Cost === cost &&
+                  bid.val().Contract === name &&
+                  bid.val().Details === details
+                ) {
+                  console.log("found the bid!");
                   let bidKey = bid.key;
                   //UPDATE
-                  firebase.database().ref( "users/"+ curKey + "/bids/"+ bidKey + "/Accepted").set( true )
+                  firebase
+                    .database()
+                    .ref("users/" + curKey + "/bids/" + bidKey + "/Accepted")
+                    .set(true);
                 }
-              })
-
+              });
             }
-          })
+          });
         }
-      })
-    })
+      });
+    });
 
     //route back to home
     this.props.history.push("/companydashboard");

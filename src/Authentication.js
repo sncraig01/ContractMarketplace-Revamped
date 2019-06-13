@@ -49,6 +49,10 @@ class Authentication extends React.Component {
     errorOccurred: false
   };
 
+  componentDidMount = () => {
+    document.title = "RevTek";
+  };
+
   //change state as user inputs something
   changeEmail = text => {
     this.setState({ email: text });
