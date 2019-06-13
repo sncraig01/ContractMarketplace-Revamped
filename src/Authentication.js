@@ -105,7 +105,7 @@ class Authentication extends React.Component {
 
     return (
       <div className="App">
-        <RevTekHomeNavBar />
+        <RevTekHomeNavBar history={this.props.history} />
         <div className="Landing-Body">
           <Card className="SignUp-Card">
             <Container component="main" maxWidth="xs">

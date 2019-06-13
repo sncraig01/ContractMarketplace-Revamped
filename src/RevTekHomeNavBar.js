@@ -9,7 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
-import Store from "@material-ui/icons/Store";
+import Input from "@material-ui/icons/Input";
+import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 
@@ -120,14 +121,18 @@ function RevTekHomeNavBar(props) {
 
   const homeClicked = e => {
     // Redirects to admin home page
-    return (window.location = "/");
+    props.history.push("/");
+  };
+
+  const signUpClicked = e => {
+    // Redirects to signin page
+    props.history.push("/signup");
   };
 
   const signInClicked = e => {
     // Redirects to signin page
-    return (window.location = "/signin");
+    props.history.push("/signin");
   };
-
 
   const renderMobileMenu = (
     <Menu
@@ -143,8 +148,13 @@ function RevTekHomeNavBar(props) {
         </IconButton>
       </MenuItem>
       <MenuItem>
+        <IconButton color="inherit" onClick={() => signUpClicked()}>
+          <AssignmentTurnedIn />
+        </IconButton>
+      </MenuItem>
+      <MenuItem>
         <IconButton color="inherit" onClick={() => signInClicked()}>
-          <Store />
+          <Input />
         </IconButton>
       </MenuItem>
     </Menu>
@@ -184,9 +194,14 @@ function RevTekHomeNavBar(props) {
                 <Home />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Sign In">
+            <Tooltip title="Sign Up">
+              <IconButton color="inherit" onClick={() => signUpClicked()}>
+                <AssignmentTurnedIn />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Login">
               <IconButton color="inherit" onClick={() => signInClicked()}>
-                <Store />
+                <Input />
               </IconButton>
             </Tooltip>
           </div>
