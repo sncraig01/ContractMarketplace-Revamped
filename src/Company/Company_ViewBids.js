@@ -94,7 +94,7 @@ class CompanyViewBids extends React.Component {
   }
 
   acceptBidClicked = (cost, student, student_info) => {
-    //change "Accepted" to "true" for the actual bid in firebase
+    //change "Accepted" to "true" for the actual bid in firebase in the Contracts folder
     let refString =
       "contracts/" +
       this.state.company_name +
@@ -113,10 +113,8 @@ class CompanyViewBids extends React.Component {
         ) {
           let curKey = childSnapshot.key;
           //update the "Accepted" field
-          firebase
-            .database()
-            .ref(refString + "/" + curKey + "/Accepted")
-            .set(true);
+          //UPDATE
+          firebase.database().ref(refString + "/" + curKey + "/Accepted").set(true);
           console.log("updated!");
         }
       });
@@ -131,20 +129,47 @@ class CompanyViewBids extends React.Component {
       let count = 1; //use this variable to only access the FIRST thing
       snapshot.forEach(function(childSnapshot) {
         if (count === 1) {
-          //console.log( childSnapshot.val() )
-          //console.log( childSnapshot.key )
-          firebase
-            .database()
-            .ref(refString2 + "/" + childSnapshot.key + "/available")
-            .set(false); //mark it not available
-          firebase
-            .database()
-            .ref(refString2 + "/" + childSnapshot.key + "/assignedTo")
-            .set(student);
+          //UPDATE
+          firebase.database().ref(refString2 + "/" + childSnapshot.key + "/available").set(false); //mark it not available
+          firebase.database().ref(refString2 + "/" + childSnapshot.key + "/assignedTo").set(student);
         }
         count++;
       });
     });
+
+
+
+    let name = this.state.contract_name
+    let details = this.state.contract_details
+
+    //change "Accepted" to "true" for the bid in the users folder
+    let usersRef = firebase.database().ref( "users/" );
+    usersRef.on( "value", snapshot => {
+      //console.log( snapshot.val())
+      snapshot.forEach(function(childSnapshot) {
+        if( childSnapshot.val().email === student ){
+          //console.log( childSnapshot.val() )
+          let curKey = childSnapshot.key; 
+          //console.log( curKey )
+          childSnapshot.forEach( function(folder){
+            if( folder.key == "bids" ){
+              //console.log( folder.val() )
+              folder.forEach( function( bid ){
+                console.log( bid.val())
+
+                if (bid.val().Cost === cost &&  bid.val().Contract === name && bid.val().Details === details ){
+                  console.log( "found the bid!")
+                  let bidKey = bid.key;
+                  //UPDATE
+                  firebase.database().ref( "users/"+ curKey + "/bids/"+ bidKey + "/Accepted").set( true )
+                }
+              })
+
+            }
+          })
+        }
+      })
+    })
 
     //route back to home
     this.props.history.push("/companydashboard");
@@ -172,7 +197,7 @@ class CompanyViewBids extends React.Component {
                 {" "}
                 {item.studentInfo}{" "}
               </Typography>
-              <Typography variant="body2" component="p">
+              <Typography variant="body2">
                 <div>Hourly Rate: ${item.rate}</div>
                 <div>Expencted time: {item.hours}</div>
                 <div>Total Cost: ${item.cost}</div>

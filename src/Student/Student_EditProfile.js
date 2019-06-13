@@ -201,7 +201,7 @@ class Student_EditProfile extends React.Component {
         return (
           <div className= 'StudentEdit-whole'>
 
-            <StudentNavBar title={"Dashboard"} />
+            <StudentNavBar history={this.props.history}/>
             <h1>Edit Your Profile</h1>
 
 
