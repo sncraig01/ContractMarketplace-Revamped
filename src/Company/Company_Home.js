@@ -28,7 +28,9 @@ class CompanyHome extends React.Component {
 
     allContracts: [],
     availableContracts: [],
-    assignedContracts: []
+    assignedContracts: [],
+    pending_search: "",
+    assigned_search: ""
   };
 
   componentDidMount = async () => {
@@ -133,6 +135,16 @@ class CompanyHome extends React.Component {
     });
   };
 
+  updatePendingSearch = pending_search => {
+    this.setState({ pending_search });
+    console.log(pending_search);
+  };
+
+  updateAssignedSearch = assigned_search => {
+    this.setState({ assigned_search });
+    console.log(assigned_search);
+  };
+
   render() {
     const classes = useStyles;
 
@@ -157,14 +169,32 @@ class CompanyHome extends React.Component {
                 <b>Assigned Contracts: </b>
                 <Divider />
               </div>
+              <div>
+                <SearchIcon />
+                <InputBase
+                  placeholder="Search Assigned Contracts"
+                  onChange={e => {
+                    this.updateAssignedSearch(e.target.value);
+                  }}
+                />
+              </div>
               <CardContent>
-                {this.state.assignedContracts.map(con => (
-                  <div key={con.contract_details}>
-                    <b> {con.contract_name} </b>
-                    <div>{con.contract_details} </div>
-                    <div className="assignedTo"> {con.assigned_to} </div>
-                  </div>
-                ))}
+                {this.state.assignedContracts.map(itr => {
+                  return itr.contract_name
+                    .toLowerCase()
+                    .includes(this.state.assigned_search.toLowerCase()) ||
+                    itr.contract_details
+                      .toLowerCase()
+                      .includes(this.state.assigned_search.toLowerCase()) ? (
+                    <div key={itr.contract_details}>
+                      <b> {itr.contract_name} </b>
+                      <div>{itr.contract_details} </div>
+                      <div className="assignedTo"> {itr.assigned_to} </div>
+                    </div>
+                  ) : (
+                    <div />
+                  );
+                })}
               </CardContent>
             </Card>
           </List>
@@ -185,22 +215,36 @@ class CompanyHome extends React.Component {
               </div>
               <div>
                 <SearchIcon />
-                <InputBase placeholder="Search Bids" />
+                <InputBase
+                  placeholder="Search Pending Contracts"
+                  onChange={e => {
+                    this.updatePendingSearch(e.target.value);
+                  }}
+                />
               </div>
               <CardContent>
-                {this.state.availableContracts.map(con => (
-                  <div>
-                    <b> {con.contract_name} </b>
-                    <div> {con.contract_details} </div>
-                    <Button
-                      color="primary"
-                      className={classes.button}
-                      onClick={() => this.viewBidsClicked(con.contract_name)}
-                    >
-                      SEE BIDS{" "}
-                    </Button>
-                  </div>
-                ))}
+                {this.state.availableContracts.map(itr => {
+                  return itr.contract_name
+                    .toLowerCase()
+                    .includes(this.state.pending_search.toLowerCase()) ||
+                    itr.contract_details
+                      .toLowerCase()
+                      .includes(this.state.pending_search.toLowerCase()) ? (
+                    <div key={itr.contract_details}>
+                      <b> {itr.contract_name} </b>
+                      <div> {itr.contract_details} </div>
+                      <Button
+                        color="primary"
+                        className={classes.button}
+                        onClick={() => this.viewBidsClicked(itr.contract_name)}
+                      >
+                        SEE BIDS{" "}
+                      </Button>
+                    </div>
+                  ) : (
+                    <div />
+                  );
+                })}
               </CardContent>
             </Card>
           </List>
