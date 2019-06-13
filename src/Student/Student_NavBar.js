@@ -139,6 +139,18 @@ function StudentNavBar(props) {
     props.history.push("/");
   };
 
+  const routeToAbout = () => {
+
+    props.history.push({
+      pathname: "/about",
+      state: {
+        type: "student"
+      }
+    });
+
+  }
+  
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -169,7 +181,6 @@ function StudentNavBar(props) {
       </MenuItem>
     </Menu>
   );
-
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -183,7 +194,7 @@ function StudentNavBar(props) {
               textTransform: "none",
               boxShadow: "none"
             }}
-            href="/"
+            onClick={ ()=> routeToAbout() }
           >
             RevTek
           </Button>

@@ -82,7 +82,11 @@ class Authentication extends React.Component {
           snapshot.forEach(function(childSnapshot) {
             var item = childSnapshot.val();
             if (item.email === curEmail) {
-              if (item.type === "student") {
+              if (item.disabled === true ){
+                ////DONT LET THEM LOG IN
+                console.log( "this account has been deleted" )
+              }
+              else if (item.type === "student") {
                 route.push("/studentdashboard");
               } else if (item.type === "company") {
                 route.push("/companydashboard");

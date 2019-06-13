@@ -16,6 +16,7 @@ import AdminManageUsers from "./Admin/Admin_ManageUsers";
 import StudentProfile from "./Student/Student_Profile";
 import CompanyViewBids from "./Company/Company_ViewBids.js";
 import StudentEditProfile from "./Student/Student_EditProfile";
+import About from "./About.js"
 import RevTekHome from "./RevTekHome";
 
 class Routes extends React.Component {
@@ -33,6 +34,7 @@ class Routes extends React.Component {
         <Route path="/signin" component={Authentication} />
         <Route path="/signupstudent" component={StudentSignup} />
         <Route path="/signupcompany" component={CompanySignup} />
+        <Route path="/about" component={About} />
 
         {/* Admin Routes */}
         <Route path="/admindashboard" component={AdminHome} />
