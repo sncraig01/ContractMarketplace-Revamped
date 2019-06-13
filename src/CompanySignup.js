@@ -70,7 +70,8 @@ class CompanySignup extends React.Component {
         const user = {
           email: this.state.email,
           type: "company",
-          name: this.state.companyName
+          name: this.state.companyName,
+          disabled: false,
         };
         usersRef.push(user);
         this.props.history.push("/companydashboard");

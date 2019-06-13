@@ -1,0 +1,67 @@
+.RevTekHome-Header{
+    background-image: url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png);
+    background-repeat: no-repeat;
+    background-size: cover; 
+    min-height: 18vh;
+    min-width: 55vh; 
+    font-family: 'Trebuchet MS';
+    font-size: calc(40px + 2vmin);
+    color: white;
+    direction: flex; 
+    padding-top: 45px; 
+}
+
+.RevTekHome-Body{
+    background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+    background-size: cover; 
+    min-height: 90vh; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+
+.RevTekHome-Image{
+    background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+    background-size: cover; 
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+}
+
+.RevTekHome-Button{
+    display: flex;
+    flex-direction: row-reverse; 
+    padding-right: 10px; 
+    font-family: 'Trebuchet MS';
+}
+
+.RevTekHome-ImageContainer{
+    padding-right: 50px;
+    padding-left: 150px;  
+}
+
+
+.RevTekHome-TextHeader
+{
+    align-items: flex-start;
+    font-size: calc(6px + 2vmin);
+}
+
+.RevTekHome-Title
+{
+    font-size: calc(15px + 2vmin);
+}
+
+.RevTekHome-Info
+{
+    background-color: #282c34;
+    min-height: 15vh;
+    min-width: 100vh;
+    font-size: calc(5px + 2vmin);
+    font-family: 'Trebuchet MS';
+    padding-top: 10px; 
+    padding-right: 10px; 
+    padding-left: 10px; 
+    padding-bottom: 20px; 
+}

@@ -140,6 +140,17 @@ function AdminNavBar(props) {
     props.history.push("/");
   };
 
+  const routeToAbout = () => {
+
+    props.history.push({
+      pathname: "/about",
+      state: {
+        type: "admin"
+      }
+    });
+
+  }
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -184,7 +195,7 @@ function AdminNavBar(props) {
               textTransform: "none",
               boxShadow: "none"
             }}
-            href="/"
+            onClick={ ()=> routeToAbout() }
           >
             RevTek
           </Button>
