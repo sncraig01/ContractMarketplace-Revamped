@@ -177,7 +177,6 @@ function AdminNavBar(props) {
         <Toolbar>
           <Button
             variant="text"
-            noWrap
             style={{
               fontSize: "26px",
               backgroundColor: "transparent",

@@ -181,7 +181,6 @@ function CompanyNavBar(props) {
           <Typography
             className={classes.title}
             variant="h6"
-            noWrap
             align="center"
             style={{ fontSize: "20px" }}
           >
