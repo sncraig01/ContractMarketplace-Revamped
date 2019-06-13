@@ -32,11 +32,6 @@ const useStyles = makeStyles({
 });
 
 class Submit_Bid extends React.Component {
-  // In marketplace, want to show all contracts with status of available
-  // Also want search bar to refine results
-  // Each contract needs a "Submit Bid" button, which will take user to new page where they can enter
-  //    bid details for that specific contract
-
   constructor(props) {
     super(props);
 
@@ -49,16 +44,10 @@ class Submit_Bid extends React.Component {
       stateKey: "",
       theBid: [],
       counter: 0
-      // keyMatch: ""
     };
   }
 
-  componentDidMount = () => {
-    console.log("SUBMITBIDKEY = " + this.props.location.state.key);
-    console.log("Company " + this.props.location.state.company);
-    console.log("Contract " + this.props.location.state.contract);
-    console.log("Details " + this.props.location.state.details);
-  };
+  componentDidMount = () => {};
 
   updateField(field, newValue) {
     this.setState({
@@ -68,26 +57,27 @@ class Submit_Bid extends React.Component {
     console.log(newValue);
   }
 
+  // When the submit button is clicked, the bid is processed and stored in firebase, and then
+  // the page redirects to the student dashboard
   whenClicked = async () => {
     this.submitBid();
-    // this.submitToUser();
     this.props.history.push({
       pathname: "/studentdashboard"
     });
   };
 
+  // When a bid is submitted, it needs to be stored in two places in firebase
+  // 1) Under the contract on which the bid was placed
+  // 2) Under the user who placed the bid
   submitBid = async () => {
     let costOfBid = this.state.bidRate * this.state.bidHours;
     let matchingKey = "";
     let newBid = [];
-    let tempBool = false;
     let counter = 0;
 
     await firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log("user ====" + user.email);
-        console.log("userkey === " + user.key);
-        // student is signed in, do stuff
+        // Construct bid object
         newBid = {
           Student: user.email,
           Company: this.props.location.state.company,
@@ -117,27 +107,20 @@ class Submit_Bid extends React.Component {
         usersRef.on("value", snapshot => {
           // loop through all users
           snapshot.forEach(tempUser => {
-            // loop through each contract
-            console.log("loop user email = " + tempUser.val().email);
-            console.log("loop user key = " + tempUser.key);
-
+            // Check if the loop user's email matches the email of the user who submitted the bid
             if (tempUser.val().email === user.email) {
               counter++;
-              console.log("MATCH! Email" + tempUser.val().email);
-              console.log("MATCH! Key" + tempUser.key);
               matchingKey = tempUser.key;
-              tempBool = true;
 
+              // Only add to firebase the first time the user is found (prevents an infinite loop)
               if (counter == 1) {
                 if (matchingKey.length > 0) {
-                  console.log("MATCHINGKEY = " + matchingKey);
-
+                  // Add bid to firebase under appropriate user
                   const matchingUserRef = firebase
                     .database()
                     .ref("users/" + matchingKey + "/bids");
                   matchingUserRef.push(newBid);
                   console.log("WORKING PROPERLY!!!!!");
-                  // matchingKey = "";
                 } else {
                   console.log("NOT WORKING PROPERLY = " + matchingKey);
                 }
@@ -150,25 +133,6 @@ class Submit_Bid extends React.Component {
         console.log("Invalid Username or Password");
       }
     });
-  };
-
-  submitToUser = () => {
-    console.log("GOTHEREKEY = " + this.state.stateKey);
-    if (this.state.matchFound) {
-      // This is outside of the foreach, but inside the on
-      if (this.state.stateKey.length > 0) {
-        console.log("MATCHINGKEY = " + this.state.stateKey);
-
-        const matchingUserRef = firebase
-          .database()
-          .ref("users/" + this.state.stateKey + "/bids");
-        matchingUserRef.push(this.state.theBid);
-        console.log("WORKING PROPERLY!!!!!");
-        // matchingKey = "";
-      } else {
-        console.log("NOT WORKING PROPERLY = " + this.state.stateKey);
-      }
-    }
   };
 
   render() {
@@ -241,9 +205,9 @@ class Submit_Bid extends React.Component {
                   <Grid item xs={12} sm={10}>
                     <p>
                       {this.state.bidHours && this.state.bidRate
-                        ? "Total Cost of Bid: $" +
+                        ? "Total Bid Amount: $" +
                           this.state.bidHours * this.state.bidRate
-                        : "Enter details above to calculate total cost"}
+                        : "Enter details above to calculate bid total"}
                     </p>
                   </Grid>
 

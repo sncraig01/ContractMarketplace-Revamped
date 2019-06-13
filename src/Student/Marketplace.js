@@ -53,7 +53,6 @@ class Marketplace extends React.Component {
   }
 
   componentDidMount = () => {
-    // this.retrieveAllContracts();
     this.retrieveAllContracts();
     this.setState({
       loaded: true
@@ -76,6 +75,7 @@ class Marketplace extends React.Component {
         companies.forEach(function(contracts) {
           // need another loop because of the way firebase is structured
           contracts.forEach(function(individualContract) {
+            // When an available contract is found, add all its details to appropriate arrays
             if (individualContract.val().available) {
               tempIndices.push(counter);
               counter++;
@@ -108,6 +108,8 @@ class Marketplace extends React.Component {
     specificDetails
   ) => {
     // from stackoverflow: this.props.router.push
+
+    // Sends necessary info to submit bid page
     this.props.history.push({
       pathname: "/submitbid",
       state: {
@@ -137,9 +139,6 @@ class Marketplace extends React.Component {
           <StudentNavBar history={this.props.history} />
           <h1>Contract Marketplace</h1>
           <div className="topstuff">
-            {/* <button onClick={() => this.retrieveAllContracts()}>
-              Show contracts
-            </button> */}
             <h3>Available Contracts</h3>
 
             <div className="searchbar">
@@ -159,11 +158,15 @@ class Marketplace extends React.Component {
               />
             </div>
 
-            <p>{this.state.searchText}</p>
+            <p>Results for: {this.state.searchText}</p>
 
             <div className="allBidCards">
               {this.state.indices.length > 0 ? (
                 this.state.indices.map(index => {
+                  {
+                    /*Check if search text matches any companies/contracts/details*/
+                    /* If so, construct a card with that contract's info on it*/
+                  }
                   return this.state.searchText === "" ||
                     this.state.companyNames[index]
                       .toLowerCase()
