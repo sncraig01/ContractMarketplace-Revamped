@@ -11,8 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "./firebase.js";
 import RevTekHomeNavBar from "./RevTekHomeNavBar";
-import Card from '@material-ui/core/Card';
-import "./Landing.css"
+import Card from "@material-ui/core/Card";
+import "./Landing.css";
 
 require("firebase/auth");
 
@@ -49,7 +49,8 @@ class StudentSignup extends React.Component {
       firstName: "",
       lastName: "",
       email: "",
-      password: ""
+      password: "",
+      errorOccurred: false
     };
   }
 
@@ -63,6 +64,7 @@ class StudentSignup extends React.Component {
 
   doRegister = () => {
     console.log(this.state.password);
+    var that = this;
     firebase
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -83,9 +85,12 @@ class StudentSignup extends React.Component {
       })
       .catch(function(error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        // var errorMessage = error.message;
-        console.log(errorCode);
+        let errorCode = error.code;
+        let errorMessage = error.message;
+
+        that.setState({
+          errorOccurred: true
+        });
       });
   };
 
@@ -93,98 +98,114 @@ class StudentSignup extends React.Component {
     const classes = useStyles;
     return (
       <div>
-        <RevTekHomeNavBar/>
+        <RevTekHomeNavBar />
         <div className="Landing-Body">
+          <Card className="SignUp-Card">
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                {this.state.errorOccurred ? (
+                  <p>
+                    Unable to register. Please make sure you have not previously
+                    registered your email and that your chosen password is 6
+                    characters or longer.
+                  </p>
+                ) : (
+                  <div />
+                )}
+                <Avatar className={classes.avatar}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Sign up as a student
+                </Typography>
+                <form className={classes.form} noValidate>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        autoComplete="fname"
+                        name="firstName"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="firstName"
+                        label="First Name"
+                        autoFocus
+                        onChange={e =>
+                          this.updateField("firstName", e.target.value)
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="lastName"
+                        label="Last Name"
+                        name="lastName"
+                        autoComplete="lname"
+                        onChange={e =>
+                          this.updateField("lastName", e.target.value)
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        onChange={e =>
+                          this.updateField("email", e.target.value)
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={e =>
+                          this.updateField("password", e.target.value)
+                        }
+                      />
+                    </Grid>
 
-    <Card className="SignUp-Card">
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up as a student
-          </Typography>
-          <form className={classes.form} noValidate>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                  onChange={e => this.updateField("firstName", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
-                  onChange={e => this.updateField("lastName", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  onChange={e => this.updateField("email", e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={e => this.updateField("password", e.target.value)}
-                />
-              </Grid>
+                    <Grid />
+                  </Grid>
 
-              <Grid />
-            </Grid>
-
-            <Grid container justify="flex-end">
-              <Grid item>
-                {/* Make this redirect to Authentication.js */}
-                <Link href="/signin" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={() => this.doRegister()}
-          >
-            Sign Up
-          </Button>
+                  <Grid container justify="flex-end">
+                    <Grid item>
+                      {/* Make this redirect to Authentication.js */}
+                      <Link href="/signin" variant="body2">
+                        Already have an account? Sign in
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </form>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={() => this.doRegister()}
+                >
+                  Sign Up
+                </Button>
+              </div>
+            </Container>
+          </Card>
         </div>
-      </Container>
-      </Card>
-      </div>
       </div>
     );
   }
