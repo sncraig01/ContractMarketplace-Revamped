@@ -40,16 +40,7 @@ class Landing extends React.Component {
         <Card className="Landing-Card">
         <h1> Create your new RevTek Account! </h1>
         <p> Please select how you would like to sign up.</p>
-        <div>
-          <Button
-            variant="contained"
-            className={classes.button}
-            onClick={() => this.signInClicked()}
-          >
-            Return to Sign In
-          </Button>
-        </div>
-        <br />
+        
         <div>
           <Button
             variant="contained"
@@ -71,6 +62,17 @@ class Landing extends React.Component {
             Sign Up as Company
           </Button>
         </div>
+        <br />
+        <div>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => this.signInClicked()}
+          >
+            I Already have an Account
+          </Button>
+        </div>
+  
         </Card>
         </div>
       </div>
