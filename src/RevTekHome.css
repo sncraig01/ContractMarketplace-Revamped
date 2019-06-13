@@ -1,20 +1,26 @@
-.RevTekHome-Header {
-  background-image: url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png);
+.RevTekHome-Entire {
+  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.RevTekHome-Header {
+  /* background-image: url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png);
+  background-repeat: no-repeat;
+  background-size: cover; */
   min-height: 12vh;
   max-height: 15vh;
   min-width: 55vh;
   font-size: calc(40px + 2vmin);
   color: white;
   direction: flex;
-  padding-top: 25px;
-  padding-bottom: 20px;
+  /* padding-top: 25px;
+  padding-bottom: 20px; */
 }
 
 .RevTekHome-Body {
-  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
-  background-size: cover;
+  /* background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+  background-size: cover; */
   min-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -22,8 +28,8 @@
 }
 
 .RevTekHome-Image {
-  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
-  background-size: cover;
+  /* background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+  background-size: cover; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -43,10 +49,13 @@
 .RevTekHome-TextHeader {
   align-items: flex-start;
   font-size: calc(6px + 2vmin);
+  padding-bottom: -10px;
 }
 
 .RevTekHome-Title {
   font-size: calc(15px + 2vmin);
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .RevTekHome-Info {
@@ -55,9 +64,19 @@
   /* min-width: 100vh; */
   font-size: calc(5px + 2vmin);
   padding-top: 10px;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 50px;
+  padding-left: 50px;
   padding-bottom: 20px;
   margin-right: 30px;
   margin-left: 30px;
+}
+
+.RevTekHome-CardText {
+  padding-bottom: 10px;
+}
+
+.RevTekHome-ServiceCards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }

@@ -143,17 +143,17 @@ function RevTekHomeNavBar(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton color="inherit" onClick={() => homeClicked()}>
+        <IconButton color="#202020" onClick={() => homeClicked()}>
           <Home />
         </IconButton>
       </MenuItem>
       <MenuItem>
-        <IconButton color="inherit" onClick={() => signUpClicked()}>
+        <IconButton color="#202020" onClick={() => signUpClicked()}>
           <AssignmentTurnedIn />
         </IconButton>
       </MenuItem>
       <MenuItem>
-        <IconButton color="inherit" onClick={() => signInClicked()}>
+        <IconButton color="#202020" onClick={() => signInClicked()}>
           <ExitToApp />
         </IconButton>
       </MenuItem>
@@ -162,7 +162,15 @@ function RevTekHomeNavBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{ height: "60px" }}>
+      <AppBar
+        position="static"
+        style={{
+          height: "60px",
+          backgroundColor: "transparent",
+          boxShadow: "none"
+          // backgroundImage: "url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png)"
+        }}
+      >
         <Toolbar style={{ marginTop: "-2px" }}>
           <Button
             variant="text"
@@ -170,7 +178,7 @@ function RevTekHomeNavBar(props) {
             style={{
               fontSize: "26px",
               backgroundColor: "transparent",
-              color: "white",
+              color: "#282828",
               textTransform: "none",
               boxShadow: "none"
             }}
@@ -190,17 +198,17 @@ function RevTekHomeNavBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Tooltip title="Home">
-              <IconButton color="inherit" onClick={() => homeClicked()}>
+              <IconButton color="#202020" onClick={() => homeClicked()}>
                 <Home />
               </IconButton>
             </Tooltip>
             <Tooltip title="Sign Up">
-              <IconButton color="inherit" onClick={() => signUpClicked()}>
+              <IconButton color="#202020" onClick={() => signUpClicked()}>
                 <AssignmentTurnedIn />
               </IconButton>
             </Tooltip>
             <Tooltip title="Login">
-              <IconButton color="inherit" onClick={() => signInClicked()}>
+              <IconButton color="#202020" onClick={() => signInClicked()}>
                 <ExitToApp />
               </IconButton>
             </Tooltip>
@@ -209,7 +217,7 @@ function RevTekHomeNavBar(props) {
             <IconButton
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              color="#202020"
             >
               <MoreIcon />
             </IconButton>
