@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
-import Input from "@material-ui/icons/Input";
+import ExitToApp from "@material-ui/icons/ExitToApp";
 import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
@@ -154,7 +154,7 @@ function RevTekHomeNavBar(props) {
       </MenuItem>
       <MenuItem>
         <IconButton color="inherit" onClick={() => signInClicked()}>
-          <Input />
+          <ExitToApp />
         </IconButton>
       </MenuItem>
     </Menu>
@@ -162,8 +162,8 @@ function RevTekHomeNavBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" style={{ height: "60px" }}>
+        <Toolbar style={{ marginTop: "-2px" }}>
           <Button
             variant="text"
             noWrap
@@ -201,7 +201,7 @@ function RevTekHomeNavBar(props) {
             </Tooltip>
             <Tooltip title="Login">
               <IconButton color="inherit" onClick={() => signInClicked()}>
-                <Input />
+                <ExitToApp />
               </IconButton>
             </Tooltip>
           </div>

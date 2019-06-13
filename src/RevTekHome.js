@@ -4,6 +4,8 @@ import RevTekHomeNavBar from "./RevTekHomeNavBar";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import "./RevTekHome.css";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 class RevTekHome extends React.Component {
   componentDidMount() {}
@@ -17,20 +19,22 @@ class RevTekHome extends React.Component {
       <div>
         <RevTekHomeNavBar history={this.props.history} />
         <div className="RevTekHome-Header">
-          <Button
-            variant="text"
-            noWrap
-            style={{
-              fontSize: "calc(40px + 2vmin)",
-              backgroundColor: "transparent",
-              color: "white",
-              textTransform: "none",
-              boxShadow: "none"
-            }}
-            href="/"
-          >
-            Welcome to RevTek
-          </Button>
+          <Container maxWidth="xl">
+            <Button
+              variant="text"
+              noWrap
+              style={{
+                fontSize: "calc(40px + 2vmin)",
+                backgroundColor: "transparent",
+                color: "white",
+                textTransform: "none",
+                boxShadow: "none"
+              }}
+              href="/"
+            >
+              Welcome to RevTek
+            </Button>
+          </Container>
           <br />
           <br />
         </div>
@@ -44,66 +48,82 @@ class RevTekHome extends React.Component {
             </div> */}
         <div className="RevTekHome-Body">
           <br />
-          <Card
-            className="RevTekHome-Info"
-            style={{ maxHeight: 200, maxWidth: 100, overflow: "auto" }}
-          >
-            <div className="RevTekHome-Title">
-              <b>About us</b>
-            </div>
-            <Divider />
-            <br />
-            <div style={{ fontSize: "18px" }}>
-              Here at RevTek we are dedicated to connecting companies and
-              students in order to foster both individual, community and company
-              growth. By joining our community you will include yourself in an
-              opportunity filled network of highly capabable and skilled
-              proffesionals.
-            </div>
-          </Card>
+          <Container maxWidth="md">
+            <Card
+              className="RevTekHome-Info"
+              style={{
+                // maxHeight: 200,
+                // maxWidth: 100,
+                overflow: "auto"
+                // paddingLeft: "30px",
+                // paddingRight: "30px"
+              }}
+            >
+              <div className="RevTekHome-Title">
+                <b>About us</b>
+              </div>
+              <Divider />
+              <br />
+              <div style={{ fontSize: "18px" }}>
+                Here at RevTek we are dedicated to connecting companies and
+                students in order to foster both individual, community and
+                company growth. By joining our community you will include
+                yourself in an opportunity filled network of highly capabable
+                and skilled proffesionals.
+              </div>
+            </Card>
+          </Container>
           <br />
-          <Card
-            className="RevTekHome-Info"
-            style={{ maxHeight: 600, maxWidth: 100, overflow: "auto" }}
-          >
-            <div className="RevTekHome-Title">
-              <b>Our Services</b>
-            </div>
-            <Divider />
-            <br />
-            <div>
-              <div className="RevTekHome-TextHeader">
-                <b> Company Services </b>
+          <Container maxWidth="md">
+            <Card
+              className="RevTekHome-Info"
+              style={{
+                maxHeight: 600,
+                // maxWidth: 100,
+                overflow: "auto",
+                paddingLeft: "30px",
+                paddingRight: "30px"
+              }}
+            >
+              <div className="RevTekHome-Title">
+                <b>Our Services</b>
               </div>
-            </div>
-            {/* <Divider/> */}
-            <br />
-            <div style={{ fontSize: "18px" }}>
-              Registering as a Company will give your business access to our
-              pool of highly motivated and skilled students. The RevTek Student
-              pool is highly collaborative allowing it to exist as an
-              evergrowing network. The RevTek quick connection technology allows
-              for Contracts to find suitable students in real time, allowing for
-              efficient completion of your companies needs.
-            </div>
-            <br />
-            <div>
-              <div className="RevTekHome-TextHeader">
-                <b> Student Services </b>
+              <Divider />
+              <br />
+              <div>
+                <div className="RevTekHome-TextHeader">
+                  <b> Company Services </b>
+                </div>
               </div>
-            </div>
-            {/* <Divider/> */}
-            <br />
-            <div style={{ fontSize: "18px" }}>
-              Registering as a Student within RevTek will open countless
-              oportunities for you to grow. Registering will give you the
-              ability to connect with any other students registered students
-              within RevTek. In addition to connecting with Students, you will
-              be able to view Contracts posted by Companies. Here, you will be
-              able to bid on and complete Contracts that test your skills and
-              grow your resume.
-            </div>
-          </Card>
+              {/* <Divider/> */}
+              <br />
+              <div style={{ fontSize: "18px" }}>
+                Registering as a Company will give your business access to our
+                pool of highly motivated and skilled students. The RevTek
+                Student pool is highly collaborative allowing it to exist as an
+                evergrowing network. The RevTek quick connection technology
+                allows for Contracts to find suitable students in real time,
+                allowing for efficient completion of your companies needs.
+              </div>
+              <br />
+              <div>
+                <div className="RevTekHome-TextHeader">
+                  <b> Student Services </b>
+                </div>
+              </div>
+              {/* <Divider/> */}
+              <br />
+              <div style={{ fontSize: "18px" }}>
+                Registering as a Student within RevTek will open countless
+                oportunities for you to grow. Registering will give you the
+                ability to connect with any other students registered students
+                within RevTek. In addition to connecting with Students, you will
+                be able to view Contracts posted by Companies. Here, you will be
+                able to bid on and complete Contracts that test your skills and
+                grow your resume.
+              </div>
+            </Card>
+          </Container>
           {/* </div> */}
           <br />
           <br />

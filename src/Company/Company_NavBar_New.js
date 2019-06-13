@@ -180,8 +180,8 @@ class CompanyNavBarNew extends React.Component {
     );
     return (
       <div className={classes.grow}>
-        <AppBar position="static">
-          <Toolbar>
+        <AppBar position="static" style={{ height: "60px" }}>
+          <Toolbar style={{ marginTop: "-2px" }}>
             <Typography
               className={classes.company}
               variant="h5"
