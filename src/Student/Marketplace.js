@@ -110,7 +110,6 @@ class Marketplace extends React.Component {
     specificDetails
   ) => {
     // from stackoverflow: this.props.router.push
-
     // Sends necessary info to submit bid page
     this.props.history.push({
       pathname: "/submitbid",
