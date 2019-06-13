@@ -11,8 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import firebase from "./firebase.js";
 import RevTekHomeNavBar from "./RevTekHomeNavBar";
-import Card from '@material-ui/core/Card';
-import "./Landing.css"
+import Card from "@material-ui/core/Card";
+import "./Landing.css";
 require("firebase/auth");
 
 const useStyles = makeStyles(theme => ({
@@ -43,7 +43,8 @@ const useStyles = makeStyles(theme => ({
 class Authentication extends React.Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    errorOccurred: false
   };
 
   //change state as user inputs something
@@ -55,13 +56,13 @@ class Authentication extends React.Component {
     this.setState({ password: text });
   };
 
-  signUp = () => 
-  {
+  signUp = () => {
     let route = this.props.history;
     route.push("/signUp");
-  }
+  };
 
   onSignIn = () => {
+    let that = this;
     console.log("here");
 
     ///// MAKE IT SO IT FINDS THE TYPE AND ROUTES TO THAT HOME PAGE!!!
@@ -87,85 +88,101 @@ class Authentication extends React.Component {
                 route.push("/companydashboard");
               }
             }
-        })
-      });   
-    }).catch(function(error) {
-      // Handle Errors here.
-      console.log( "there was an error")
-    });  
-  }
+          });
+        });
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        console.log("there was an error");
+        that.setState({
+          errorOccurred: true
+        });
+      });
+  };
 
   render() {
     const classes = useStyles;
 
     return (
       <div className="App">
-        <RevTekHomeNavBar/>
+        <RevTekHomeNavBar />
         <div className="Landing-Body">
           <Card className="SignUp-Card">
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5" color="black">
-              Sign in
-            </Typography>
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                onChange={e => this.changeEmail(e.target.value)}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={e => this.changePassword(e.target.value)}
-              />
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2"  onClick={() => this.signUp()}>
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => this.onSignIn()}
-            >
-              Sign In
-            </Button>
-          </div>
-        </Container>
-        </Card>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                {this.state.errorOccurred ? (
+                  <p>
+                    Unable to login. Please make sure your password matches the
+                    email you have entered. If you do not have an account,
+                    please register.
+                  </p>
+                ) : (
+                  <div />
+                )}
+                <Avatar className={classes.avatar}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5" color="black">
+                  Sign in
+                </Typography>
+                <form className={classes.form} noValidate>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    onChange={e => this.changeEmail(e.target.value)}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={e => this.changePassword(e.target.value)}
+                  />
+                  <Grid container>
+                    <Grid item xs>
+                      <Link href="#" variant="body2">
+                        Forgot password?
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link
+                        href="#"
+                        variant="body2"
+                        onClick={() => this.signUp()}
+                      >
+                        {"Don't have an account? Sign Up"}
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </form>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={() => this.onSignIn()}
+                >
+                  Sign In
+                </Button>
+              </div>
+            </Container>
+          </Card>
         </div>
-        </div>
-   
+      </div>
     );
   }
 }
