@@ -88,11 +88,10 @@ class Authentication extends React.Component {
           snapshot.forEach(function(childSnapshot) {
             var item = childSnapshot.val();
             if (item.email === curEmail) {
-              if (item.disabled === true ){
+              if (item.disabled === true) {
                 ////DONT LET THEM LOG IN
-                console.log( "this account has been deleted" )
-              }
-              else if (item.type === "student") {
+                console.log("this account has been deleted");
+              } else if (item.type === "student") {
                 route.push("/studentdashboard");
               } else if (item.type === "company") {
                 route.push("/companydashboard");
@@ -130,9 +129,11 @@ class Authentication extends React.Component {
                 ) : (
                   <div />
                 )}
-                <Avatar className={classes.avatar}>
-                  <LockOutlinedIcon />
-                </Avatar>
+                <div className="lockIcon">
+                  <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                  </Avatar>
+                </div>
                 <Typography component="h1" variant="h5" color="black">
                   Sign in
                 </Typography>
@@ -162,11 +163,6 @@ class Authentication extends React.Component {
                     onChange={e => this.changePassword(e.target.value)}
                   />
                   <Grid container>
-                    <Grid item xs>
-                      <Link href="#" variant="body2">
-                        Forgot password?
-                      </Link>
-                    </Grid>
                     <Grid item>
                       <Link
                         href="#"

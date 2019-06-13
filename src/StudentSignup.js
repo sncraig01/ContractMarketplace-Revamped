@@ -119,11 +119,13 @@ class StudentSignup extends React.Component {
                 ) : (
                   <div />
                 )}
-                <Avatar className={classes.avatar}>
-                  <LockOutlinedIcon />
-                </Avatar>
+                <div className="lockIcon">
+                  <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                  </Avatar>
+                </div>
                 <Typography component="h1" variant="h5">
-                  Sign up as a student
+                  Sign up as a Student
                 </Typography>
                 <form className={classes.form} noValidate>
                   <Grid container spacing={2}>

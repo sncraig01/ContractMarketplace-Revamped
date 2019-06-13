@@ -76,7 +76,7 @@ class CompanySignup extends React.Component {
           email: this.state.email,
           type: "company",
           name: this.state.companyName,
-          disabled: false,
+          disabled: false
         };
         usersRef.push(user);
         this.props.history.push("/companydashboard");
@@ -107,11 +107,13 @@ class CompanySignup extends React.Component {
                 ) : (
                   <div />
                 )}
-                <Avatar className={classes.avatar}>
-                  <LockOutlinedIcon />
-                </Avatar>
+                <div className="lockIcon">
+                  <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                  </Avatar>
+                </div>
                 <Typography component="h1" variant="h5">
-                  Sign up as a company
+                  Sign up as a Company
                 </Typography>
                 <form className={classes.form} noValidate>
                   <Grid container spacing={2}>
