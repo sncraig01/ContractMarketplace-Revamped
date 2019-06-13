@@ -61,5 +61,14 @@
   }
   
   
-  
-  
+  .contract{
+    color: #4527a0;
+    font-size: calc(8px + 2vmin);
+  }
+.contractInfo{
+  font-size: calc(2px + 2vmin);
+}
+
+.name{
+  font-size: calc(10px + 2vmin);
+}
