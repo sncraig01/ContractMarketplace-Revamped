@@ -13,6 +13,7 @@ import Contracts from "@material-ui/icons/Assignment";
 import Users from "@material-ui/icons/AssignmentInd";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -174,14 +175,19 @@ function AdminNavBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            className={classes.company}
-            variant="h5"
-            noWrap
-            style={{ fontSize: "26px" }}
+          <Button
+            variant="text"
+            style={{
+              fontSize: "26px",
+              backgroundColor: "transparent",
+              color: "white",
+              textTransform: "none",
+              boxShadow: "none"
+            }}
+            href="/"
           >
             RevTek
-          </Typography>
+          </Button>
           <Typography
             className={classes.title}
             variant="h6"

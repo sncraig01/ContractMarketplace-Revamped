@@ -16,8 +16,8 @@ export default class StudentSearchStudents extends React.Component {
   componentDidMount() {
     let newNames = [];
     let newEmails = [];
-    // let newBios = [];
-    // let newSkills = [];
+    let newBios = [];
+    let newSkills = [];
 
     if (!this.state.initialized) {
       const usersRef = firebase.database().ref("users"); //reference to the database "users" key
@@ -33,43 +33,25 @@ export default class StudentSearchStudents extends React.Component {
             studentRef.on("value", snapshot => {
               var user = snapshot.val();
               var bioObject = user.bio;
-              var skillObject = user.skills;
+              var skillsObject = user.skills;
 
-              // bioObject.forEach(function(bioLine){
+              if (bioObject !== undefined) {
+                // console.log(bioObject);
+                newBios.push(bioObject);
+              }
 
-              // })
-
-              console.log(bioObject);
-              // snapshot.forEach(userSnapshot => {
-              //   console.log(userSnapshot.val());
-              // userSnapshot.forEach(arraySnapshot => {
-              //   console.log(arraySnapshot.val());
-              // })
-              // })
-            });
-
-            // console.log(newEmails);
-            // console.log(newBios);
-
-            userSnapshot.forEach(detailsSnapshot => {
-              // console.log(detailsSnapshot.val());
-              detailsSnapshot.forEach(arraySnapshot => {
-                // console.log(arraySnapshot.val());
-              });
-              // let mySkills = [];
-              // mySkills.push(skillsSnapshot.val());
-              // this.setState({ inidividualSkills: mySkills });
-
-              // newBios.push(user.bio);
-              // newSkills.push(mySkills);
+              if (skillsObject !== undefined) {
+                // console.log(skillsObject);
+                newSkills.push(skillsObject);
+              }
             });
           }
         });
         this.setState({
           studentNames: newNames,
-          emails: newEmails
-          // bios: newBios
-          // skills: newSkills
+          emails: newEmails,
+          bios: newBios,
+          skills: newSkills
         });
       });
       this.setState({ initialized: true });
@@ -81,12 +63,32 @@ export default class StudentSearchStudents extends React.Component {
 
     const data = [];
     for (var i = 0; i < this.state.studentNames.length; i++) {
-      data.push([
-        this.state.studentNames[i],
-        this.state.emails[i],
-        this.state.bios[i]
-        // this.state.skills[i]
-      ]);
+      var row = [];
+      row.push(this.state.studentNames[i]);
+      row.push(this.state.emails[i]);
+      if (this.state.bios[i] === undefined) {
+        row.push("N/A");
+      } else {
+        var fullBio = [];
+        var bioLines = this.state.bios[i];
+        Object.keys(bioLines).forEach(key => {
+          let val = bioLines[key];
+          fullBio.push(val, <br />);
+        });
+        row.push(fullBio);
+      }
+      if (this.state.skills[i - 1] === undefined) {
+        row.push("N/A");
+      } else {
+        var allSkills = [];
+        var skillList = this.state.skills[i - 1];
+        Object.keys(skillList).forEach(key => {
+          let val = skillList[key];
+          allSkills.push(val, <br />);
+        });
+        row.push(allSkills);
+      }
+      data.push(row);
     }
 
     const options = {
