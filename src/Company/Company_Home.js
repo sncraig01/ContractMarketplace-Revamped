@@ -28,83 +28,102 @@ class CompanyHome extends React.Component {
 
     allContracts: [],
     availableContracts: [],
-    assignedContracts: []
+    assignedContracts: [],
+    pending_search: "",
+    assigned_search: ""
   };
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    document.title = "RevTek";
+    this.fetchData();
+  };
+
+  fetchData() {
     //find the user and save the information
     let curEmail = "";
-    var user = firebase.auth().currentUser;
-    if (user !== null) {
-      curEmail = user.email; // save the email we are looking for
+    // var user = firebase.auth().currentUser;
+    firebase.auth().onAuthStateChanged(user => {
+      console.log("1");
+      if (user !== null) {
+        console.log("1.a");
+        curEmail = user.email; // save the email we are looking for
 
-      const usersRef = firebase.database().ref("users"); //reference to the database "users" key
-      let info = []; //for returning info
-      usersRef.on("value", snapshot => {
-        //console.log( snapshot.val() )
-
-        snapshot.forEach(function(childSnapshot) {
-          var item = childSnapshot.val();
-          if (item.email === curEmail) {
-            //if we've found the right folder
-            info.push(item.name);
-            info.push(item.email);
-          }
-        });
-        this.setState({ companyName: info[0], email: info[1] });
-      });
-
-      //get its contracts
-      const contractRef = firebase.database().ref("contracts/" + info[0]);
-      contractRef.on("value", snapshot => {
-        //console.log( snapshot.val() )
-        let available = [];
-        let assigned = [];
-        snapshot.forEach(function(contracts) {
-          contracts.forEach(function(individContract) {
-            /* // MAKES AN ARRAY OF ALL CONTRACTS, NOT SEGREGATED BY AVAILIBILITY
-          let contract = {
-            contract_name : individContract.val().contractName,
-            contract_details :individContract.val().contractDetails,
-            availibility :individContract.val().available,
-          }
-
-          contractArr.push( contract )
-          */
-            if (individContract.val().available) {
-              //AVAILABLE CONTRACTS
-              let contract = {
-                contract_name: individContract.val().contractName,
-                contract_details: individContract.val().contractDetails
-              };
-              available.push(contract);
-            } else if (
-              !individContract.val().available &&
-              individContract.key !== "bids"
-            ) {
-              //NOT AVAILABLE CONTRACTS
-              console.log("individ contract");
-              console.log(individContract.val().assignedTo);
-              let contract = {
-                contract_name: individContract.val().contractName,
-                contract_details: individContract.val().contractDetails,
-                assigned_to: individContract.val().assignedTo
-              };
-              assigned.push(contract);
+        const usersRef = firebase.database().ref("users"); //reference to the database "users" key
+        let info = []; //for returning info
+        usersRef.on("value", snapshot => {
+          //console.log( snapshot.val() )
+          console.log("1.b");
+          snapshot.forEach(function(childSnapshot) {
+            console.log("1.c");
+            var item = childSnapshot.val();
+            if (item.email === curEmail) {
+              console.log("1.d");
+              //if we've found the right folder
+              info.push(item.name);
+              info.push(item.email);
             }
+          });
+          this.setState({ companyName: info[0], email: info[1] }, () => {
+            this.displayContracts();
           });
         });
 
-        //this.setState( { allContracts: contractArr });
-        this.setState({
-          availableContracts: available,
-          assignedContracts: assigned
+        //get its contracts
+        console.log("2");
+      } else {
+        console.log("user not set up");
+      }
+    });
+  }
+
+  displayContracts = () => {
+    const contractRef = firebase
+      .database()
+      .ref("contracts/" + this.state.companyName);
+    contractRef.on("value", snapshot => {
+      console.log("3");
+
+      let available = [];
+      let assigned = [];
+      snapshot.forEach(function(contracts) {
+        console.log("4");
+
+        contracts.forEach(function(individContract) {
+          console.log("5");
+
+          if (individContract.val().available) {
+            console.log("6");
+
+            //AVAILABLE CONTRACTS
+            let contract = {
+              contract_name: individContract.val().contractName,
+              contract_details: individContract.val().contractDetails
+            };
+            available.push(contract);
+          } else if (
+            !individContract.val().available &&
+            individContract.key !== "bids"
+          ) {
+            //NOT AVAILABLE CONTRACTS
+            console.log("individ contract");
+            console.log(individContract.val().assignedTo);
+            let contract = {
+              contract_name: individContract.val().contractName,
+              contract_details: individContract.val().contractDetails,
+              assigned_to: individContract.val().assignedTo
+            };
+            assigned.push(contract);
+          }
         });
       });
-    } else {
-      console.log("user not set up");
-    }
-  }
+
+      //this.setState( { allContracts: contractArr });
+      this.setState({
+        availableContracts: available,
+        assignedContracts: assigned
+      });
+    });
+  };
 
   viewBidsClicked = contract_name => {
     console.log("about to route to bids for: " + contract_name);
@@ -115,6 +134,16 @@ class CompanyHome extends React.Component {
         company_name: this.state.companyName
       }
     });
+  };
+
+  updatePendingSearch = pending_search => {
+    this.setState({ pending_search });
+    console.log(pending_search);
+  };
+
+  updateAssignedSearch = assigned_search => {
+    this.setState({ assigned_search });
+    console.log(assigned_search);
   };
 
   render() {
@@ -128,48 +157,122 @@ class CompanyHome extends React.Component {
         <div> {this.state.email} </div>
         <div type="dashinfo">
           <List className="individual">
-            <Card style={{ maxHeight: 800, overflow: "auto" }}>
+            <Card
+              style={{
+                margin: 5,
+                minWidth: 400,
+                maxWidth: 400,
+                maxHeight: 800,
+                overflow: "auto"
+              }}
+            >
               <div>
                 <b>Assigned Contracts: </b>
                 <Divider />
               </div>
+              <div>
+                <SearchIcon />
+                <InputBase
+                  placeholder="Search Assigned Contracts"
+                  onChange={e => {
+                    this.updateAssignedSearch(e.target.value);
+                  }}
+                />
+              </div>
               <CardContent>
-                {this.state.assignedContracts.map(con => (
-                  <div key={con.contract_details}>
-                    <b> {con.contract_name} </b>
-                    <div>{con.contract_details} </div>
-                    <div className="assignedTo"> {con.assigned_to} </div>
-                    <br/>
-                  </div>
-                ))}
+                {this.state.assignedContracts.length == 0 ? (
+                  <p>There are no assigned contracts</p>
+                ) : (
+                  this.state.assignedContracts.map(itr => {
+                    return itr.contract_name
+                      .toLowerCase()
+                      .includes(this.state.assigned_search.toLowerCase()) ||
+                      itr.contract_details
+                        .toLowerCase()
+                        .includes(this.state.assigned_search.toLowerCase()) ||
+                      this.state.assigned_search == "" ? (
+                      <div key={itr.contract_details}>
+                        <div className="contract">
+                          {" "}
+                          <b>{itr.contract_name}</b>{" "}
+                        </div>
+                        <div>{itr.contract_details} </div>
+                        <div className="assignedTo">
+                          {" "}
+                          Assigned to: {itr.assigned_to}{" "}
+                        </div>
+                        <br />
+                      </div>
+                    ) : (
+                      <div />
+                    );
+                  })
+                )}
               </CardContent>
             </Card>
           </List>
 
           <List className="individual">
-            <Card style={{ maxHeight: 800, overflow: "auto" }}>
+            <Card
+              style={{
+                margin: 5,
+                minWidth: 400,
+                maxWidth: 400,
+                maxHeight: 800,
+                overflow: "auto"
+              }}
+            >
               <div>
                 <b> Pending Contracts: </b>
                 <Divider />
               </div>
               <div>
                 <SearchIcon />
-                <InputBase placeholder="Search Bids" />
+                <InputBase
+                  placeholder="Search Pending Contracts"
+                  onChange={e => {
+                    this.updatePendingSearch(e.target.value);
+                  }}
+                />
               </div>
               <CardContent>
-                {this.state.availableContracts.map(con => (
-                  <div>
-                    <b> {con.contract_name} </b>
-                    <div> {con.contract_details} </div>
-                    <Button
-                      color="primary"
-                      className={classes.button}
-                      onClick={() => this.viewBidsClicked(con.contract_name)}
-                    >
-                      SEE BIDS{" "}
-                    </Button>
-                  </div>
-                ))}
+                {this.state.availableContracts.length == 0 ? (
+                  <p>There are no pending contracts</p>
+                ) : (
+                  this.state.availableContracts.map(itr => {
+                    return itr.contract_name
+                      .toLowerCase()
+                      .includes(this.state.pending_search.toLowerCase()) ||
+                      itr.contract_details
+                        .toLowerCase()
+                        .includes(this.state.pending_search.toLowerCase()) ||
+                      this.state.pending_searc == "" ? (
+                      <div key={itr.contract_details}>
+                        <div className="contract">
+                          {" "}
+                          <b>{itr.contract_name}</b>{" "}
+                        </div>
+                        <div> {itr.contract_details} </div>
+
+                        <Button
+                          color="primary"
+                          size="small"
+                          variant="contained"
+                          className={classes.button}
+                          onClick={() =>
+                            this.viewBidsClicked(itr.contract_name)
+                          }
+                        >
+                          SEE BIDS{" "}
+                        </Button>
+                        <br />
+                        <br />
+                      </div>
+                    ) : (
+                      <div />
+                    );
+                  })
+                )}
               </CardContent>
             </Card>
           </List>

@@ -13,6 +13,7 @@ import firebase from "./firebase.js";
 import RevTekHomeNavBar from "./RevTekHomeNavBar";
 import Card from "@material-ui/core/Card";
 import "./Landing.css";
+import "./StudentSignup.css";
 
 require("firebase/auth");
 
@@ -52,6 +53,10 @@ class CompanySignup extends React.Component {
       errorOccurred: false
     };
   }
+
+  componentDidMount = () => {
+    document.title = "RevTek";
+  };
 
   updateField(field, newValue) {
     this.setState({
@@ -94,7 +99,7 @@ class CompanySignup extends React.Component {
               <CssBaseline />
               <div className={classes.paper}>
                 {this.state.errorOccurred ? (
-                  <p>
+                  <p className="redP">
                     Unable to register. Please make sure you have not previously
                     registered your email and that your chosen password is 6
                     characters or longer.

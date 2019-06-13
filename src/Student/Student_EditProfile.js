@@ -23,7 +23,9 @@ class Student_EditProfile extends React.Component {
     biofeedback: false, 
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    document.title = "RevTek";
+
     //Finds the users email through Firebase authentication
   firebase.auth().onAuthStateChanged(user => {
       if (user) {

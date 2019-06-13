@@ -15,7 +15,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles({
   card: {
-    minWidth: 275
+    minWidth: 600,
+    maxWidth: 600
   },
   bullet: {
     display: "inline-block",
@@ -53,6 +54,7 @@ class Marketplace extends React.Component {
   }
 
   componentDidMount = () => {
+    document.title = "RevTek";
     this.retrieveAllContracts();
     this.setState({
       loaded: true
@@ -108,7 +110,6 @@ class Marketplace extends React.Component {
     specificDetails
   ) => {
     // from stackoverflow: this.props.router.push
-
     // Sends necessary info to submit bid page
     this.props.history.push({
       pathname: "/submitbid",
@@ -158,7 +159,11 @@ class Marketplace extends React.Component {
               />
             </div>
 
-            <p>Results for: {this.state.searchText}</p>
+            {this.state.searchText.length > 0 ? (
+              <p>Results for: {this.state.searchText}</p>
+            ) : (
+              <div />
+            )}
 
             <div className="allBidCards">
               {this.state.indices.length > 0 ? (
@@ -178,7 +183,12 @@ class Marketplace extends React.Component {
                       .toLowerCase()
                       .includes(this.state.searchText.toLowerCase()) ? (
                     <div className="bidCard" key={index}>
-                      <Card raised className={classes.card}>
+                      <Card
+                        raised
+                        minWidth="400"
+                        maxWidth="400"
+                        className={classes.card}
+                      >
                         <CardActionArea>
                           <CardContent>
                             <Typography
@@ -201,6 +211,7 @@ class Marketplace extends React.Component {
                             <Button
                               size="small"
                               color="primary"
+                              variant="contained"
                               onClick={() =>
                                 this.submitBidOnContract(
                                   this.state.contractKeys[index],

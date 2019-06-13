@@ -32,6 +32,10 @@ class Landing extends React.Component {
     this.props.history.push("/signupcompany");
   };
 
+  componentDidMount = () => {
+    document.title = "RevTek";
+  };
+
   render() {
     const classes = useStyles;
 

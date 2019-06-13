@@ -32,6 +32,7 @@ class NewContract extends React.Component {
   };
 
   componentDidMount() {
+    document.title = "RevTek";
     //find the user and save the information
     let curEmail = "";
     var user = firebase.auth().currentUser;
@@ -88,7 +89,8 @@ class NewContract extends React.Component {
     return (
       <div className="App">
         <CompanyNavBar history={this.props.history} />
-        <h1> {this.state.companyName} Submit a new Contract </h1>
+        <h1> Submit a new Contract </h1>
+        <h2>{this.state.companyName}</h2>
         <div> {this.state.email} </div>
         <form className={classes.container} noValidate autoComplete="off">
           <TextField

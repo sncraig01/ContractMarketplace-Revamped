@@ -13,6 +13,8 @@ import firebase from "./firebase.js";
 import RevTekHomeNavBar from "./RevTekHomeNavBar";
 import Card from "@material-ui/core/Card";
 import "./Landing.css";
+import "./StudentSignup.css";
+
 require("firebase/auth");
 
 const useStyles = makeStyles(theme => ({
@@ -45,6 +47,10 @@ class Authentication extends React.Component {
     email: "",
     password: "",
     errorOccurred: false
+  };
+
+  componentDidMount = () => {
+    document.title = "RevTek";
   };
 
   //change state as user inputs something
@@ -116,7 +122,7 @@ class Authentication extends React.Component {
               <CssBaseline />
               <div className={classes.paper}>
                 {this.state.errorOccurred ? (
-                  <p>
+                  <p className="redP">
                     Unable to login. Please make sure your password matches the
                     email you have entered. If you do not have an account,
                     please register.

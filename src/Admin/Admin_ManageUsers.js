@@ -13,6 +13,7 @@ export default class AdminManageUsers extends React.Component {
   };
 
   componentDidMount() {
+    document.title = "RevTek";
     let newEmails = [];
     let newNames = [];
     let newTypes = [];
