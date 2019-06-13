@@ -203,9 +203,7 @@ this.setState({biofeedback : true})
         return (
           <div className= 'StudentEdit-whole'>
 
-            <StudentNavBar title={"Dashboard"} />
-      
-
+            <StudentNavBar  history={this.props.history} />
 
            <div className = 'StudentEdit-Profile'>
              {/* <Card className='StudentEdit-studentholder' style={{maxHeight: 300, overflow: 'auto'}}> 
