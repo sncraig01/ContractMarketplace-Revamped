@@ -175,8 +175,8 @@ function CompanyNavBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" style={{ height: "60px" }}>
+        <Toolbar style={{ marginTop: "-2px" }}>
           <Button
             variant="text"
             noWrap

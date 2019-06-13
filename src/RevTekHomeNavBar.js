@@ -9,7 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
-import Store from "@material-ui/icons/Store";
+import ExitToApp from "@material-ui/icons/ExitToApp";
+import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 
@@ -120,14 +121,18 @@ function RevTekHomeNavBar(props) {
 
   const homeClicked = e => {
     // Redirects to admin home page
-    return (window.location = "/");
+    props.history.push("/");
+  };
+
+  const signUpClicked = e => {
+    // Redirects to signin page
+    props.history.push("/signup");
   };
 
   const signInClicked = e => {
     // Redirects to signin page
-    return (window.location = "/signin");
+    props.history.push("/signin");
   };
-
 
   const renderMobileMenu = (
     <Menu
@@ -138,13 +143,18 @@ function RevTekHomeNavBar(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton color="inherit" onClick={() => homeClicked()}>
+        <IconButton color="#202020" onClick={() => homeClicked()}>
           <Home />
         </IconButton>
       </MenuItem>
       <MenuItem>
-        <IconButton color="inherit" onClick={() => signInClicked()}>
-          <Store />
+        <IconButton color="#202020" onClick={() => signUpClicked()}>
+          <AssignmentTurnedIn />
+        </IconButton>
+      </MenuItem>
+      <MenuItem>
+        <IconButton color="#202020" onClick={() => signInClicked()}>
+          <ExitToApp />
         </IconButton>
       </MenuItem>
     </Menu>
@@ -152,15 +162,23 @@ function RevTekHomeNavBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar
+        position="static"
+        style={{
+          height: "60px",
+          backgroundColor: "transparent",
+          boxShadow: "none"
+          // backgroundImage: "url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png)"
+        }}
+      >
+        <Toolbar style={{ marginTop: "-2px" }}>
           <Button
             variant="text"
             noWrap
             style={{
               fontSize: "26px",
               backgroundColor: "transparent",
-              color: "white",
+              color: "#282828",
               textTransform: "none",
               boxShadow: "none"
             }}
@@ -180,13 +198,18 @@ function RevTekHomeNavBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Tooltip title="Home">
-              <IconButton color="inherit" onClick={() => homeClicked()}>
+              <IconButton color="#202020" onClick={() => homeClicked()}>
                 <Home />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Sign In">
-              <IconButton color="inherit" onClick={() => signInClicked()}>
-                <Store />
+            <Tooltip title="Sign Up">
+              <IconButton color="#202020" onClick={() => signUpClicked()}>
+                <AssignmentTurnedIn />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Login">
+              <IconButton color="#202020" onClick={() => signInClicked()}>
+                <ExitToApp />
               </IconButton>
             </Tooltip>
           </div>
@@ -194,7 +217,7 @@ function RevTekHomeNavBar(props) {
             <IconButton
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              color="#202020"
             >
               <MoreIcon />
             </IconButton>

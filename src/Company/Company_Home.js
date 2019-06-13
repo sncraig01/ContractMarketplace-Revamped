@@ -139,6 +139,7 @@ class CompanyHome extends React.Component {
                     <b> {con.contract_name} </b>
                     <div>{con.contract_details} </div>
                     <div className="assignedTo"> {con.assigned_to} </div>
+                    <br/>
                   </div>
                 ))}
               </CardContent>
