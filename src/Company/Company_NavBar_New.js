@@ -13,6 +13,14 @@ import AddCircle from "@material-ui/icons/AddCircle";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
+
+/**
+ * 
+ * 
+ * NOT BEING USED
+ * 
+ */
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
@@ -180,8 +188,8 @@ class CompanyNavBarNew extends React.Component {
     );
     return (
       <div className={classes.grow}>
-        <AppBar position="static">
-          <Toolbar>
+        <AppBar position="static" style={{ height: "60px" }}>
+          <Toolbar style={{ marginTop: "-2px" }}>
             <Typography
               className={classes.company}
               variant="h5"

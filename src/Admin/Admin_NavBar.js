@@ -140,6 +140,17 @@ function AdminNavBar(props) {
     props.history.push("/");
   };
 
+  const routeToAbout = () => {
+
+    props.history.push({
+      pathname: "/about",
+      state: {
+        type: "admin"
+      }
+    });
+
+  }
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -173,8 +184,8 @@ function AdminNavBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" style={{ height: "60px" }}>
+        <Toolbar style={{ marginTop: "-2px" }}>
           <Button
             variant="text"
             style={{
@@ -184,7 +195,7 @@ function AdminNavBar(props) {
               textTransform: "none",
               boxShadow: "none"
             }}
-            href="/"
+            onClick={ ()=> routeToAbout() }
           >
             RevTek
           </Button>

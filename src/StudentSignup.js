@@ -82,7 +82,8 @@ class StudentSignup extends React.Component {
           //create thing to be pushed
           email: this.state.email,
           name: this.state.firstName + " " + this.state.lastName,
-          type: "student"
+          type: "student",
+          disabled: false
         };
         usersRef.push(user); //push the data to the database
 

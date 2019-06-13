@@ -134,6 +134,17 @@ function CompanyNavBar(props) {
     props.history.push("/");
   };
 
+  const routeToAbout = () => {
+
+    props.history.push({
+      pathname: "/about",
+      state: {
+        type: "company"
+      }
+    });
+
+  }
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -160,10 +171,12 @@ function CompanyNavBar(props) {
     </Menu>
   );
 
+
+
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" style={{ height: "60px" }}>
+        <Toolbar style={{ marginTop: "-2px" }}>
           <Button
             variant="text"
             noWrap
@@ -174,7 +187,7 @@ function CompanyNavBar(props) {
               textTransform: "none",
               boxShadow: "none"
             }}
-            href="/"
+            onClick={ ()=> routeToAbout() }
           >
             RevTek
           </Button>
