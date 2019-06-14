@@ -13,6 +13,7 @@ import ExitToApp from "@material-ui/icons/ExitToApp";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import GroupIcon from "@material-ui/icons/Group";
 import Button from "@material-ui/core/Button";
+import firebase from "../firebase.js";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -136,20 +137,28 @@ function StudentNavBar(props) {
 
   const logoutClicked = e => {
     // Redirects to landing page
+    let user = firebase.auth().currentUser;
+    if (user != null) {
+      firebase
+        .auth()
+        .signOut()
+        .then(res => {
+          console.log("logged " + user.email + " out");
+        })
+        .catch(function(error) {});
+    }
+
     props.history.push("/");
   };
 
   const routeToAbout = () => {
-
     props.history.push({
       pathname: "/about",
       state: {
         type: "student"
       }
     });
-
-  }
-  
+  };
 
   const renderMobileMenu = (
     <Menu
@@ -194,7 +203,7 @@ function StudentNavBar(props) {
               textTransform: "none",
               boxShadow: "none"
             }}
-            onClick={ ()=> routeToAbout() }
+            onClick={() => routeToAbout()}
           >
             RevTek
           </Button>
