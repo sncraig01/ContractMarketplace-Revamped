@@ -79,11 +79,11 @@ export default class StudentSearchStudents extends React.Component {
         });
         row.push(fullBio);
       }
-      if (this.state.skills[i - 1] === undefined) {
+      if (this.state.skills[i] === undefined) {
         row.push("N/A");
       } else {
         var allSkills = [];
-        var skillList = this.state.skills[i - 1];
+        var skillList = this.state.skills[i];
         Object.keys(skillList).forEach(key => {
           let val = skillList[key];
           allSkills.push(val, <br />);

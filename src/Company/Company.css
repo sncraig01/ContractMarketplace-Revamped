@@ -29,7 +29,7 @@ div[type="dashinfo"] {
 }
 
 .assignedTo {
-  color: #4527a0;
+  color: #3f51b5;
   font-size: calc(2px + 2vmin);
 }
 
@@ -38,6 +38,6 @@ div[type="dashinfo"] {
 }
 
 .contract {
-  color: #4527a0;
+  color: #3f51b5;
   font-size: calc(8px + 2vmin);
 }

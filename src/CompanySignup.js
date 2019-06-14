@@ -76,7 +76,7 @@ class CompanySignup extends React.Component {
           email: this.state.email,
           type: "company",
           name: this.state.companyName,
-          disabled: false,
+          disabled: false
         };
         usersRef.push(user);
         this.props.history.push("/companydashboard");
@@ -92,7 +92,7 @@ class CompanySignup extends React.Component {
     const classes = useStyles;
     return (
       <div>
-        <RevTekHomeNavBar />
+        <RevTekHomeNavBar history={this.props.history} />
         <div className="Landing-Body">
           <Card className="SignUp-Card">
             <Container component="main" maxWidth="xs">

@@ -10,6 +10,7 @@ import { fade } from "@material-ui/core/styles/colorManipulator";
 import Home from "@material-ui/icons/Home";
 import Store from "@material-ui/icons/Store";
 import ExitToApp from "@material-ui/icons/ExitToApp";
+import AssignmentInd from "@material-ui/icons/AssignmentInd";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import GroupIcon from "@material-ui/icons/Group";
 import Button from "@material-ui/core/Button";
@@ -134,22 +135,24 @@ function StudentNavBar(props) {
     props.history.push("/studentcommunity");
   };
 
+  const profileClicked = e => {
+    // Redirects to marketplace page
+    return (window.location = "/editstudentprofile");
+  };
+
   const logoutClicked = e => {
     // Redirects to landing page
     props.history.push("/");
   };
 
   const routeToAbout = () => {
-
     props.history.push({
       pathname: "/about",
       state: {
         type: "student"
       }
     });
-
-  }
-  
+  };
 
   const renderMobileMenu = (
     <Menu
@@ -174,6 +177,11 @@ function StudentNavBar(props) {
           <GroupIcon />
         </IconButton>
       </MenuItem>
+      <MenuItem>
+        <IconButton color="inherit" onClick={() => profileClicked()}>
+          <AssignmentInd />
+        </IconButton>
+      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton color="inherit" onClick={() => logoutClicked()}>
           <ExitToApp />
@@ -194,7 +202,7 @@ function StudentNavBar(props) {
               textTransform: "none",
               boxShadow: "none"
             }}
-            onClick={ ()=> routeToAbout() }
+            onClick={() => routeToAbout()}
           >
             RevTek
           </Button>
@@ -219,6 +227,11 @@ function StudentNavBar(props) {
                 onClick={() => studentCommunityClicked()}
               >
                 <GroupIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Profile">
+              <IconButton color="inherit" onClick={() => profileClicked()}>
+                <AssignmentInd />
               </IconButton>
             </Tooltip>
             <Tooltip title="Logout">
