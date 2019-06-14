@@ -46,7 +46,8 @@ class Authentication extends React.Component {
   state = {
     email: "",
     password: "",
-    errorOccurred: false
+    errorOccurred: false,
+    acctDeleted: false
   };
 
   componentDidMount = () => {
@@ -89,6 +90,11 @@ class Authentication extends React.Component {
             var item = childSnapshot.val();
             if (item.email === curEmail) {
               if (item.disabled === true) {
+                that.setState({
+                  acctDeleted: true,
+                  errorOccurred: false
+                });
+
                 ////DONT LET THEM LOG IN
                 console.log("this account has been deleted");
               } else if (item.type === "student") {
@@ -106,7 +112,8 @@ class Authentication extends React.Component {
         // Handle Errors here.
         console.log("there was an error");
         that.setState({
-          errorOccurred: true
+          errorOccurred: true,
+          acctDeleted: false
         });
       });
   };
@@ -127,6 +134,14 @@ class Authentication extends React.Component {
                     Unable to login. Please make sure your password matches the
                     email you have entered. If you do not have an account,
                     please register.
+                  </p>
+                ) : (
+                  <div />
+                )}
+                {this.state.acctDeleted ? (
+                  <p className="redP">
+                    This account has been deleted. Contact the site admin for
+                    more information.
                   </p>
                 ) : (
                   <div />
