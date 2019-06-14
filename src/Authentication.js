@@ -95,6 +95,8 @@ class Authentication extends React.Component {
                 route.push("/studentdashboard");
               } else if (item.type === "company") {
                 route.push("/companydashboard");
+              } else if (item.type === "admin") {
+                route.push("/admindashboard");
               }
             }
           });
