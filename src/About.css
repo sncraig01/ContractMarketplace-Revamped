@@ -1,67 +1,71 @@
-.RevTekHome-Header{
-    background-image: url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png);
-    background-repeat: no-repeat;
-    background-size: cover; 
-    min-height: 18vh;
-    min-width: 55vh; 
-    font-family: 'Trebuchet MS';
-    font-size: calc(40px + 2vmin);
-    color: white;
-    direction: flex; 
-    padding-top: 45px; 
+.About-Entire {
+  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.RevTekHome-Body{
-    background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
-    background-size: cover; 
-    min-height: 90vh; 
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
+.About-Header {
+  /* background-image: url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png);
+  background-repeat: no-repeat;
+  background-size: cover; */
+  min-height: 12vh;
+  max-height: 15vh;
+  min-width: 55vh;
+  font-size: calc(40px + 2vmin);
+  color: white;
+  direction: flex;
+  padding-top: 35px;
 }
 
-
-.RevTekHome-Image{
-    background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
-    background-size: cover; 
-    display: flex;
-    flex-direction: row; 
-    align-items: center;
+.About-Body {
+  /* background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+    background-size: cover; */
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.RevTekHome-Button{
-    display: flex;
-    flex-direction: row-reverse; 
-    padding-right: 10px; 
-    font-family: 'Trebuchet MS';
+.About-Image {
+  /* background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+  background-size: cover; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.RevTekHome-ImageContainer{
-    padding-right: 50px;
-    padding-left: 150px;  
+.About-Button {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 10px;
 }
 
-
-.RevTekHome-TextHeader
-{
-    align-items: flex-start;
-    font-size: calc(6px + 2vmin);
+.About-ImageContainer {
+  padding-right: 50px;
+  padding-left: 150px;
 }
 
-.RevTekHome-Title
-{
-    font-size: calc(15px + 2vmin);
+.About-TextHeader {
+  align-items: flex-start;
+  font-size: calc(6px + 2vmin);
+  padding-bottom: -10px;
 }
 
-.RevTekHome-Info
-{
-    background-color: #282c34;
-    min-height: 15vh;
-    min-width: 100vh;
-    font-size: calc(5px + 2vmin);
-    font-family: 'Trebuchet MS';
-    padding-top: 10px; 
-    padding-right: 10px; 
-    padding-left: 10px; 
-    padding-bottom: 20px; 
+.About-Title {
+  font-size: calc(15px + 2vmin);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.About-Info {
+  /* background-color: #282c34; */
+  min-height: 15vh;
+  /* min-width: 100vh; */
+  font-size: calc(5px + 2vmin);
+  padding-top: 10px;
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-bottom: 20px;
+  margin-right: 30px;
+  margin-left: 30px;
 }

@@ -166,9 +166,7 @@ function RevTekHomeNavBar(props) {
         position="static"
         style={{
           height: "60px",
-          backgroundColor: "transparent",
           boxShadow: "none"
-          // backgroundImage: "url(https://www.solonline.org/wp-content/uploads/2014/05/blue-business-background-with-lines_bmofce6g__F0000-1-1140x641.png)"
         }}
       >
         <Toolbar style={{ marginTop: "-2px" }}>
@@ -178,7 +176,7 @@ function RevTekHomeNavBar(props) {
             style={{
               fontSize: "26px",
               backgroundColor: "transparent",
-              color: "#282828",
+              color: "inherit",
               textTransform: "none",
               boxShadow: "none"
             }}
@@ -198,17 +196,17 @@ function RevTekHomeNavBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Tooltip title="Home">
-              <IconButton color="#202020" onClick={() => homeClicked()}>
+              <IconButton color="inherit" onClick={() => homeClicked()}>
                 <Home />
               </IconButton>
             </Tooltip>
             <Tooltip title="Sign Up">
-              <IconButton color="#202020" onClick={() => signUpClicked()}>
+              <IconButton color="inherit" onClick={() => signUpClicked()}>
                 <AssignmentTurnedIn />
               </IconButton>
             </Tooltip>
             <Tooltip title="Login">
-              <IconButton color="#202020" onClick={() => signInClicked()}>
+              <IconButton color="inherit" onClick={() => signInClicked()}>
                 <ExitToApp />
               </IconButton>
             </Tooltip>
@@ -217,7 +215,7 @@ function RevTekHomeNavBar(props) {
             <IconButton
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="#202020"
+              color="inherit"
             >
               <MoreIcon />
             </IconButton>

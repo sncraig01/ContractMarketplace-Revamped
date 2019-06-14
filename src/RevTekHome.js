@@ -42,23 +42,19 @@ class RevTekHome extends React.Component {
         <RevTekHomeNavBar history={this.props.history} />
         <div className="RevTekHome-Header">
           <Container maxWidth="xl">
-            <Button
-              variant="text"
-              noWrap
+            <Typography
               style={{
-                fontSize: "calc(40px + 2vmin)",
+                fontSize: "calc(35px + 2vmin)",
+                fontWeight: "bold",
                 backgroundColor: "transparent",
-                color: "#303030",
+                color: "#282828",
                 textTransform: "none",
                 boxShadow: "none"
               }}
-              href="/"
             >
               Welcome to RevTek
-            </Button>
+            </Typography>
           </Container>
-          <br />
-          <br />
         </div>
         <div className="RevTekHome-Body">
           <br />
@@ -69,13 +65,13 @@ class RevTekHome extends React.Component {
                 // maxHeight: 200,
                 // maxWidth: 100,
                 overflow: "auto",
-                opacity: 0.95
+                opacity: 0.97
                 // paddingLeft: "30px",
                 // paddingRight: "30px"
               }}
             >
               <div className="RevTekHome-Title" style={{ color: "#282828" }}>
-                <b>About us</b>
+                <b>About Us</b>
               </div>
               <Divider />
               <br />
@@ -103,7 +99,7 @@ class RevTekHome extends React.Component {
                   overflow: "auto",
                   paddingLeft: "30px",
                   paddingRight: "30px",
-                  opacity: 0.95,
+                  opacity: 0.97,
                   color: "#282828"
                 }}
               >

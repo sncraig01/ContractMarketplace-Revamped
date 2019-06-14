@@ -10,6 +10,9 @@ import InputBase from "@material-ui/core/InputBase";
 import "./Company.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Search from "@material-ui/icons/Search";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles(theme => ({
   //for material UI button
@@ -168,7 +171,7 @@ class CompanyHome extends React.Component {
             >
               <div>
                 <br />
-                <b className="name"> {this.state.companyName} </b>
+                <b className="name" style={{ color: "#3f51b5" }}> {this.state.companyName} </b>
                 <br />
                 <br />
                 {this.state.email}
@@ -178,7 +181,6 @@ class CompanyHome extends React.Component {
             </Card>
           </List>
         </div>
-
         <div type="dashinfo">
           <List className="individual">
             <Card
@@ -191,21 +193,38 @@ class CompanyHome extends React.Component {
               }}
             >
               <div>
-                <b>Assigned Contracts: </b>
-                <Divider />
+                <br />
+                <b>Assigned Contracts</b>
               </div>
+              <br />
+              <Divider />
+              <br />
               <div>
-                <SearchIcon />
-                <InputBase
-                  placeholder="Search Assigned Contracts"
+                <TextField
+                  variant="outlined"
+                  id="searchbar"
+                  name="Search Assigned"
+                  label="Search Assigned"
                   onChange={e => {
                     this.updateAssignedSearch(e.target.value);
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Search />
+                      </InputAdornment>
+                    )
                   }}
                 />
               </div>
               <CardContent>
                 {this.state.assignedContracts.length == 0 ? (
-                  <p>There are no assigned contracts</p>
+                  <div style={{ fontSize: "18px" }}>
+                    <br />
+                    <br />
+                    <br />
+                    There are no assigned contracts{" "}
+                  </div>
                 ) : (
                   this.state.assignedContracts.map(itr => {
                     return itr.contract_name
@@ -216,11 +235,19 @@ class CompanyHome extends React.Component {
                         .includes(this.state.assigned_search.toLowerCase()) ||
                       this.state.assigned_search == "" ? (
                       <div key={itr.contract_details}>
-                        <div className="contract">
-                          {" "}
-                          <b>{itr.contract_name}</b>{" "}
+                        <div
+                          className="contract"
+                          style={{
+                            fontSize: "20px",
+                            fontWeight: "bold",
+                            color: "#3f51b5"
+                          }}
+                        >
+                          {itr.contract_name}
                         </div>
-                        <div>{itr.contract_details} </div>
+                        <div style={{ fontSize: "18px" }}>
+                          {itr.contract_details}{" "}
+                        </div>
                         <div className="assignedTo">
                           {" "}
                           Assigned to: {itr.assigned_to}{" "}
@@ -247,21 +274,38 @@ class CompanyHome extends React.Component {
               }}
             >
               <div>
-                <b> Pending Contracts: </b>
-                <Divider />
+                <br />
+                <b>Pending Contracts</b>
               </div>
+              <br />
+              <Divider />
+              <br />
               <div>
-                <SearchIcon />
-                <InputBase
-                  placeholder="Search Pending Contracts"
+                <TextField
+                  variant="outlined"
+                  id="searchbar"
+                  name="Search Pending"
+                  label="Search Pending"
                   onChange={e => {
                     this.updatePendingSearch(e.target.value);
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Search />
+                      </InputAdornment>
+                    )
                   }}
                 />
               </div>
               <CardContent>
                 {this.state.availableContracts.length == 0 ? (
-                  <p>There are no pending contracts</p>
+                  <div style={{ fontSize: "18px" }}>
+                    <br />
+                    <br />
+                    <br />
+                    There are no pending contracts{" "}
+                  </div>
                 ) : (
                   this.state.availableContracts.map(itr => {
                     return itr.contract_name
@@ -272,12 +316,20 @@ class CompanyHome extends React.Component {
                         .includes(this.state.pending_search.toLowerCase()) ||
                       this.state.pending_searc == "" ? (
                       <div key={itr.contract_details}>
-                        <div className="contract">
-                          {" "}
-                          <b>{itr.contract_name}</b>{" "}
+                        <div
+                          className="contract"
+                          style={{
+                            fontSize: "20px",
+                            fontWeight: "bold",
+                            color: "#3f51b5"
+                          }}
+                        >
+                          {itr.contract_name}
                         </div>
-                        <div> {itr.contract_details} </div>
-
+                        <div style={{ fontSize: "18px" }}>
+                          {" "}
+                          {itr.contract_details}{" "}
+                        </div>
                         <Button
                           color="primary"
                           size="small"
@@ -286,8 +338,9 @@ class CompanyHome extends React.Component {
                           onClick={() =>
                             this.viewBidsClicked(itr.contract_name)
                           }
+                          style={{ textTransform: "none" }}
                         >
-                          SEE BIDS{" "}
+                          See Bids{" "}
                         </Button>
                         <br />
                         <br />
