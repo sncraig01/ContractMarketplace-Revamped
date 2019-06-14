@@ -1,8 +1,9 @@
 
 
 .Admin-users-whole {
-background-color:rgb(255, 255, 255); 
+  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
   align-items: center;
+  min-height: 100vh;
 
 }
 

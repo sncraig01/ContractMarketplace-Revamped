@@ -150,7 +150,7 @@ class CompanyHome extends React.Component {
     const classes = useStyles;
 
     return (
-      <div className="App">
+      <div className="Company-whole">
         <CompanyNavBar history={this.props.history} />
         <h1>Dashboard</h1>
         <b className="name"> {this.state.companyName} </b>

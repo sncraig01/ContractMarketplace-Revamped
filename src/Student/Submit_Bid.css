@@ -1,3 +1,9 @@
+.whole{
+  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+  min-height: 100vh;
+}
+
+
 .details {
   font-weight: bold;
 }

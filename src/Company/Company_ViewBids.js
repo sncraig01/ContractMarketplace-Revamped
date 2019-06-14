@@ -239,7 +239,7 @@ class CompanyViewBids extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="Company-whole">
         <CompanyNavBar history={this.props.history} />
         <h1>View Bids</h1>
         <h2> {this.props.location.state.contract_name} </h2>

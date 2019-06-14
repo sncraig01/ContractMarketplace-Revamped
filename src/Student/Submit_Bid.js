@@ -141,7 +141,7 @@ class Submit_Bid extends React.Component {
     const classes = useStyles;
 
     return (
-      <div>
+      <div className="whole">
         <StudentNavBar history={this.props.history} />
         <h1>Submit Bid</h1>
         <div className="everything">
@@ -170,78 +170,91 @@ class Submit_Bid extends React.Component {
           </div>
 
           <div>
-            <Container component="main" maxWidth="xs">
-              <CssBaseline />
-              <form noValidate>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      id="filled-number"
-                      name="hourlyRate"
-                      label="Hourly Rate"
-                      onChange={e =>
-                        this.updateField("bidRate", e.target.value)
-                      }
-                      type="number"
-                      margin="normal"
-                      variant="outlined"
-                    />
-                  </Grid>
 
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      id="hours"
-                      name="hours"
-                      label="Hours to Complete"
-                      onChange={e =>
-                        this.updateField("bidHours", e.target.value)
-                      }
-                      type="number"
-                      margin="normal"
-                      variant="outlined"
-                    />
-                  </Grid>
 
-                  <Grid item xs={12} sm={10}>
-                    <p>
-                      {this.state.bidHours && this.state.bidRate
-                        ? "Total Bid Amount: $" +
-                          this.state.bidHours * this.state.bidRate
-                        : "Enter details above to calculate bid total"}
-                    </p>
-                  </Grid>
+          <Card raised className={classes.card}>
+                <CardContent>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <form noValidate>
+                      <Grid container spacing={1}>
+                        <Grid item xs={12} sm={6}>
+                          <TextField
+                            required
+                            id="filled-number"
+                            name="hourlyRate"
+                            label="Hourly Rate"
+                            onChange={e =>
+                              this.updateField("bidRate", e.target.value)
+                            }
+                            type="number"
+                            margin="normal"
+                            variant="outlined"
+                          />
+                        </Grid>
 
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
+                        <Grid item xs={12} sm={6}>
+                          <TextField
+                            required
+                            id="hours"
+                            name="hours"
+                            label="Hours to Complete"
+                            onChange={e =>
+                              this.updateField("bidHours", e.target.value)
+                            }
+                            type="number"
+                            margin="normal"
+                            variant="outlined"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} sm={10}>
+                          <p>
+                            {this.state.bidHours && this.state.bidRate
+                              ? "Total Bid Amount: $" +
+                                this.state.bidHours * this.state.bidRate
+                              : "Enter details above to calculate bid total"}
+                          </p>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                          <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="info"
+                            label="Other Information"
+                            id="info"
+                            autoComplete="info"
+                            onChange={e =>
+                              this.updateField("otherInfo", e.target.value)
+                            }
+                          />
+                        </Grid>
+
+                        <Grid />
+                      </Grid>
+                    </form>
+                    <br/>
+                    <Button
+                      type="submit"
                       fullWidth
-                      name="info"
-                      label="Other Information"
-                      id="info"
-                      autoComplete="info"
-                      onChange={e =>
-                        this.updateField("otherInfo", e.target.value)
-                      }
-                    />
-                  </Grid>
+                      variant="contained"
+                      color="primary"
+                      // className={classes.submit}
+                      onClick={() => this.whenClicked()}
+                    >
+                      Submit Bid
+                    </Button>
+                  </Container>   
+                </CardContent>
+            </Card>
 
-                  <Grid />
-                </Grid>
-              </form>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                // className={classes.submit}
-                onClick={() => this.whenClicked()}
-              >
-                Submit Bid
-              </Button>
-            </Container>
+
+
+
+
+
           </div>
         </div>
       </div>
@@ -250,3 +263,6 @@ class Submit_Bid extends React.Component {
 }
 
 export default Submit_Bid;
+
+
+
