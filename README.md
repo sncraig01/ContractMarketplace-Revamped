@@ -2,6 +2,7 @@
 ## RevTek Contract Marketplace
 
 For HackCville Launch - Software Engineering Track
+
 By Leandra Klein, Keegan Keane, Sarah Craig, and Evan Bernard
 
 ### What it is
