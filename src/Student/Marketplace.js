@@ -142,23 +142,34 @@ class Marketplace extends React.Component {
           <div className="topstuff">
             <h3>Available Contracts</h3>
 
-            <div className="searchbar">
-              <TextField
-                variant="outlined"
-                id="searchbar"
-                name="Search for Contracts"
-                label="Search for Contracts"
-                onChange={e => this.updateField("searchText", e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </div>
 
+
+            <Card
+            raised
+            minWidth="400"
+            maxWidth="400"
+            className={classes.card}
+            >
+              <CardContent>
+                <div className="searchbar">
+                <TextField
+                  variant="outlined"
+                  id="searchbar"
+                  name="Search for Contracts"
+                  label="Search for Contracts"
+                  onChange={e => this.updateField("searchText", e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Search />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </div>
+              </CardContent>
+            </Card>
+           
             {this.state.searchText.length > 0 ? (
               <p>Results for: {this.state.searchText}</p>
             ) : (
@@ -244,3 +255,6 @@ class Marketplace extends React.Component {
 }
 
 export default Marketplace;
+
+
+
