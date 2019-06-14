@@ -46,7 +46,8 @@ class Authentication extends React.Component {
   state = {
     email: "",
     password: "",
-    errorOccurred: false
+    errorOccurred: false,
+    acctDeleted: false
   };
 
   componentDidMount = () => {
@@ -88,14 +89,20 @@ class Authentication extends React.Component {
           snapshot.forEach(function(childSnapshot) {
             var item = childSnapshot.val();
             if (item.email === curEmail) {
-              if (item.disabled === true ){
+              if (item.disabled === true) {
+                that.setState({
+                  acctDeleted: true,
+                  errorOccurred: false
+                });
+
                 ////DONT LET THEM LOG IN
-                console.log( "this account has been deleted" )
-              }
-              else if (item.type === "student") {
+                console.log("this account has been deleted");
+              } else if (item.type === "student") {
                 route.push("/studentdashboard");
               } else if (item.type === "company") {
                 route.push("/companydashboard");
+              } else if (item.type === "admin") {
+                route.push("/admindashboard");
               }
             }
           });
@@ -105,7 +112,8 @@ class Authentication extends React.Component {
         // Handle Errors here.
         console.log("there was an error");
         that.setState({
-          errorOccurred: true
+          errorOccurred: true,
+          acctDeleted: false
         });
       });
   };
@@ -130,9 +138,19 @@ class Authentication extends React.Component {
                 ) : (
                   <div />
                 )}
-                <Avatar className={classes.avatar}>
-                  <LockOutlinedIcon />
-                </Avatar>
+                {this.state.acctDeleted ? (
+                  <p className="redP">
+                    This account has been deleted. Contact the site admin for
+                    more information.
+                  </p>
+                ) : (
+                  <div />
+                )}
+                <div className="lockIcon">
+                  <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                  </Avatar>
+                </div>
                 <Typography component="h1" variant="h5" color="black">
                   Sign in
                 </Typography>
@@ -162,11 +180,6 @@ class Authentication extends React.Component {
                     onChange={e => this.changePassword(e.target.value)}
                   />
                   <Grid container>
-                    <Grid item xs>
-                      <Link href="#" variant="body2">
-                        Forgot password?
-                      </Link>
-                    </Grid>
                     <Grid item>
                       <Link
                         href="#"

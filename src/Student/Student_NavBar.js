@@ -14,6 +14,7 @@ import AssignmentInd from "@material-ui/icons/AssignmentInd";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import GroupIcon from "@material-ui/icons/Group";
 import Button from "@material-ui/core/Button";
+import firebase from "../firebase.js";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -142,6 +143,17 @@ function StudentNavBar(props) {
 
   const logoutClicked = e => {
     // Redirects to landing page
+    let user = firebase.auth().currentUser;
+    if (user != null) {
+      firebase
+        .auth()
+        .signOut()
+        .then(res => {
+          console.log("logged " + user.email + " out");
+        })
+        .catch(function(error) {});
+    }
+
     props.history.push("/");
   };
 

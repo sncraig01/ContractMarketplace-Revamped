@@ -4,6 +4,9 @@ import firebase from "../firebase.js";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import CardContent from "@material-ui/core/CardContent";
+import Card from "@material-ui/core/Card";
+import "./Company.css"
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -87,50 +90,82 @@ class NewContract extends React.Component {
   render() {
     const classes = useStyles;
     return (
-      <div className="App">
+      <div className="Company-whole">
         <CompanyNavBar history={this.props.history} />
-        <h1> Submit a new Contract </h1>
+        <h1> Submit a New Contract </h1>
         <h2>{this.state.companyName}</h2>
         <div> {this.state.email} </div>
-        <form className={classes.container} noValidate autoComplete="off">
-          <TextField
-            label="Contract Name"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={e => this.updateField("contractName", e.target.value)}
-          />
-          <div>
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Multiline"
-              multiline
-              rowsMax="10"
-              style={{ margin: 8 }}
-              placeholder="Details"
-              helperText="Provide some more details about your contract"
-              margin="normal"
-              variant="outlined"
-              InputLabelProps={{
-                shrink: true
-              }}
-              onChange={e =>
-                this.updateField("contractDetails", e.target.value)
-              }
-            />
-          </div>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            onClick={() => this.submitContract()}
-          >
-            Submit contract!
-          </Button>
-        </form>
+        <br/>
+        <div className="newContract"> 
+        <Card
+              style={{
+                minWidth: 700,
+                maxWidth: 400,
+                maxHeight: 300,
+                overflow: "auto"
+              }}>
+              <CardContent>
+              <div> Here you can enter a project you need to have completed. 
+                It would be useful to give it a memorable name and a description of the skills necessary to complete the task.
+                Students will be able to view this information and bid on your contract. 
+                You can then select the most appealing bid, and the student will be notified!
+              </div>
+              </CardContent>
+            </Card>
+        </div>
+        <br/>
+        <div className="newContract"> 
+        <Card
+              style={{
+                minWidth: 700,
+                maxWidth: 400,
+                maxHeight: 300,
+                overflow: "auto"
+              }}>
+              <CardContent>
+                <form className={classes.container} noValidate autoComplete="off">
+                  <TextField
+                    label="Contract Name"
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
+                    onChange={e => this.updateField("contractName", e.target.value)}
+                  />
+                  <div>
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      label="Details"
+                      multiline
+                      rowsMax="10"
+                      style={{ margin: 8 }}
+                      helperText="Provide some more details about your contract"
+                      margin="normal"
+                      variant="outlined"
+                      onChange={e =>
+                        this.updateField("contractDetails", e.target.value)
+                      }
+                    />
+                  </div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => this.submitContract()}
+                  >
+                    Submit contract!
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+
+            </div>
+
+
       </div>
     );
   }
 }
 
 export default NewContract;
+
+

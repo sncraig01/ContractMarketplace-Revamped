@@ -7,6 +7,12 @@
   justify-content: center;
 }
 
+.lockIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .Landing-Card {
   background-color: white;
   /* min-height: 50vh; */

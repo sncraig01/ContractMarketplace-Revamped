@@ -2,6 +2,7 @@ import React from "react";
 import MUIDataTable from "mui-datatables";
 import AdminNavBar from "./Admin_NavBar";
 import firebase from "../firebase.js";
+import "./Admin_ManageUsers.css"
 
 export default class AdminManageContracts extends React.Component {
   state = {
@@ -132,7 +133,7 @@ export default class AdminManageContracts extends React.Component {
     };
 
     return (
-      <div>
+      <div className="Admin-users-whole">
         <AdminNavBar history={this.props.history} />
         <h1>Manage Contracts</h1>
         <div>

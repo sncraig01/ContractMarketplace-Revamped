@@ -1,6 +1,7 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import AdminNavBar from "./Admin_NavBar";
+import "./Admin_ManageUsers.css"
 import firebase from "../firebase.js";
 
 
@@ -171,10 +172,10 @@ export default class AdminManageUsers extends React.Component {
     };
 
     return (
-      <div>
+      <div className="Admin-users-whole">
         <AdminNavBar history={this.props.history} />
         <h1>Manage Users</h1>
-        <div>
+        <div >
           <MUIDataTable
             title={"Users"}
             data={data}

@@ -41,3 +41,13 @@ div[type="dashinfo"] {
   color: #3f51b5;
   font-size: calc(8px + 2vmin);
 }
+
+.Company-whole{
+  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+  min-height: 100vh;
+}
+
+.newContract{
+  display:flex;
+  justify-content: center;
+}

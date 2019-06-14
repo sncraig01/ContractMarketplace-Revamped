@@ -2,6 +2,7 @@ import React from "react";
 import MUIDataTable from "mui-datatables";
 import StudentNavBar from "./Student_NavBar";
 import firebase from "../firebase";
+import "./Student_Home.css";
 
 export default class StudentSearchStudents extends React.Component {
   state = {
@@ -99,7 +100,7 @@ export default class StudentSearchStudents extends React.Component {
     };
 
     return (
-      <div>
+      <div className="Student-whole">
         <StudentNavBar history={this.props.history} />
         <h1>Student Community</h1>
         <div>

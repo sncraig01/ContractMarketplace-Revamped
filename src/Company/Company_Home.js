@@ -153,15 +153,34 @@ class CompanyHome extends React.Component {
     const classes = useStyles;
 
     return (
-      <div className="App">
+      <div className="Company-whole">
         <CompanyNavBar history={this.props.history} />
-        <h1>Company Dashboard</h1>
-        <b className="name" style={{ color: "#3f51b5" }}>
-          {" "}
-          {this.state.companyName}{" "}
-        </b>
-        <div> {this.state.email} </div>
-        <br />
+        <h1>Dashboard</h1>
+
+        <div className="Student-Profile">
+          <List>
+            {/** Implemented a scrollbar */}
+            <Card
+              className="Student-studentholder"
+              style={{
+                minWidth: 400,
+                maxWidth: 400,
+                maxHeight: 300,
+                overflow: "auto"
+              }}
+            >
+              <div>
+                <br />
+                <b className="name" style={{ color: "#3f51b5" }}> {this.state.companyName} </b>
+                <br />
+                <br />
+                {this.state.email}
+                <br />
+                <br />
+              </div>
+            </Card>
+          </List>
+        </div>
         <div type="dashinfo">
           <List className="individual">
             <Card
