@@ -32,11 +32,11 @@ class CompanyViewBids extends React.Component {
     contract_name: "",
     contract_details: "",
     bids: [],
-
+    student_name: "",
     notification: ""
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     document.title = "RevTek";
     let curEmail = "";
     var user = firebase.auth().currentUser;
@@ -55,12 +55,12 @@ class CompanyViewBids extends React.Component {
       let companyName = "";
       let contractName = "";
       let contractDetails = "";
-      contractsRef.on("value", snapshot => {
+      const waiter = await contractsRef.on("value", snapshot => {
         console.log(snapshot.val());
         if (snapshot.val() === null) {
           //add some kind of notification that there are no bids yet
           this.setState({
-            notification: "There are no bids for this conract yet"
+            notification: "There are no bids for this contract yet"
           });
         } else {
           this.setState({ notification: "" });
@@ -75,23 +75,69 @@ class CompanyViewBids extends React.Component {
               hours: bid.Hours,
               studentInfo: bid.Info,
               rate: bid.Rate,
-              student: bid.Student
+              student: bid.Student, 
+              student_name: "Student Name", 
             };
             bidsArr.push(item);
           });
 
           //set all the info
-          this.setState({
+            this.setState({
             bids: bidsArr,
             company_name: companyName,
             contract_name: contractName,
             contract_details: contractDetails
-          });
+          })
         }
       });
     } else {
       console.log("did not get the user info ");
     }
+
+    const userRef = firebase.database().ref("users"); // access all users
+    userRef.on("value", snapshot => {
+      console.log("enter snapshot")
+      let temp_arr = this.state.bids;
+      // let users = snapshot.val();
+      // console.log("users" + users)
+      snapshot.forEach(function(users)
+      {
+        console.log(users.val().name)
+        console.log("Users emails" + users.val().email)
+        console.log("Bids array: " + temp_arr)
+        for(let itr in temp_arr)
+        {
+
+          console.log("bids arr " + temp_arr[itr].student_name);
+          if(users.val().email == temp_arr[itr].student)
+          {
+            console.log("emails are equal")
+            temp_arr[itr].student_name = users.val().name; 
+          }
+        }
+      
+      })
+      this.setState({bids : temp_arr})
+
+
+
+      // for(let itr1 in this.state.bidsArr)
+      // {
+      //   console.log("in itr1")
+      //   console.log("User email from ids" + this.state.bidsArr[itr1].student); 
+      //   for (let itr in users) 
+      //   {
+      //     console.log("User email from users: " + users[itr].email) ; 
+      //     console.log("User email from ids" + this.state.bidsArr[itr1].student); 
+      //     if (this.state.bidsArr[itr1].student === users[itr].email)
+      //     {
+      //       // check for a user with a matching email
+      //       this.state.bidsArr[itr1].student_name = users[itr].name; 
+      //     }
+      //   }
+      // }
+    });
+
   }
 
   acceptBidClicked = (cost, student, student_info) => {
@@ -201,7 +247,7 @@ class CompanyViewBids extends React.Component {
                 color="textSecondary"
                 gutterBottom
               >
-                (name will go here)
+                {item.student_name}
               </Typography>
               <Typography variant="h5" component="h2">
                 {" "}
@@ -220,6 +266,8 @@ class CompanyViewBids extends React.Component {
             <CardActions>
               <Button
                 size="small"
+                color="primary"
+                variant="contained"
                 onClick={() =>
                   this.acceptBidClicked(
                     item.cost,
