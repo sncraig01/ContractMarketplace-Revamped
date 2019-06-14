@@ -171,7 +171,7 @@ class CompanyHome extends React.Component {
             >
               <div>
                 <br />
-                <b className="name" style={{ color: "#3f51b5" }}> {this.state.companyName} </b>
+                <b className="name"> {this.state.companyName} </b>
                 <br />
                 <br />
                 {this.state.email}
