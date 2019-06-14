@@ -1,0 +1,64 @@
+
+
+   .StudentEdit-whole {
+    min-height: 100vh;
+    background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+    background-size: cover; 
+    }
+   
+     .StudentEdit-Profile {
+      display: flexbox;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      min-height: 40%;
+    }
+     .StudentEdit-ContractBids {
+      display: flex;
+      flex-direction: row;
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+    }
+   
+    .StudentEdit-contractholder {
+      background-color: #282c34;
+      min-height: 70vh;
+      min-width: 50vh;
+      font-size: calc(5px + 2vmin);
+      padding-left: 5px;
+    }
+     .StudentEdit-bidholder {
+      background-color: white;
+      min-height: 70vh;
+      min-width: 50vh;
+      font-size: calc(5px + 2vmin);
+      display: flex;
+      flex-direction: column;
+      padding-left: 5px;
+    }
+   
+    .StudentEdit-Searchbarholder
+    {
+      font-size: calc(5px + 2vmin);
+      padding-left: 20px;
+      display: flex; 
+      flex-direction: column; 
+      padding-right: 20px; 
+    }
+   
+    .StudentEdit-Card-Holder{
+      background-color:rgb(255, 255, 255);
+      display: flex;
+    }
+   
+    .StudentEdit-Padding{
+      padding-bottom: 0;
+    }
+   
+    
+   
+   
+   
+ 
+ 

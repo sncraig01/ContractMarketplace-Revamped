@@ -1,0 +1,61 @@
+
+
+.Admin-users-whole {
+  background-image: url(http://www.infinityschool.org/infinity/images/blue-blurry-background.jpg);
+  align-items: center;
+  min-height: 100vh;
+
+}
+
+.Admin-Cards {
+  display: flex;
+  position: relative;
+  padding-right: 40px;
+  align-items: center;
+  border: right;
+  padding-bottom: 15px;
+  padding-top: 100px;
+}
+
+.Admin-Searchbarholder
+{
+  font-size: calc(5px + 2vmin);
+  color: white;
+  flex-direction: row;
+  padding-left: 20px;
+  color: white; 
+}
+
+.Admin-studentholder {
+  display: flex;
+  background-color: #282c34;
+  min-height: 80vh;
+  min-width: 40vh;
+  font-size: calc(5px + 2vmin);
+  color: white;
+}
+
+.Admin-contactholder {
+  display: flex;
+  background-color: #282c34;
+  min-height: 80vh;
+  min-width: 40vh;
+  font-size: calc(5px + 2vmin);
+  color: white;
+}
+
+.Admin-Card-Holder{
+  background-color:rgb(255, 255, 255);
+  display: flex;
+}
+
+.Admin-Padding{
+  padding-bottom: 0;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
