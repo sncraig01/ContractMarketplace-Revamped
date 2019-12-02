@@ -92,7 +92,7 @@ class NewContract extends React.Component {
     return (
       <div className="Company-whole">
         <CompanyNavBar history={this.props.history} />
-        <h1> Submit a New Contract </h1>
+        <h1 className="dashboardHeader"> Submit a New Contract </h1>
         <h2>{this.state.companyName}</h2>
         <div> {this.state.email} </div>
         <br/>

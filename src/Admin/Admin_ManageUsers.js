@@ -174,7 +174,8 @@ export default class AdminManageUsers extends React.Component {
     return (
       <div className="Admin-users-whole">
         <AdminNavBar history={this.props.history} />
-        <h1>Manage Users</h1>
+        <h1 className="dashboardHeader">Manage Users</h1>
+        <br/>
         <div >
           <MUIDataTable
             title={"Users"}
